@@ -1,16 +1,10 @@
-import * as shellJs from 'shelljs';
-import { execSync } from 'child_process';
+import shellJs from 'shelljs';
 import execSh from 'exec-sh';
 import { config } from '../config';
 
 const workspacesMap = config.workspaces;
 
-export const sh = async (cmd: string, interactive = false) => {
-	if (interactive) {
-		execSync(cmd, { stdio: 'inherit' });
-		return;
-	}
-
+export const sh = async (cmd: string) => {
 	return shellJs.exec(cmd, { silent: true });
 };
 
