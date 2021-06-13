@@ -15,7 +15,7 @@ export default class DbSync extends Command {
 	static args = [];
 
 	async run() {
-		const { args, flags } = this.parse(DbSync);
+		const { flags } = this.parse(DbSync);
 		const command = createWorkspaceCommand(
 			'backend',
 			`run prisma db push ${flags.force ? ' --accept-data-loss' : ''}`

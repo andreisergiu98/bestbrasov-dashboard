@@ -14,8 +14,6 @@ export default class FrontendBuild extends Command {
 	static args = [];
 
 	async run() {
-		const { args, flags } = this.parse(FrontendBuild);
-
 		const command = createWorkspaceCommand('frontend', 'build');
 		shSpawn(command);
 	}

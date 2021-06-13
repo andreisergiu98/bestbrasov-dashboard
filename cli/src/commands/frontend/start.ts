@@ -15,7 +15,7 @@ export default class FrontendStart extends Command {
 	static args = [];
 
 	async run() {
-		const { args, flags } = this.parse(FrontendStart);
+		const { flags } = this.parse(FrontendStart);
 
 		if (flags.dev) {
 			const command = createWorkspaceCommand('frontend', 'start');

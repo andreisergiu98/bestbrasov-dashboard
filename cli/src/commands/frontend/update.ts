@@ -15,7 +15,8 @@ export default class FrontendUpdate extends Command {
 	static args = [];
 
 	async run() {
-		const { args, flags } = this.parse(FrontendUpdate);
+		const { flags } = this.parse(FrontendUpdate);
+
 		let command;
 		if (flags.dev) {
 			command = createWorkspaceCommand('frontend', 'generate -w');

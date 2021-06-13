@@ -2,7 +2,7 @@ import { Command, flags } from '@oclif/command';
 import { cliName } from '../../config';
 import { createWorkspaceCommand, shSpawn } from '../../lib/shell';
 
-export default class BackendStart extends Command {
+export default class BackendBuild extends Command {
 	static description = 'builds the backend application';
 
 	static examples = [`$ ${cliName} backend:build`];

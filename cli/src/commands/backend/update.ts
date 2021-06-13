@@ -32,7 +32,7 @@ export default class BackendUpdate extends Command {
 	static args = [];
 
 	async run() {
-		const { args, flags } = this.parse(BackendUpdate);
+		const { flags } = this.parse(BackendUpdate);
 
 		const command = createWorkspaceCommand('backend', 'prisma generate');
 

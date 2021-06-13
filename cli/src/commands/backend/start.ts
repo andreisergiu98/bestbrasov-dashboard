@@ -16,7 +16,7 @@ export default class BackendStart extends Command {
 	static args = [];
 
 	async run() {
-		const { args, flags } = this.parse(BackendStart);
+		const { flags } = this.parse(BackendStart);
 
 		let command;
 		if (flags.dev) {
