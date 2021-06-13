@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@generated": ["./src/__generated__"],
+			"@generated/*": ["./src/__generated__/*"]
+		}
+	}
+}

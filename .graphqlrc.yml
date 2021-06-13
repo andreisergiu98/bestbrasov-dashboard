@@ -1,0 +1,5 @@
+
+projects:
+  frontend:
+    schema: "backend/api.generated.graphql"
+    documents: "frontend/src/**/*.{graphql,js,ts,jsx,tsx}"

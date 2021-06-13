@@ -1,0 +1,10 @@
+# production
+/build
+
+# development
+.cache
+.env
+
+# generated
+/src/__generated__
+*.generated.graphql

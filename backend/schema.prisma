@@ -1,0 +1,53 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DB_URL")
+}
+
+generator gen {
+    provider = "prisma-client-js"
+    output   = "./src/__generated__/prisma"
+}
+
+generator typegraphql {
+    provider = "typegraphql-prisma"
+    output   = "./src/__generated__/data"
+}
+
+enum UserRole {
+    GUEST
+    MODERATOR
+    ADMIN
+    SUPER_ADMIN
+}
+
+model User {
+    id          String        @id @default(uuid())
+    email       String        @unique
+    lastName    String        @db.VarChar(100)
+    givenName   String?       @db.VarChar(100)
+    profile     String?       @db.VarChar(512)
+    gender      String?       @db.VarChar(20)
+    phoneNumber String?       @db.VarChar(20)
+    birthday    DateTime?
+    roles       UserRole[]
+    AuthSession AuthSession[]
+}
+
+model AuthSecret {
+    id          String   @id @default(uuid())
+    key         String   @db.Text
+    issuing     Boolean
+    issuesUntil DateTime
+    validUntil  DateTime
+    createdAt   DateTime @default(now())
+}
+
+model AuthSession {
+    id           String   @id @default(uuid())
+    user         User     @relation(fields: [userId], references: [id])
+    enabled      Boolean
+    deviceOS     String
+    browser      String
+    lastTimeUsed DateTime
+    userId       String
+}

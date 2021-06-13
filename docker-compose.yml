@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  db:
+    container_name: qgl-gen-postgres
+    image: postgres:13-alpine
+    ports:
+      - 8050:5432
+    environment:
+        POSTGRES_DB: app
+        POSTGRES_USER: db-user
+        POSTGRES_PASSWORD: db-password
+
+  redis:
+    container_name: gql-gen-redis
+    image: redis:6-alpine
+    ports:
+      - 6395:6379

@@ -1,0 +1,15 @@
+diff --git a/lib/plugin.js b/lib/plugin.js
+index feaa171499e1f0c581a8064cfe4c47170d55e9b5..25916fc3ced06db667c7cf0d59e0aa1d27266a62 100644
+--- a/lib/plugin.js
++++ b/lib/plugin.js
+@@ -86,7 +86,9 @@ class Plugin {
+     async load() {
+         this.type = this.options.type || 'core';
+         this.tag = this.options.tag;
+-        const root = await findRoot(this.options.name, this.options.root);
++        let root = await findRoot(this.options.name, this.options.root);
++        if (!root)
++            root = require.resolve(this.options.name + '/package.json').split('/package.json')[0];
+         if (!root)
+             throw new Error(`could not find package.json with ${util_1.inspect(this.options)}`);
+         this.root = root;

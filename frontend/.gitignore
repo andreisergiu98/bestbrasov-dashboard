@@ -1,0 +1,14 @@
+# testing
+/coverage
+
+# production
+/build
+
+# generated
+/src/__generated__
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
