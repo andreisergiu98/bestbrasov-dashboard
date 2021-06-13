@@ -70,12 +70,12 @@ export const silentLoginCallback = async (ctx: KoaApp.Context) => {
 		const callbackParams = await googleOpenId.getCallbackParams(ctx.req);
 		const tokenSet = await googleOpenId.callback(callbackParams, codeVerifier);
 
-		const { sessionToken: newSessionToken } = await sessionEncoder.encode(
+		const sessionEncoderRes = await sessionEncoder.encode(
 			userSession,
 			tokenSet
 		);
 
-		setSessionCookie(ctx, newSessionToken);
+		setSessionCookie(ctx, sessionEncoderRes.sessionToken);
 	} catch (e) {
 		ctx.status = 401;
 		ctx.body = createSilentCallbackIframe(false, origin);

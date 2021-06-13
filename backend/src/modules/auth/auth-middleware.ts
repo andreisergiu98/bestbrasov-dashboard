@@ -28,12 +28,9 @@ export const authentication =
 		}
 		if (sessionStatus === 'outdated') {
 			const newSession = await replaceUserSession(session.sessionId);
-			const { sessionToken, payload } = await sessionEncoder.encode(
-				newSession,
-				session.tokenSet
-			);
-			setSessionCookie(ctx, sessionToken);
-			session = payload;
+			const sessionEncoderRes = await sessionEncoder.encode(newSession, session.tokenSet);
+			setSessionCookie(ctx, sessionEncoderRes.sessionToken);
+			session = sessionEncoderRes.payload;
 		}
 
 		ctx.state.session = {

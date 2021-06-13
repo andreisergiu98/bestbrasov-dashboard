@@ -75,7 +75,7 @@ async function getSecretFromCache(id: string) {
 	instance.validUntil = new Date(instance.validUntil);
 	instance.issuesUntil = new Date(instance.issuesUntil);
 
-	return instance as AuthSecret;
+	return instance;
 }
 
 async function cacheSecret(key: AuthSecret) {
@@ -87,30 +87,34 @@ async function cacheSecret(key: AuthSecret) {
 async function createIssuingSecret() {
 	const key = await generateRandomKey();
 
-	const newAuthSecret = {
-		key,
-		issuing: true,
-		validUntil: add(new Date(), { months: config.auth.secretIssueTTL }),
-		issuesUntil: add(new Date(), { months: config.auth.secretIssueTTL }),
-	};
-
 	await prisma.$transaction([
 		prisma.authSecret.updateMany({
 			data: { issuing: false },
 		}),
 		prisma.authSecret.create({
-			data: newAuthSecret,
+			data: {
+				key,
+				issuing: true,
+				validUntil: add(new Date(), { months: config.auth.secretIssueTTL }),
+				issuesUntil: add(new Date(), { months: config.auth.secretIssueTTL }),
+			},
 		}),
 	]);
 
-	const authSecret = await prisma.authSecret.findFirst({
+	const secret = await prisma.authSecret.findFirst({
 		where: {
 			issuing: true,
 		},
 	});
 
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	return authSecret!;
+	if (!secret) {
+		// this shouldn't happen
+		throw new Error(
+			"Couldn't find issuing secret after creation. Something went terribly wrong!"
+		);
+	}
+
+	return secret;
 }
 
 async function removeSecret(id: string) {
