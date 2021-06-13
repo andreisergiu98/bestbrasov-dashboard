@@ -118,8 +118,8 @@ export class Workers {
 			index,
 			queue: this.queueMap[key] as Queue<T>,
 			worker: this.workerMap[key] as Worker<T>,
-			events: this.eventsMap[key] as QueueEvents,
-			scheduler: this.schedulerMap[key] as QueueScheduler,
+			events: this.eventsMap[key],
+			scheduler: this.schedulerMap[key],
 		};
 	}
 }
