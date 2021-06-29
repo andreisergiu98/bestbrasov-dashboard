@@ -1,5 +1,5 @@
+import Koa from 'koa';
 import config from '@lib/config';
-import { KoaApp } from '@typings/app';
 
 const SESSION_COOKIE_KEY = 'xauth';
 const LOGIN_STATE_COOKIE_KEY = 'xauth-login-state';
@@ -28,11 +28,11 @@ export function getLoginParam(param?: string | string[]) {
 	return param;
 }
 
-export function getSessionCookie(ctx: KoaApp.Context) {
+export function getSessionCookie(ctx: Koa.Context) {
 	return ctx.cookies.get(SESSION_COOKIE_KEY);
 }
 
-export function setSessionCookie(ctx: KoaApp.Context, token: string): void {
+export function setSessionCookie(ctx: Koa.Context, token: string): void {
 	ctx.cookies.set(SESSION_COOKIE_KEY, token, {
 		expires: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000),
 		httpOnly: true,
@@ -41,11 +41,11 @@ export function setSessionCookie(ctx: KoaApp.Context, token: string): void {
 	});
 }
 
-export function removeSessionCookie(ctx: KoaApp.Context) {
+export function removeSessionCookie(ctx: Koa.Context) {
 	ctx.cookies.set(SESSION_COOKIE_KEY, '');
 }
 
-export function getLoginStateCookie(ctx: KoaApp.Context) {
+export function getLoginStateCookie(ctx: Koa.Context) {
 	const cookie = ctx.cookies.get(LOGIN_STATE_COOKIE_KEY);
 	if (cookie) {
 		return decodeLoginState(cookie);
@@ -53,7 +53,7 @@ export function getLoginStateCookie(ctx: KoaApp.Context) {
 }
 
 export function setLoginStateCookie(
-	ctx: KoaApp.Context,
+	ctx: Koa.Context,
 	codeVerifier: string,
 	backToPath: string
 ) {
@@ -66,7 +66,7 @@ export function setLoginStateCookie(
 	});
 }
 
-export function removeLoginStateCookie(ctx: KoaApp.Context) {
+export function removeLoginStateCookie(ctx: Koa.Context) {
 	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, '');
 }
 

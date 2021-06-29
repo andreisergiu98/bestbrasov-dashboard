@@ -1,5 +1,5 @@
+import Koa from 'koa';
 import { AppError } from '@lib/app-error';
-import { KoaApp } from '@typings/app';
 import { googleOpenId } from '../auth-openid';
 import { sessionEncoder } from '../auth-session';
 import { createUserSession, verifyUserSession } from './auth-user';
@@ -13,7 +13,7 @@ import {
 	setSessionCookie,
 } from './auth-utils';
 
-export const login = async (ctx: KoaApp.Context) => {
+export const login = async (ctx: Koa.LoginContext) => {
 	const isSilent = getLoginParam(ctx.query.silent) === 'true';
 	const backToPath = getLoginParam(ctx.query.backTo) ?? '/';
 
@@ -25,7 +25,7 @@ export const login = async (ctx: KoaApp.Context) => {
 	ctx.redirect(authorizationUrl);
 };
 
-export const loginCallback = async (ctx: KoaApp.Context) => {
+export const loginCallback = async (ctx: Koa.LoginContext) => {
 	const state = getLoginStateCookie(ctx);
 	removeLoginStateCookie(ctx);
 
@@ -48,7 +48,7 @@ export const loginCallback = async (ctx: KoaApp.Context) => {
 	ctx.redirect(backToPath);
 };
 
-export const silentLoginCallback = async (ctx: KoaApp.Context) => {
+export const silentLoginCallback = async (ctx: Koa.LoginContext) => {
 	const origin = ctx.headers['referer'];
 
 	try {
@@ -70,10 +70,7 @@ export const silentLoginCallback = async (ctx: KoaApp.Context) => {
 		const callbackParams = await googleOpenId.getCallbackParams(ctx.req);
 		const tokenSet = await googleOpenId.callback(callbackParams, codeVerifier);
 
-		const sessionEncoderRes = await sessionEncoder.encode(
-			userSession,
-			tokenSet
-		);
+		const sessionEncoderRes = await sessionEncoder.encode(userSession, tokenSet);
 
 		setSessionCookie(ctx, sessionEncoderRes.sessionToken);
 	} catch (e) {

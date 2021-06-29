@@ -35,7 +35,10 @@ async function init() {
 		schema: await buildSchema({
 			pubSub: pubsub,
 		}),
-		context: () => ({ prisma }),
+		context: (ctx: Koa.AppContext) => ({
+			prisma,
+			session: ctx.state.session,
+		}),
 	});
 
 	server.use(catchError());
@@ -54,7 +57,7 @@ async function init() {
 
 	server.listen(config.port);
 
-	logger.info(`Server is running on port ${config.port}\n`);
+	logger.info(`Server is running on port ${config.port}`);
 }
 
 init().then();

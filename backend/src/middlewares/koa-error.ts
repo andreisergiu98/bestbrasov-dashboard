@@ -1,7 +1,7 @@
-import { KoaApp } from '@typings/app';
+import Koa from 'koa';
 
 export const catchError =
-	() => async (ctx: KoaApp.Context, next: () => Promise<void>) => {
+	() => async (ctx: Koa.ErrorContex, next: () => Promise<void>) => {
 		try {
 			await next();
 		} catch (e) {

@@ -1,12 +1,12 @@
+import Koa from 'koa';
 import config from '@lib/config';
 import { AppError } from '@lib/app-error';
-import { KoaApp } from '@typings/app';
 import { replaceUserSession } from './auth-user';
 import { sessionBlocklist, sessionEncoder } from '../auth-session';
 import { getSessionCookie, removeSessionCookie, setSessionCookie } from './auth-utils';
 
 export const authentication =
-	() => async (ctx: KoaApp.Context, next: () => Promise<void>) => {
+	() => async (ctx: Koa.AuthContext, next: () => Promise<void>) => {
 		if (config.auth.whitelist.includes(ctx.path)) {
 			return next();
 		}
