@@ -6,9 +6,9 @@ services:
     ports:
       - 8050:5432
     environment:
-        POSTGRES_DB: app
-        POSTGRES_USER: db-user
-        POSTGRES_PASSWORD: db-password
+      POSTGRES_DB: app
+      POSTGRES_USER: db-user
+      POSTGRES_PASSWORD: db-password
 
   redis:
     container_name: gql-gen-redis

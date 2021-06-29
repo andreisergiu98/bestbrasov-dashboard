@@ -1,4 +1,3 @@
-
 projects:
   frontend:
     schema: "backend/api.generated.graphql"

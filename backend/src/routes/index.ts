@@ -1,5 +1,5 @@
-import Router from "@koa/router";
-import { routesV1 } from "./v1";
+import Router from '@koa/router';
+import { routesV1 } from './v1';
 
 const router = new Router();
 router.use('/v1', routesV1);

@@ -1,3 +1,3 @@
 export interface EventsMap {
-	"test": Record<string, unknown>;	
+	test: Record<string, unknown>;
 }

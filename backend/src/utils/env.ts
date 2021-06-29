@@ -64,23 +64,33 @@ function resolveParam(key: string, options: ResolverOptions) {
 		return resolveString(rawValue);
 	}
 
-	throw new Error(`Cannot resolve env param '${key}'. Type '${options.type}' not supported!`);
+	throw new Error(
+		`Cannot resolve env param '${key}'. Type '${options.type}' not supported!`
+	);
 }
 
-function validateValue(key: string, value: string | number | boolean | undefined, options: ResolverOptions ) {
-	if(value == null && options.required !== true) {
+function validateValue(
+	key: string,
+	value: string | number | boolean | undefined,
+	options: ResolverOptions
+) {
+	if (value == null && options.required !== true) {
 		return;
 	}
 
-	if(value == null && options.required === true) {
+	if (value == null && options.required === true) {
 		throw new Error(`Env param '${key}' is required and doesn't have a default value!`);
 	}
 
-	if(typeof value !== options.type?.toLowerCase()) {
-		if(options.resolver) {
-			throw new Error(`Return type of custom resolver not matching type of property for key '${key}'. Expected '${options.type?.toLowerCase()}' but got '${typeof value}'`);
+	if (typeof value !== options.type?.toLowerCase()) {
+		if (options.resolver) {
+			throw new Error(
+				`Return type of custom resolver not matching type of property for key '${key}'. Expected '${options.type?.toLowerCase()}' but got '${typeof value}'`
+			);
 		} else {
-			throw new Error(`Type mismatch for property with key '${key}'. Expected '${options.type?.toLowerCase()}' but got '${typeof value}'.`);
+			throw new Error(
+				`Type mismatch for property with key '${key}'. Expected '${options.type?.toLowerCase()}' but got '${typeof value}'.`
+			);
 		}
 	}
 }
@@ -92,8 +102,8 @@ export function EnvParam(key: string, options?: Options) {
 		const typeMeta = Reflect && Reflect.getMetadata('design:type', target, propertyKey);
 		const type = typeMeta?.name as string | undefined;
 
-		const value = resolveParam(key, {...options, type});
-		validateValue(key, value, {...options, type});
+		const value = resolveParam(key, { ...options, type });
+		validateValue(key, value, { ...options, type });
 
 		const getter = function () {
 			return value;

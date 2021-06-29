@@ -2,8 +2,8 @@ overwrite: true
 schema:
   - ../backend/*.generated.graphql
 documents:
-  - 'src/**/*.(graphql|ts|tsx)'
-  - '!src/__generated__/**/*'
+  - "src/**/*.(graphql|ts|tsx)"
+  - "!src/__generated__/**/*"
 generates:
   src/__generated__/data/index.ts:
     plugins:

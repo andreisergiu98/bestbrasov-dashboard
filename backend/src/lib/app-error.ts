@@ -1,6 +1,6 @@
 interface ErrorPayload extends Record<string, unknown> {
 	code?: string;
-	message?: string
+	message?: string;
 	namespace?: string;
 }
 

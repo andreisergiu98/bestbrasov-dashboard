@@ -1,0 +1,13 @@
+# Ignore artifacts:
+.yarn
+.pnp.js
+
+backend/build
+backend/src/__generated__
+backend/api.generated.graphql
+
+cli/lib
+cli/oclif.manifest.json
+
+frontend/build
+frontend/src/__generated__
