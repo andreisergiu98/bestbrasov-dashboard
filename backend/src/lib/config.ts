@@ -1,56 +1,59 @@
-import { EnvParam } from '../utils/env';
+import { EnvParams } from './env';
 
 export class ServerConfig {
-	@EnvParam('NODE_ENV', {
-		default: true,
-		resolver: (value) => value === 'development',
-	})
-	readonly development!: boolean;
+	private readonly env = new EnvParams();
 
-	@EnvParam('NODE_PORT', { default: 8081 })
-	readonly port!: number;
+	readonly development = this.env.development;
 
-	@EnvParam('DB_URL', { required: true })
-	readonly dbUrl!: string;
+	readonly port = this.env.port;
 
-	@EnvParam('REDIS_URL', { required: true })
-	readonly redisUrl!: string;
+	readonly logging = {
+		level: this.env.logLevel,
+		koa: {
+			level: this.env.logLevelKoa,
+		},
+	};
 
-	@EnvParam('APOLLO_SUB_REDIS_URL', { required: true })
-	readonly apolloSubRedisUrl!: string;
+	readonly db = {
+		url: this.env.dbUrl,
+	};
 
-	@EnvParam('WORKER_REDIS_URL', { required: true })
-	readonly workerRedisUrl!: string;
+	readonly redis = {
+		url: this.env.redisUrl,
+		name: 'redis-cache',
+	};
 
-	@EnvParam('AUTH_REDIS_URL', { required: true })
-	readonly authRedisUrl!: string;
+	readonly pubsub = {
+		db: {
+			url: this.env.apolloSubRedisUrl,
+			publisherName: 'redis-publisher',
+			subscriberName: 'redis-subscriber',
+		},
+	};
 
-	@EnvParam('LOG_LEVEL', { default: 'warn' })
-	readonly logLevel!: string;
-
-	@EnvParam('LOG_LEVEL_KOA', { default: 'warn' })
-	readonly logLevelKoa!: string;
-
-	@EnvParam('OPENID_GOOGLE_CLIENT_ID', { required: true })
-	readonly openidGoogleClientId!: string;
-
-	@EnvParam('OPENID_GOOGLE_CLIENT_SECRET', { required: true })
-	readonly openidGoogleClientSecret!: string;
-
-	@EnvParam('OPENID_GOOGLE_CLIENT_REDIRECT', { required: true })
-	readonly openidGoogleClientRedirect!: string;
-
-	@EnvParam('OPENID_GOOGLE_CLIENT_SILENT_REDIRECT', { required: true })
-	readonly openidGoogleClientSilentRedirect!: string;
+	readonly workers = {
+		db: {
+			url: this.env.workerRedisUrl,
+			name: 'redis-worker',
+		},
+	};
 
 	readonly auth = {
-		whitelist: [
-			'/v1/auth/login',
-			'/v1/auth/callback',
-			'/v1/auth/silent-callback',
-		],
+		whitelist: ['/v1/auth/login', '/v1/auth/callback', '/v1/auth/silent-callback'],
 		secretIssueTTL: 12, // months
 		secretValidTTL: 6, // months
+
+		blocklistDb: {
+			url: this.env.authRedisUrl,
+			name: 'redis-auth-blocklist',
+		},
+
+		googleOpenId: {
+			clientId: this.env.openidGoogleClientId,
+			secret: this.env.openidGoogleClientSecret,
+			redirectUri: this.env.openidGoogleClientRedirect,
+			silentRedirectUri: this.env.openidGoogleClientSilentRedirect,
+		},
 	};
 }
 

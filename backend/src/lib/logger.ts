@@ -10,7 +10,7 @@ function createOptions(options?: LoggerOptions) {
 			colorize: true,
 			translateTime: 'SYS:dd.mm.yyyy HH:MM:ss',
 		},
-		level: config.logLevel,
+		level: config.logging.level,
 		...options,
 	} as LoggerOptions;
 }
@@ -21,7 +21,7 @@ export function createLogger(options?: LoggerOptions) {
 
 export function createKoaLogger(options?: LoggerOptions): Middleware {
 	return koaPino(createOptions({
-		level: config.logLevelKoa,
+		level: config.logging.koa.level,
 		...options,
 	}));
 }

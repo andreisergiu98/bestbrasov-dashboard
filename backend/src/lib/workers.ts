@@ -10,6 +10,7 @@ import {
 	QueueEventsOptions,
 	QueueSchedulerOptions,
 } from 'bullmq';
+
 import config from './config';
 
 interface WorkerOpt {
@@ -31,8 +32,8 @@ export class Workers {
 
 	get connection() {
 		if (!this.redis) {
-			this.redis = new IORedis(config.workerRedisUrl, {
-				connectionName: 'redis-worker',
+			this.redis = new IORedis(config.workers.db.url, {
+				connectionName: config.workers.db.name,
 			});
 		}
 		return this.redis;
@@ -78,7 +79,7 @@ export class Workers {
 		const res = this.findByName(name);
 		if (!res) return;
 
-		const {key, index, queue, worker, events, scheduler} = res;
+		const { key, index, queue, worker, events, scheduler } = res;
 
 		queue.removeAllListeners();
 		await queue.close();

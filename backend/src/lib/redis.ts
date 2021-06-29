@@ -44,6 +44,10 @@ export class RedisClient extends IORedis {
 	}
 }
 
-export const redis = new RedisClient(config.redisUrl, {
-	connectionName: 'redis-cache',
+export const redis = new RedisClient(config.redis.url, {
+	connectionName: config.redis.name,
+});
+
+export const redisAuthBlocklist = new RedisClient(config.auth.blocklistDb.url, {
+	connectionName: config.auth.blocklistDb.name,
 });

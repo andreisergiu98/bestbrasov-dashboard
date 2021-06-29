@@ -94,7 +94,7 @@ async function createIssuingSecret() {
 			data: {
 				key,
 				issuing: true,
-				validUntil: add(new Date(), { months: config.auth.secretIssueTTL }),
+				validUntil: add(new Date(), { months: config.auth.secretValidTTL }),
 				issuesUntil: add(new Date(), { months: config.auth.secretIssueTTL }),
 			},
 		}),

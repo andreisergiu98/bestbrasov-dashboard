@@ -4,9 +4,9 @@ import { TokenSet } from 'openid-client';
 
 function createOAuth2Client(tokens: TokenSet) {
 	const authClient = new google.auth.OAuth2(
-		config.openidGoogleClientId,
-		config.openidGoogleClientSecret,
-		config.openidGoogleClientRedirect
+		config.auth.googleOpenId.clientId,
+		config.auth.googleOpenId.secret,
+		config.auth.googleOpenId.redirectUri
 	);
 	authClient.setCredentials(tokens);
 	return authClient;

@@ -17,10 +17,10 @@ export class GoogleOpenId {
 	private authClient?: Client;
 
 	private config = {
-		id: config.openidGoogleClientId,
-		secret: config.openidGoogleClientSecret,
-		redirect: config.openidGoogleClientRedirect,
-		silentRedirect: config.openidGoogleClientSilentRedirect,
+		id: config.auth.googleOpenId.clientId,
+		secret: config.auth.googleOpenId.secret,
+		redirect: config.auth.googleOpenId.redirectUri,
+		silentRedirect: config.auth.googleOpenId.silentRedirectUri,
 	};
 
 	async discoverIssuer() {

@@ -6,9 +6,9 @@ import bodyparser from 'koa-bodyparser';
 import { ApolloServer } from 'apollo-server-koa';
 
 import config from '@lib/config';
-import { redis } from '@lib/redis';
 import { prisma } from '@lib/prisma';
 import { createKoaLogger, logger } from '@lib/logger';
+import { redis, redisAuthBlocklist } from '@lib/redis';
 import { publisher, pubsub, subscriber } from '@lib/pubsub';
 
 import { registerCronJobs } from './jobs/cron';
@@ -27,6 +27,7 @@ async function init() {
 		redis.connect(),
 		publisher.connect(),
 		subscriber.connect(),
+		redisAuthBlocklist.connect(),
 	]);
 
 	registerCronJobs();
