@@ -1,9 +1,9 @@
-import { AuthSession, UserRole } from '@generated/prisma';
-import { AppError } from '@lib/app-error';
-import { prisma } from '@lib/prisma';
 import { TokenSet } from 'openid-client';
-import { jwtSign, jwtVerify, jwtDecode } from '../../utils/jwt';
+import { AppError } from '@lib/app-error';
+import { prisma, AuthSession, UserRole } from '@lib/prisma';
+
 import { authSecret } from '../auth-secret';
+import { jwtSign, jwtVerify, jwtDecode } from '../../utils/jwt';
 
 interface SessionPayload {
 	userId: string;

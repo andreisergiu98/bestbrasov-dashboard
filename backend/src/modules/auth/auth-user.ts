@@ -1,10 +1,9 @@
-import { prisma } from '@lib/prisma';
+import { prisma, UserRole } from '@lib/prisma';
 import { AppError } from '@lib/app-error';
 import { TokenSet } from 'openid-client';
 import { googleUserData } from '../auth-openid';
 import { sessionBlocklist } from '../auth-session';
 import { getDeviceInfo } from '../../utils/device';
-import { UserRole } from '@generated/prisma';
 
 export interface LoginUserInfo {
 	email: string;

@@ -1,6 +1,6 @@
 import path from 'path';
 import { buildSchema, BuildSchemaOptions } from 'type-graphql';
-import { UserCrudResolver } from '@generated/data';
+import { UserCrudResolver } from '@lib/resolvers';
 
 export default async (options?: Omit<BuildSchemaOptions, 'resolvers'>) =>
 	buildSchema({
