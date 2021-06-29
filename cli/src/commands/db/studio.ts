@@ -1,6 +1,7 @@
 import { Command, flags } from '@oclif/command';
+import execa from 'execa';
 import { cliName } from '../../config';
-import { createWorkspaceCommand, shSpawn } from '../../lib/shell';
+import { createWorkspaceArgs } from '../../lib/shell';
 
 export default class DbStudio extends Command {
 	static description = 'launch Prisma Studio';
@@ -14,7 +15,7 @@ export default class DbStudio extends Command {
 	static args = [];
 
 	async run() {
-		const command = createWorkspaceCommand('backend', 'run prisma studio');
-		shSpawn(command);
+		const args = createWorkspaceArgs('backend', 'run prisma studio');
+		return execa('yarn', args, { stdio: 'inherit' });
 	}
 }

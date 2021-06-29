@@ -5,8 +5,8 @@
 	"private": true,
 	"bin": "./bin/run",
 	"oclif": {
-		"bin": "yarn cli",
-		"commands": "./src/commands",
+		"bin": "cli",
+		"commands": "./lib/commands",
 		"plugins": [
 			"@oclif/plugin-help"
 		],
@@ -30,33 +30,37 @@
 		"@oclif/config": "patch:@oclif/config@1.17.0#./patches/oclif-config-resolver.patch",
 		"@oclif/errors": "^1.3.4",
 		"@oclif/plugin-help": "^3.2.2",
-		"chokidar": "^3.5.1",
-		"exec-sh": "^0.4.0",
+		"chalk": "^4.1.1",
+		"chokidar": "^3.5.2",
+		"concurrently": "^6.2.0",
+		"execa": "^5.1.1",
+		"listr": "^0.14.3",
 		"queue": "^6.0.2",
-		"shelljs": "^0.8.4",
 		"tslib": "^2.3.0"
 	},
 	"devDependencies": {
 		"@oclif/dev-cli": "^1.26.0",
+		"@types/concurrently": "^6.2.0",
 		"@types/eslint": "^7.2.13",
-		"@types/node": "^15.12.2",
+		"@types/listr": "^0",
+		"@types/node": "^15.12.5",
 		"@types/shelljs": "^0.8.8",
-		"@yarnpkg/pnpify": "^3.0.0-rc.6",
+		"@yarnpkg/pnpify": "^3.0.0-rc.7",
 		"ts-node": "^10.0.0",
-		"typescript": "4.3.2"
+		"typescript": "^4.3.4"
 	},
 	"files": [
 		"/bin",
-		"/src",
+		"/lib",
 		"/oclif.manifest.json"
 	],
+	"main": "lib/index.js",
 	"scripts": {
+		"build": "rm -rf lib && tsc -b && yarn pnpify oclif-dev manifest",
+		"prepack": "yarn build",
 		"postpack": "rm -f oclif.manifest.json",
 		"posttest": "eslint . --ext .ts --config .eslintrc",
-		"prepack": "rm -rf lib && tsc -b && yarn pnpify oclif-dev manifest && pnpify yarn oclif-dev readme",
 		"test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
 		"version": "oclif-dev readme && git add README.md"
-	},
-	"main": "lib/index.ts",
-	"types": "lib/index.d.ts"
+	}
 }

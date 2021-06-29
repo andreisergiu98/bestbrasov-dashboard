@@ -1,6 +1,7 @@
 import { Command, flags } from '@oclif/command';
+import execa from 'execa';
 import { cliName } from '../../config';
-import { createWorkspaceCommand, shSpawn } from '../../lib/shell';
+import { createWorkspaceCommand } from '../../lib/shell';
 
 export default class FrontendUpdate extends Command {
 	static description = 'run frontend related code generation';
@@ -9,6 +10,10 @@ export default class FrontendUpdate extends Command {
 
 	static flags = {
 		help: flags.help({ char: 'h' }),
+		errorsOnly: flags.boolean({
+			char: 'e',
+			description: 'overrides the errorsOnly config to true.',
+		}),
 		dev: flags.boolean({ char: 'd', description: 'watch for changes' }),
 	};
 
@@ -17,12 +22,16 @@ export default class FrontendUpdate extends Command {
 	async run() {
 		const { flags } = this.parse(FrontendUpdate);
 
-		let command;
+		let command = createWorkspaceCommand('frontend', 'generate');
+
 		if (flags.dev) {
-			command = createWorkspaceCommand('frontend', 'generate -w');
-		} else {
-			command = createWorkspaceCommand('frontend', 'generate');
+			command += ' -w';
 		}
-		shSpawn(command);
+
+		if (flags.errorsOnly) {
+			command += ' -e';
+		}
+
+		return execa.command(command, { stdio: 'inherit' });
 	}
 }

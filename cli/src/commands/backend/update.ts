@@ -1,24 +1,29 @@
 import { Command, flags } from '@oclif/command';
+
+import Listr from 'listr';
+import execa from 'execa';
 import chokidar from 'chokidar';
 import queue, { QueueWorkerCallback } from 'queue';
 
-import { createWorkspaceCommand, shSpawn } from '../../lib/shell';
+import { createWorkspaceCommand } from '../../lib/shell';
 import { cliName, config } from '../../config';
+import { logSymbols } from '../../lib/log-symbols';
 
 const updateJobs = queue({
 	autostart: true,
 	concurrency: 1,
 });
 
-updateJobs.push();
-
-const runCommand = (command: string) => async (cb?: QueueWorkerCallback) => {
+const runJob = (command: () => Promise<unknown>) => async (cb?: QueueWorkerCallback) => {
 	try {
-		await shSpawn(command);
-	} catch (e) {}
-	cb?.();
+		await command();
+	} catch (e) {
+		console.log(e.message);
+	} finally {
+		cb?.();
+		console.log(`  ${logSymbols.info} Watching for changes...`);
+	}
 };
-
 export default class BackendUpdate extends Command {
 	static description = 'run backend related code generation';
 
@@ -31,21 +36,45 @@ export default class BackendUpdate extends Command {
 
 	static args = [];
 
+	private createTasks = () => {
+		return new Listr<{}>([
+			{
+				title: 'Generate prisma and apollo resolvers',
+				task: async () => {
+					const gen = createWorkspaceCommand('backend', 'generate');
+					const copy = createWorkspaceCommand('backend', 'postbuild');
+
+					return execa
+						.command(`${gen} && ${copy}`, { env: { FORCE_COLOR: 'TRUE' } })
+						.catch((e) => {
+							throw new Error(e.stderr);
+						});
+				},
+			},
+		]);
+	};
+
+	private runTasks = () => {
+		return this.createTasks().run();
+	};
+
 	async run() {
 		const { flags } = this.parse(BackendUpdate);
 
-		const command = createWorkspaceCommand('backend', 'prisma generate');
-
-		if (!flags.dev) {
-			return shSpawn(command);
+		if (flags.dev) {
+			this.runWatcher();
+		} else {
+			this.runTasks().catch((e) => console.log(e.message));
 		}
+	}
 
-		updateJobs.push(runCommand(command));
+	async runWatcher() {
+		updateJobs.push(runJob(this.runTasks));
 		chokidar.watch(config.prismaSchema).on('change', async (event, path) => {
 			if (updateJobs.length >= 2) {
 				updateJobs.pop();
 			}
-			updateJobs.push(runCommand(command));
+			updateJobs.push(runJob(this.runTasks));
 		});
 	}
 }

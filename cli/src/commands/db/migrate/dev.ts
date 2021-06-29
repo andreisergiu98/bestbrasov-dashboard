@@ -1,6 +1,7 @@
 import { Command, flags } from '@oclif/command';
+import execa from 'execa';
 import { cliName } from '../../../config';
-import { createWorkspaceCommand, shSpawn } from '../../../lib/shell';
+import { createWorkspaceArgs } from '../../../lib/shell';
 
 export default class DbMigrateDev extends Command {
 	static description =
@@ -15,7 +16,7 @@ export default class DbMigrateDev extends Command {
 	static args = [];
 
 	async run() {
-		const command = createWorkspaceCommand('backend', 'run prisma migrate dev');
-		shSpawn(command);
+		const args = createWorkspaceArgs('backend', 'run prisma migrate dev');
+		return execa('yarn', args, { stdio: 'inherit' });
 	}
 }

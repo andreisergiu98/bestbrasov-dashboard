@@ -1,6 +1,6 @@
 import path from 'path';
 
-export const cliName = 'yarn cli';
+export const cliName = 'cli';
 
 export const config = {
 	workspaces: {
