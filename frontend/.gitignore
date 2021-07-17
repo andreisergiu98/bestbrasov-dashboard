@@ -5,7 +5,7 @@
 /build
 
 # generated
-/src/__generated__
+/src/typings/__generated__
 
 # misc
 .env.local

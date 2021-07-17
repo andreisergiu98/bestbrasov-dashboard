@@ -3,23 +3,25 @@ import './runtime';
 import Koa from 'koa';
 import cors from '@koa/cors';
 import bodyparser from 'koa-bodyparser';
-import { ApolloServer } from 'apollo-server-koa';
+
+import http from 'http';
 
 import config from '@lib/config';
 import { prisma } from '@lib/prisma';
 import { createKoaLogger, logger } from '@lib/logger';
 import { redis, redisAuthBlocklist } from '@lib/redis';
-import { publisher, pubsub, subscriber } from '@lib/pubsub';
-
-import { registerCronJobs } from './jobs/cron';
+import { pubsub, publisher, subscriber } from '@lib/pubsub';
+import { useApollo, useSubscriptions } from '@lib/apollo';
 
 import { authentication } from './modules/auth';
 import { catchError } from './middlewares/koa-error';
 
-import buildSchema from './schema';
-import { routes } from './routes';
+import { registerCronJobs } from './jobs/cron';
 
-const server = new Koa();
+import { routes } from './routes';
+import { createSchema } from './schema';
+
+const app = new Koa();
 
 async function init() {
 	await Promise.all([
@@ -30,35 +32,31 @@ async function init() {
 		redisAuthBlocklist.connect(),
 	]);
 
+	const schema = await createSchema(pubsub);
+
 	registerCronJobs();
 
-	const apollo = new ApolloServer({
-		schema: await buildSchema({
-			pubSub: pubsub,
-		}),
-		context: (ctx: Koa.AppContext) => ({
-			prisma,
-			session: ctx.state.session,
-		}),
+	app.use(catchError());
+
+	app.use(createKoaLogger());
+
+	app.use(cors({ credentials: true }));
+
+	app.use(authentication());
+
+	app.use(bodyparser());
+
+	app.use(routes);
+
+	await useApollo(app, schema);
+
+	const server = http.createServer(app.callback());
+
+	await useSubscriptions(server, schema);
+
+	server.listen(config.server.port, () => {
+		logger.info(`Server is running on port ${config.server.port}`);
 	});
-
-	server.use(catchError());
-
-	server.use(createKoaLogger());
-
-	server.use(cors());
-
-	server.use(authentication());
-
-	server.use(bodyparser());
-
-	apollo.applyMiddleware({ app: server });
-
-	server.use(routes);
-
-	server.listen(config.port);
-
-	logger.info(`Server is running on port ${config.port}`);
 }
 
 init().then();

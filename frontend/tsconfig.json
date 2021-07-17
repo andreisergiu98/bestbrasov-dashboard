@@ -15,7 +15,8 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
-		"types": ["react/next", "react-dom/next"]
+		"types": ["react/next", "react-dom/next"],
+		"typeRoots": ["./src/typings"]
 	},
 	"include": ["src"]
 }

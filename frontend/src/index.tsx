@@ -1,7 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom';
-import reportWebVitals from './utils/reportWebVitals';
-import App from './App';
+import reportWebVitals from './lib/web-vitals';
+
+import App from './app';
 
 const container = document.getElementById('root');
 if (!container) {

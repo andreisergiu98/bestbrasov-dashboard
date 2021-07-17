@@ -3,7 +3,12 @@ import config from '@lib/config';
 import { AppError } from '@lib/app-error';
 import { replaceUserSession } from './auth-user';
 import { sessionBlocklist, sessionEncoder } from '../auth-session';
-import { getSessionCookie, removeSessionCookie, setSessionCookie } from './auth-utils';
+import {
+	getSessionCookie,
+	removeSessionCookies,
+	setSessionCookie,
+	setSessionTtlCookie,
+} from './auth-utils';
 
 export const authentication =
 	() => async (ctx: Koa.AuthContext, next: () => Promise<void>) => {
@@ -12,6 +17,7 @@ export const authentication =
 		}
 
 		const sessionToken = getSessionCookie(ctx);
+
 		if (!sessionToken) {
 			throw new AppError(401, 'No session cookie!');
 		}
@@ -23,7 +29,7 @@ export const authentication =
 
 		const sessionStatus = await sessionBlocklist.getStatus(session.sessionId);
 		if (sessionStatus === 'revoked') {
-			removeSessionCookie(ctx);
+			removeSessionCookies(ctx);
 			throw new AppError(401, 'Session has been revoked');
 		}
 		if (sessionStatus === 'outdated') {

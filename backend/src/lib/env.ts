@@ -42,10 +42,6 @@ export class EnvParams {
 
 	@EnvParam('OPENID_GOOGLE_CLIENT_SILENT_REDIRECT', { required: true })
 	readonly openidGoogleClientSilentRedirect!: string;
-
-	readonly auth = {
-		whitelist: ['/v1/auth/login', '/v1/auth/callback', '/v1/auth/silent-callback'],
-		secretIssueTTL: 12, // months
-		secretValidTTL: 6, // months
-	};
 }
+
+export const env = new EnvParams();

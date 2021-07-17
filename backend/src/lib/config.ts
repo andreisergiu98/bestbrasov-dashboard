@@ -1,31 +1,36 @@
-import { EnvParams } from './env';
+import path from 'path';
+import { env } from './env';
 
 export class ServerConfig {
-	private readonly env = new EnvParams();
+	readonly development = env.development;
 
-	readonly development = this.env.development;
-
-	readonly port = this.env.port;
+	readonly server = {
+		port: env.port,
+		paths: {
+			graphql: '/graphql',
+			subscriptions: '/graphql',
+		},
+	};
 
 	readonly logging = {
-		level: this.env.logLevel,
+		level: env.logLevel,
 		koa: {
-			level: this.env.logLevelKoa,
+			level: env.logLevelKoa,
 		},
 	};
 
 	readonly db = {
-		url: this.env.dbUrl,
+		url: env.dbUrl,
 	};
 
 	readonly redis = {
-		url: this.env.redisUrl,
+		url: env.redisUrl,
 		name: 'redis-cache',
 	};
 
 	readonly pubsub = {
 		db: {
-			url: this.env.apolloSubRedisUrl,
+			url: env.apolloSubRedisUrl,
 			publisherName: 'redis-publisher',
 			subscriberName: 'redis-subscriber',
 		},
@@ -33,9 +38,13 @@ export class ServerConfig {
 
 	readonly workers = {
 		db: {
-			url: this.env.workerRedisUrl,
+			url: env.workerRedisUrl,
 			name: 'redis-worker',
 		},
+	};
+
+	readonly schema = {
+		path: path.resolve(__dirname, '../../api.generated.graphql'),
 	};
 
 	readonly auth = {
@@ -44,15 +53,15 @@ export class ServerConfig {
 		secretValidTTL: 6, // months
 
 		blocklistDb: {
-			url: this.env.authRedisUrl,
+			url: env.authRedisUrl,
 			name: 'redis-auth-blocklist',
 		},
 
 		googleOpenId: {
-			clientId: this.env.openidGoogleClientId,
-			secret: this.env.openidGoogleClientSecret,
-			redirectUri: this.env.openidGoogleClientRedirect,
-			silentRedirectUri: this.env.openidGoogleClientSilentRedirect,
+			clientId: env.openidGoogleClientId,
+			secret: env.openidGoogleClientSecret,
+			redirectUri: env.openidGoogleClientRedirect,
+			silentRedirectUri: env.openidGoogleClientSilentRedirect,
 		},
 	};
 }

@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { gql } from '@apollo/client';
 import { Box, Container } from '@material-ui/core';
 import { Topbar } from './topbar';
 import { Sidebar } from './sidebar';
@@ -7,15 +6,6 @@ import { Sidebar } from './sidebar';
 interface Props {
 	children?: ReactNode;
 }
-
-gql`
-	query GetUserByEmail($id: String) {
-		user(where: { id: $id }) {
-			email
-			birthday
-		}
-	}
-`;
 
 export function Layout(props: Props) {
 	return (

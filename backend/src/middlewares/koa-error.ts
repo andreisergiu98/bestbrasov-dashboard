@@ -1,7 +1,7 @@
 import Koa from 'koa';
 
 export const catchError =
-	() => async (ctx: Koa.ErrorContex, next: () => Promise<void>) => {
+	() => async (ctx: Koa.ErrorContext, next: () => Promise<void>) => {
 		try {
 			await next();
 		} catch (e) {

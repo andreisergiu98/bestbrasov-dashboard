@@ -3,7 +3,7 @@ type MessageListener = (e: MessageEvent) => void;
 type MessageReject = (message: string) => void;
 type MessageResolve = (value: boolean) => void;
 
-export class AuthRefresher {
+export class AuthRefresh {
 	refreshing = false;
 	private refreshedOk = false;
 	private readonly endpoint = `/v1/auth/login?silent=true`;
@@ -108,5 +108,3 @@ export class AuthRefresher {
 		window.removeEventListener('message', listener);
 	}
 }
-
-export const authRefresher = new AuthRefresher();

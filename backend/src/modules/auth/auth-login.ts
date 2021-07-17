@@ -11,6 +11,7 @@ import {
 	removeLoginStateCookie,
 	setLoginStateCookie,
 	setSessionCookie,
+	setSessionTtlCookie,
 } from './auth-utils';
 
 export const login = async (ctx: Koa.LoginContext) => {
@@ -45,6 +46,7 @@ export const loginCallback = async (ctx: Koa.LoginContext) => {
 	const { sessionToken } = await sessionEncoder.encode(session, tokenSet);
 
 	setSessionCookie(ctx, sessionToken);
+	setSessionTtlCookie(ctx, tokenSet.expires_at);
 	ctx.redirect(backToPath);
 };
 
@@ -53,6 +55,8 @@ export const silentLoginCallback = async (ctx: Koa.LoginContext) => {
 
 	try {
 		const state = getLoginStateCookie(ctx);
+		removeLoginStateCookie(ctx);
+
 		if (!state) {
 			throw new AppError(401, 'Code verifier is missing, cannot authenticate securely!');
 		}
@@ -73,6 +77,7 @@ export const silentLoginCallback = async (ctx: Koa.LoginContext) => {
 		const sessionEncoderRes = await sessionEncoder.encode(userSession, tokenSet);
 
 		setSessionCookie(ctx, sessionEncoderRes.sessionToken);
+		setSessionTtlCookie(ctx, tokenSet.expires_at);
 	} catch (e) {
 		ctx.status = 401;
 		ctx.body = createSilentCallbackIframe(false, origin);

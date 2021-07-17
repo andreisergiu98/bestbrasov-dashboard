@@ -1,28 +1,25 @@
 interface StringOptions {
 	default?: string;
 	required?: boolean;
+	type: 'String';
 	resolver?: (value: string) => string;
 }
 
 interface NumberOptions {
 	default?: number;
 	required?: boolean;
+	type: 'Number';
 	resolver?: (value: string) => number;
 }
 
 interface BooleanOptions {
 	default?: boolean;
 	required?: boolean;
+	type: 'Boolean';
 	resolver?: (value: string) => boolean;
 }
 
 type Options = StringOptions | NumberOptions | BooleanOptions;
-
-type PropertyType = 'String' | 'Number' | 'Boolean';
-
-type ResolverOptions = Options & {
-	type?: PropertyType | string;
-};
 
 function resolveString(value: string) {
 	return value;
@@ -36,7 +33,7 @@ function resolveBoolean(value: string) {
 	return value === 'true';
 }
 
-function resolveParam(key: string, options: ResolverOptions) {
+function resolveParam(key: string, options: Options) {
 	const rawValue = process.env[key];
 
 	if (!rawValue) {
@@ -63,16 +60,12 @@ function resolveParam(key: string, options: ResolverOptions) {
 		}
 		return resolveString(rawValue);
 	}
-
-	throw new Error(
-		`Cannot resolve env param '${key}'. Type '${options.type}' not supported!`
-	);
 }
 
 function validateValue(
 	key: string,
 	value: string | number | boolean | undefined,
-	options: ResolverOptions
+	options: Options
 ) {
 	if (value == null && options.required !== true) {
 		return;
@@ -95,20 +88,11 @@ function validateValue(
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export function EnvParam(key: string, options?: Options) {
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	return (target: Object, propertyKey: string) => {
-		const typeMeta = Reflect && Reflect.getMetadata('design:type', target, propertyKey);
-		const type = typeMeta?.name as string | undefined;
-
-		const value = resolveParam(key, { ...options, type });
-		validateValue(key, value, { ...options, type });
-
-		Object.defineProperty(target, propertyKey, {
-			get() {
-				return value;
-			},
-		});
-	};
+export function createEnvParam<T extends number | boolean | string | undefined>(
+	key: string,
+	options: Options
+) {
+	const value = resolveParam(key, options);
+	validateValue(key, value, options);
+	return value as T;
 }

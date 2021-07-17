@@ -1,5 +1,6 @@
 import { ParameterizedContext } from 'koa';
 import { RouterParamContext } from '@koa/router';
+import { Logger } from '@lib/logger';
 import { UserRole } from '@lib/prisma';
 import { TokenSet } from 'openid-client';
 
@@ -19,11 +20,15 @@ export type AuthState = MakeMaybe<AppState, 'session'>;
 
 export type ErrorState = MakeMaybe<AppState, 'session'>;
 
-type CreateContext<T> = ParameterizedContext<T, RouterParamContext<T>>;
+type WithLogger<T> = T & {
+	log: Logger;
+};
+
+type CreateContext<T> = ParameterizedContext<T, WithLogger<RouterParamContext<T>>>;
 
 declare module 'koa' {
 	export type AppContext = CreateContext<AppState>;
 	export type LoginContext = CreateContext<LoginState>;
 	export type AuthContext = CreateContext<AuthState>;
-	export type ErrorContex = CreateContext<ErrorState>;
+	export type ErrorContext = CreateContext<ErrorState>;
 }

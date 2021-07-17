@@ -3,10 +3,9 @@ schema:
   - ../backend/*.generated.graphql
 documents:
   - "src/**/*.(graphql|ts|tsx)"
-  - "!src/__generated__/**/*"
+  - "!src/typings/__generated__/**/*"
 generates:
-  src/__generated__/data/index.ts:
+  src/typings/__generated__/api/index.d.ts:
     plugins:
       - typescript
       - typescript-operations
-      - typed-document-node

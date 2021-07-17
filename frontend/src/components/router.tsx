@@ -4,29 +4,23 @@ import { routes } from '../routes';
 import { Loading } from './loading';
 
 export function Router() {
-	console.log(routes);
-
 	return (
 		<Routes>
-			<Suspense fallback={<Loading />}>
-				{routes.map((route) => (
-					<Route
-						key={route.path}
-						// exact={route.exact ?? true}
-						path={route.path}
-					>
+			{routes.map((route) => (
+				<Suspense key={route.path} fallback={<Loading />}>
+					<Route path={route.path}>
 						<route.component />
 					</Route>
-				))}
+				</Suspense>
+			))}
 
-				<Route path="/">
-					<Navigate to="/app/dashboard" />
-				</Route>
+			<Route path="/">
+				<Navigate to="/app/dashboard" />
+			</Route>
 
-				<Route path="/app">
-					<Navigate to="/app/dashboard" />
-				</Route>
-			</Suspense>
+			<Route path="/app">
+				<Navigate to="/app/dashboard" />
+			</Route>
 		</Routes>
 	);
 }

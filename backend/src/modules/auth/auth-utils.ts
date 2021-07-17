@@ -1,8 +1,10 @@
 import Koa from 'koa';
 import config from '@lib/config';
 
-const SESSION_COOKIE_KEY = 'xauth';
-const LOGIN_STATE_COOKIE_KEY = 'xauth-login-state';
+const SESSION_COOKIE_KEY = 'x-auth-token';
+const SESSION_WS_COOKIE_KEY = 'x-auth-ws-token';
+const SESSION_TTL_COOKIE_KEY = 'x-auth-ttl';
+const LOGIN_STATE_COOKIE_KEY = 'x-auth-login-state';
 
 export interface AuthState {
 	backToPath: string;
@@ -41,8 +43,22 @@ export function setSessionCookie(ctx: Koa.Context, token: string): void {
 	});
 }
 
-export function removeSessionCookie(ctx: Koa.Context) {
+export function setSessionTtlCookie(ctx: Koa.Context, ttl?: number): void {
+	if (ttl == null) {
+		return;
+	}
+	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, ttl.toString(), {
+		expires: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000),
+		httpOnly: false,
+		sameSite: false,
+		secure: !config.development,
+	});
+}
+
+export function removeSessionCookies(ctx: Koa.Context) {
 	ctx.cookies.set(SESSION_COOKIE_KEY, '');
+	ctx.cookies.set(SESSION_WS_COOKIE_KEY, '');
+	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, '');
 }
 
 export function getLoginStateCookie(ctx: Koa.Context) {
