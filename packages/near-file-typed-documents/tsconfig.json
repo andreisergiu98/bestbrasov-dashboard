@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "dist",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"importHelpers": true,
+		"module": "commonjs",
+		"target": "es2018",
+		"lib": ["es6", "esnext", "es2015", "dom"],
+		"suppressImplicitAnyIndexErrors": true,
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"declaration": true,
+		"noImplicitThis": true,
+		"alwaysStrict": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true
+	}
+}

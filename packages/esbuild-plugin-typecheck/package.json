@@ -1,0 +1,25 @@
+{
+	"name": "esbuild-plugin-typecheck",
+	"version": "0.0.1",
+	"description": "",
+	"license": "MIT",
+	"scripts": {
+		"lint": "eslint **/*.ts",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"chalk": "^4.1.2",
+		"tslib": "^2.3.0"
+	},
+	"devDependencies": {
+		"@types/node": "^16.4.7",
+		"typescript": "^4.3.5"
+	},
+	"peerDependencies": {
+		"typescript": "^4.0.0"
+	},
+	"files": [
+		"dist"
+	],
+	"main": "dist/index.js"
+}
