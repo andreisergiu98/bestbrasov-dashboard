@@ -9,9 +9,6 @@ if (!container) {
 	throw new Error('Root element is missing from HTML!');
 }
 
-const test: string = 123;
-console.log(test);
-
 render(
 	<StrictMode>
 		<App />
