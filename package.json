@@ -1,22 +1,21 @@
 {
 	"private": true,
 	"scripts": {
+		"prisma": "yarn workspace @bestbrasov/backend prisma",
 		"backend": "yarn workspace @bestbrasov/backend",
 		"frontend": "yarn workspace @bestbrasov/frontend",
-		"postinstall": "husky install",
-		"update-readme": "yarn workspace @bestbrasov/cli update-readme "
+		"postinstall": "husky install"
 	},
 	"workspaces": [
-		"cli",
 		"backend",
-		"frontend"
+		"frontend",
+		"packages/**"
 	],
 	"devDependencies": {
-		"@bestbrasov/cli": "portal:./cli",
-		"@commitlint/cli": "^12.1.4",
-		"@commitlint/config-conventional": "^12.1.4",
-		"@typescript-eslint/parser": "^4.28.3",
-		"eslint": "^7.30.0",
+		"@commitlint/cli": "^13.1.0",
+		"@commitlint/config-conventional": "^13.1.0",
+		"@typescript-eslint/parser": "^4.28.5",
+		"eslint": "^7.31.0",
 		"eslint-import-resolver-typescript": "^2.4.0",
 		"eslint-plugin-import": "^2.23.4",
 		"husky": "^7.0.1",
