@@ -1,8 +1,9 @@
 import pino, { LoggerOptions, Logger } from 'pino';
 import koaPino from 'koa-pino-logger';
 import config from './config';
+import { Middleware } from 'koa';
 
-export { Logger };
+export type { Logger };
 
 function createOptions(options?: LoggerOptions) {
 	return {
@@ -20,12 +21,11 @@ export function createLogger(options?: LoggerOptions) {
 }
 
 export function createKoaLogger(options?: LoggerOptions) {
-	return koaPino(
-		createOptions({
-			level: config.logging.koa.level,
-			...options,
-		})
-	);
+	return koaPino() as unknown as Middleware;
+	// createOptions({
+	// 	level: config.logging.koa.level,
+	// 	...options,
+	// })
 }
 
 export const logger = createLogger({

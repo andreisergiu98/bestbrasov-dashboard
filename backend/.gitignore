@@ -1,10 +1,9 @@
 # production
-/build
+/.dist
 
 # development
-.cache
-.env
+/.env
 
 # generated
-/src/__generated__
-*.generated.graphql
+/__generated__
+/*.generated.gql

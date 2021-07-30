@@ -44,7 +44,7 @@ export class ServerConfig {
 	};
 
 	readonly schema = {
-		path: path.resolve(__dirname, '../../api.generated.graphql'),
+		path: path.resolve(__dirname, '../api.generated.gql'),
 	};
 
 	readonly auth = {

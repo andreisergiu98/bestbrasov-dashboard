@@ -5,12 +5,12 @@ datasource db {
 
 generator gen {
     provider = "prisma-client-js"
-    output   = "./src/__generated__/prisma"
+    output   = "./__generated__/prisma"
 }
 
 generator typegraphql {
     provider = "typegraphql-prisma"
-    output   = "./src/__generated__/data"
+    output   = "./__generated__/data"
 }
 
 enum UserRole {

@@ -1,10 +1,8 @@
-import './runtime';
-
 import Koa from 'koa';
 import cors from '@koa/cors';
 import bodyparser from 'koa-bodyparser';
 
-import http from 'http';
+import http from 'https';
 
 import config from '@lib/config';
 import { prisma } from '@lib/prisma';
@@ -12,6 +10,7 @@ import { createKoaLogger, logger } from '@lib/logger';
 import { redis, redisAuthBlocklist } from '@lib/redis';
 import { pubsub, publisher, subscriber } from '@lib/pubsub';
 import { useApollo, useSubscriptions } from '@lib/apollo';
+import { createSchema } from '@lib/schema';
 
 import { authentication } from './modules/auth';
 import { catchError } from './middlewares/koa-error';
@@ -19,11 +18,10 @@ import { catchError } from './middlewares/koa-error';
 import { registerCronJobs } from './jobs/cron';
 
 import { routes } from './routes';
-import { createSchema } from './schema';
 
 const app = new Koa();
 
-async function init() {
+export async function init() {
 	await Promise.all([
 		prisma.$connect(),
 		redis.connect(),
@@ -58,5 +56,3 @@ async function init() {
 		logger.info(`Server is running on port ${config.server.port}`);
 	});
 }
-
-init().then();

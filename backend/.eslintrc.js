@@ -22,10 +22,11 @@ module.exports = {
 		sourceType: 'module',
 	},
 	ignorePatterns: [
-		'/src/__generated__/**',
+		'/.dist/**',
+		'/__generated__/**',
 		'/migrations/**',
-		'/build/**',
 		'/.eslintrc.js',
+		'/esbuild.config.js',
 	],
 	rules: {
 		'no-restricted-imports': [
