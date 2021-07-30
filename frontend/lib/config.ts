@@ -3,7 +3,7 @@ import { env } from './env';
 export class AppConfig {
 	readonly development = env.development;
 
-	readonly publicUrl = env.publicUrl;
+	// readonly publicUrl = env.publicUrl;
 
 	readonly api = {
 		baseUrl: env.apiBaseUrl,

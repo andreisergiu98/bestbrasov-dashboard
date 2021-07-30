@@ -4,7 +4,7 @@
 		"**/.pnp.*": true
 	},
 	"files.exclude": {
-		// "frontend/node_modules": true
+		"frontend/**/*.gql.d.ts": true
 	},
 	"eslint.nodePath": ".yarn/sdks",
 	"typescript.tsdk": ".yarn/sdks/typescript/lib",
@@ -18,6 +18,5 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"[prisma]": {
 		"editor.defaultFormatter": "Prisma.prisma"
-	},
-	"vscode-graphql.useSchemaFileDefinitions": true
+	}
 }

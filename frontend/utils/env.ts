@@ -34,7 +34,7 @@ function resolveBoolean(value: string) {
 }
 
 function resolveParam(key: string, options: Options) {
-	const rawValue = process.env[key];
+	const rawValue = import.meta.env[key] as string;
 
 	if (!rawValue) {
 		return options.default;

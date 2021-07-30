@@ -1,11 +1,17 @@
 overwrite: true
 schema:
-  - ../backend/*.generated.graphql
+  - ../backend/*.generated.gql
 documents:
-  - "src/**/*.(graphql|ts|tsx)"
-  - "!src/typings/__generated__/**/*"
+  - "./**/*.(gql)"
 generates:
-  src/typings/__generated__/api/index.d.ts:
+  __generated__/types.ts:
     plugins:
       - typescript
+  ./:
+    preset: near-operation-file
+    presetConfig:
+      extension: .gql.d.ts
+      baseTypesPath: __generated__/types
+    plugins:
       - typescript-operations
+      - near-file-typed-documents

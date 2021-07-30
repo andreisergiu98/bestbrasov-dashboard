@@ -34,9 +34,9 @@ module.exports = {
 		},
 	},
 	ignorePatterns: [
-		'/src/typings/__generated__/**',
-		'/build/**',
-		'craco.config.js',
+		'/.dist/**',
+		'/typings/__generated__/**',
+		'vite.config.js',
 		'.eslintrc.js',
 	],
 	rules: {

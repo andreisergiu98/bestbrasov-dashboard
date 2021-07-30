@@ -9,10 +9,10 @@ interface Props {
 
 export function Providers(props: Props) {
 	return (
-		<BrowserRouter>
-			<MaterialProvider>
-				<Apollo>{props.children}</Apollo>
-			</MaterialProvider>
-		</BrowserRouter>
+		<Apollo>
+			<BrowserRouter>
+				<MaterialProvider>{props.children}</MaterialProvider>
+			</BrowserRouter>
+		</Apollo>
 	);
 }

@@ -2,10 +2,15 @@
 /coverage
 
 # production
-/build
+/.dist
+
+# cache
+/.vite
 
 # generated
-/src/typings/__generated__
+/__generated__
+*.gql.d.ts
+*.graphql.d.ts
 
 # misc
 .env.local
