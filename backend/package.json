@@ -6,9 +6,8 @@
 	"scripts": {
 		"start": "node .dist",
 		"start:dev": "env FORCE_COLOR=true concurrently -n codegen,app -c magenta,blue \"yarn generate:dev\" \"yarn build:dev\"",
-		"start:env": "dotenv -- yarn start --inspect",
 		"build": "yarn generate && tsc && node esbuild.config.js",
-		"build:dev": "node esbuild.config.js --dev",
+		"build:dev": "dotenv -- node esbuild.config.js --dev",
 		"generate": "yarn prisma generate",
 		"generate:dev": "chokidar schema.prisma --initial -c \"yarn generate\"",
 		"lint": "eslint . --ext .js,.ts",
