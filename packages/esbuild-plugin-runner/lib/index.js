@@ -1,5 +1,6 @@
 const execa = require('execa');
 const chalk = require('chalk');
+const { kill } = require('./killer');
 
 const namespace = chalk.green('[ monitor ]');
 
@@ -7,14 +8,17 @@ let successProcess;
 let errorProcess;
 let firstTime = true;
 
-function handleError(onError) {
+async function handleError(onError) {
 	if (!onError) return;
+
+	await kill(errorProcess);
+
 	errorProcess = execa.command(onError, {
 		stdout: process.stdout,
 	});
 }
 
-function handleSuccess(onSuccess, startTime) {
+async function handleSuccess(onSuccess, startTime) {
 	if (!onSuccess) {
 		return;
 	}
@@ -26,6 +30,8 @@ function handleSuccess(onSuccess, startTime) {
 			firstTime ? 'Starting' : 'Restarting'
 		} app...`
 	);
+
+	await kill(successProcess);
 
 	successProcess = execa.command(onSuccess, {
 		stdin: process.stdin,
@@ -59,13 +65,10 @@ function esbuildRunner({ onSuccess, onError }) {
 				}
 			});
 			build.onEnd(async (result) => {
-				successProcess?.cancel();
-				errorProcess?.cancel();
-
 				if (result.errors.length > 0) {
-					handleError(onError);
+					await handleError(onError);
 				} else {
-					handleSuccess(onSuccess, startTime);
+					await handleSuccess(onSuccess, startTime);
 				}
 			});
 		},
