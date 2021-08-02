@@ -92,7 +92,7 @@ export function createSilentCallbackIframe(success: boolean, origin?: string) {
 		<html>
 		<head>
 		<script>
-			parent.postMessage({type: 'SILENT_REFRESH', ok: ${ok}, '${origin}')
+			parent.postMessage({type: 'SILENT_REFRESH', ok: ${ok}}, '${origin}');
 		</script>
 		</head>
 		</html>

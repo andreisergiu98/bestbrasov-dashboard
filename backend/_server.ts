@@ -2,7 +2,7 @@ import Koa from 'koa';
 import cors from '@koa/cors';
 import bodyparser from 'koa-bodyparser';
 
-import http from 'https';
+import http from 'http';
 
 import config from '@lib/config';
 import { prisma } from '@lib/prisma';
