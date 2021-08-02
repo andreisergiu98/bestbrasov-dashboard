@@ -1,3 +1,5 @@
+import config from '../config';
+
 type MessageListener = (e: MessageEvent) => void;
 
 type MessageReject = (message: string) => void;
@@ -6,7 +8,6 @@ type MessageResolve = (value: boolean) => void;
 export class AuthRefresh {
 	refreshing = false;
 	private refreshedOk = false;
-	private readonly endpoint = `/v1/auth/login?silent=true`;
 	private readonly messageType = 'SILENT_REFRESH';
 
 	async refresh() {
@@ -78,7 +79,7 @@ export class AuthRefresh {
 	private createIframe() {
 		const iframe = document.createElement('iframe');
 		iframe.id = 'silent-refresh';
-		iframe.setAttribute('src', this.endpoint);
+		iframe.setAttribute('src', config.api.authRefreshUrl);
 		iframe.style.width = '1px';
 		iframe.style.height = '1px';
 		iframe.style.position = 'absolute';
