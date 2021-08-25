@@ -18,6 +18,14 @@ export async function useApollo(app: Koa, schema: GraphQLSchema) {
 		}),
 	});
 
+	await apollo.start();
+
+	app.use(
+		apollo.getMiddleware({
+			cors: {},
+		})
+	);
+
 	const path = config.server.paths.graphql;
 
 	const registration: ServerRegistration = {
@@ -25,11 +33,9 @@ export async function useApollo(app: Koa, schema: GraphQLSchema) {
 		path,
 	};
 
-	await apollo.start();
+	apollo.applyMiddleware(registration);
 
 	logger.info(`Apollo is running on path '${path}'`);
-
-	apollo.applyMiddleware(registration);
 }
 
 export async function useSubscriptions(server: http.Server, schema: GraphQLSchema) {

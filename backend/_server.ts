@@ -1,18 +1,19 @@
 import Koa from 'koa';
-import cors from '@koa/cors';
 import bodyparser from 'koa-bodyparser';
 
 import http from 'http';
 
 import config from '@lib/config';
 import { prisma } from '@lib/prisma';
+import { createSchema } from '@lib/schema';
 import { createKoaLogger, logger } from '@lib/logger';
 import { redis, redisAuthBlocklist } from '@lib/redis';
-import { pubsub, publisher, subscriber } from '@lib/pubsub';
 import { useApollo, useSubscriptions } from '@lib/apollo';
-import { createSchema } from '@lib/schema';
+import { pubsub, publisher, subscriber } from '@lib/pubsub';
 
 import { authentication } from './modules/auth';
+
+import { cors } from './middlewares/cors';
 import { catchError } from './middlewares/koa-error';
 
 import { registerCronJobs } from './jobs/cron';
@@ -38,7 +39,7 @@ export async function init() {
 
 	app.use(createKoaLogger());
 
-	app.use(cors({ credentials: true }));
+	app.use(cors());
 
 	app.use(authentication());
 

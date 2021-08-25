@@ -64,6 +64,18 @@ export class ServerConfig {
 			silentRedirectUri: env.openidGoogleClientSilentRedirect,
 		},
 	};
+
+	readonly cors = {
+		defaultOrigin: 'https://bestbrasov.ro',
+		devOrigins: [/https?:\/\/localhost:[0-9]+$/],
+		prodOrigins: [/https?:\/\/([a-z0-9]+[.])*bestbrasov[.]ro$/],
+		getAllowedOrigins: () => {
+			if (this.development) {
+				return this.cors.devOrigins;
+			}
+			return this.cors.prodOrigins;
+		},
+	};
 }
 
 const config = new ServerConfig();
