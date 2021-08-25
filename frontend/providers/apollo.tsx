@@ -7,6 +7,5 @@ interface Props {
 }
 
 export default function Apollo(props: Props) {
-	console.log('provider apollo');
 	return <ApolloProvider client={apollo}>{props.children}</ApolloProvider>;
 }

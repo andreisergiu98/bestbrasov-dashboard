@@ -1,5 +1,5 @@
 import { StrictMode } from 'react';
-import { createRoot, render } from 'react-dom';
+import { createRoot } from 'react-dom';
 import reportWebVitals from './lib/web-vitals';
 
 import App from './pages/_app';
@@ -9,20 +9,13 @@ if (!container) {
 	throw new Error('Root element is missing from HTML!');
 }
 
-render(
+const root = createRoot(container);
+
+root.render(
 	<StrictMode>
 		<App />
-	</StrictMode>,
-	container
+	</StrictMode>
 );
-
-// const root = createRoot(container);
-
-// root.render(
-// 	<StrictMode>
-// 		<App />
-// 	</StrictMode>
-// );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
