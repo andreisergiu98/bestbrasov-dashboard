@@ -14,7 +14,7 @@
 		"ps-tree": "^1.2.0"
 	},
 	"devDependencies": {
-		"@types/ps-tree": "^1"
+		"@types/ps-tree": "^1.1.1"
 	},
 	"files": [
 		"lib"
