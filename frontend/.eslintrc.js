@@ -35,7 +35,8 @@ module.exports = {
 	},
 	ignorePatterns: [
 		'/.dist/**',
-		'/typings/__generated__/**',
+		'/.vite/**',
+		'/__generated__/**',
 		'vite.config.js',
 		'.eslintrc.js',
 	],
