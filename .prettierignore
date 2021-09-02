@@ -1,13 +1,12 @@
 # Ignore artifacts:
 .yarn
-.pnp.js
+.pnp.*
 
-backend/build
-backend/src/__generated__
-backend/api.generated.graphql
+backend/__generated__
+backend/.dist
+backend/api.generated.gql
 
-cli/lib
-cli/oclif.manifest.json
-
-frontend/build
-frontend/src/__generated__
+frontend/__generated__
+frontend/.dist
+frontend/.vite
+frontend/**/*.gql.d.ts
