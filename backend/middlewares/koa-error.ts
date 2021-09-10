@@ -1,27 +1,31 @@
 import Koa from 'koa';
+import { AppError } from '@lib/app-error';
 
 export const catchError =
 	() => async (ctx: Koa.ErrorContext, next: () => Promise<void>) => {
 		try {
 			await next();
 		} catch (e) {
-			let message = e.message;
-			let payload = e.payload;
-			const status = e.status || 500;
+			if (e instanceof AppError && e.status !== 500) {
+				ctx.body = {
+					error: true,
+					data: e.payload,
+					message: e.message,
+				};
+				ctx.status = e.status;
+				ctx.log.info(e);
 
-			if (status === 500) {
-				message = 'Internal Server Error';
-				payload = null;
+				return;
+			}
+
+			if (e instanceof Error) {
 				ctx.log.error(e);
-			} else {
-				ctx.log.debug(e);
 			}
 
 			ctx.body = {
-				message,
 				error: true,
-				data: payload,
+				message: 'Internal Server Error',
 			};
-			ctx.status = status;
+			ctx.status = 500;
 		}
 	};

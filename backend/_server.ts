@@ -4,9 +4,9 @@ import bodyparser from 'koa-bodyparser';
 import http from 'http';
 
 import config from '@lib/config';
+import { logger } from '@lib/logger';
 import { prisma } from '@lib/prisma';
 import { createSchema } from '@lib/schema';
-import { createKoaLogger, logger } from '@lib/logger';
 import { redis, redisAuthBlocklist } from '@lib/redis';
 import { useApollo, useSubscriptions } from '@lib/apollo';
 import { pubsub, publisher, subscriber } from '@lib/pubsub';
@@ -15,6 +15,7 @@ import { authentication } from './modules/auth';
 
 import { cors } from './middlewares/cors';
 import { catchError } from './middlewares/koa-error';
+import { useKoaLogger } from 'middlewares/koa-logger';
 
 import { registerCronJobs } from './jobs/cron';
 
@@ -35,9 +36,9 @@ export async function init() {
 
 	registerCronJobs();
 
-	app.use(catchError());
+	app.use(useKoaLogger(config.logging.koa));
 
-	app.use(createKoaLogger());
+	app.use(catchError());
 
 	app.use(cors());
 

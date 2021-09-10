@@ -25,10 +25,10 @@ export class EnvParams {
 	@EnvParam('AUTH_REDIS_URL', { required: true })
 	readonly authRedisUrl!: string;
 
-	@EnvParam('LOG_LEVEL', { default: 'warn' })
+	@EnvParam('LOG_LEVEL', { default: 'info' })
 	readonly logLevel!: string;
 
-	@EnvParam('LOG_LEVEL_KOA', { default: 'warn' })
+	@EnvParam('LOG_LEVEL_KOA', { default: 'info' })
 	readonly logLevelKoa!: string;
 
 	@EnvParam('OPENID_GOOGLE_CLIENT_ID', { required: true })
