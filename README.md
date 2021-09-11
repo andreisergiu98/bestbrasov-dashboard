@@ -1,243 +1,132 @@
-# Usage
+- [About](#about)
+- [Dependencies](#dependencies)
+- [Commands](#commands)
+  - [Docker](#docker)
+    - [`docker-compose up -d`](#docker-compose-up--d)
+    - [`docker-compose down`](#docker-compose-down)
+  - [Backend](#backend)
+    - [`yarn backend start:dev`](#yarn-backend-startdev)
+    - [`yarn backend build`](#yarn-backend-build)
+    - [`yarn backend lint`](#yarn-backend-lint)
+  - [Frontend](#frontend)
+    - [`yarn frontend start:dev`](#yarn-frontend-startdev)
+    - [`yarn frontend build`](#yarn-frontend-build)
+    - [`yarn frontend lint`](#yarn-frontend-lint)
+  - [Database](#database)
+    - [`yarn prisma db push`](#yarn-prisma-db-push)
+    - [`yarn prisma db pull`](#yarn-prisma-db-pull)
+    - [`yarn prisma migrate dev`](#yarn-prisma-migrate-dev)
 
-<!-- usage -->
+# About
 
-```sh-session
-$ npm install -g @bestbrasov/cli
-$ cli COMMAND
-running command...
-$ cli (-v|--version|version)
-@bestbrasov/cli/0.0.1 linux-x64 node-v16.4.0
-$ cli --help [COMMAND]
-USAGE
-  $ cli COMMAND
-...
-```
+Internal dashboard for an NGO. Built with Node.Js, React, TypeScript and GraphQL.
 
-<!-- usagestop -->
+It uses Yarn Berry for package management in PnP strict mode, Vite as a development server for React,
+and is compiled using esbuild.
+
+# Dependencies
+
+- [Docker](https://www.docker.com/)
+- Docker compose
+- [Node.js v16](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/)
 
 # Commands
 
-<!-- commands -->
+## Docker
 
-- [`cli backend:build`](#cli-backendbuild)
-- [`cli backend:emit-schema`](#cli-backendemit-schema)
-- [`cli backend:start`](#cli-backendstart)
-- [`cli backend:update`](#cli-backendupdate)
-- [`cli db:migrate:dev`](#cli-dbmigratedev)
-- [`cli db:migrate:reset`](#cli-dbmigratereset)
-- [`cli db:migrate:status`](#cli-dbmigratestatus)
-- [`cli db:studio`](#cli-dbstudio)
-- [`cli db:sync`](#cli-dbsync)
-- [`cli frontend:build`](#cli-frontendbuild)
-- [`cli frontend:start`](#cli-frontendstart)
-- [`cli frontend:update`](#cli-frontendupdate)
-- [`cli help [COMMAND]`](#cli-help-command)
+### `docker-compose up -d`
 
-## `cli backend:build`
-
-builds the backend application
+Starts the databases in background and leaves them running.
 
 ```
-USAGE
-  $ cli backend:build
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ cli backend:build
+$ docker-compose up -d
 ```
 
-## `cli backend:emit-schema`
+### `docker-compose down`
 
-emits the graphql schema
-
-```
-USAGE
-  $ cli backend:emit-schema
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ cli backend:emit:schema
-```
-
-## `cli backend:start`
-
-start the backend application
+Stops containers and removes containers, networks, volumes, and images created by `up`.
 
 ```
-USAGE
-  $ cli backend:start
-
-OPTIONS
-  -d, --dev     watch for changes
-  -h, --help    show CLI help
-  -u, --update  update on prisma schema changes
-  --clear       clear on changes
-
-EXAMPLE
-  $ cli backend:start
+$ docker-compose down
 ```
 
-## `cli backend:update`
+## Backend
 
-run backend related code generation
+### `yarn backend start:dev`
 
-```
-USAGE
-  $ cli backend:update
-
-OPTIONS
-  -d, --dev   watch for changes
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ cli backend:update
-```
-
-## `cli db:migrate:dev`
-
-create a migration from changes in Prisma schema, apply it to the database, trigger generators (e.g. Prisma Client)
+Start the backend application in development mode. It will automatically rebuild itself and restart on file changes.
 
 ```
-USAGE
-  $ cli db:migrate:dev
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ cli db:migrate:status
+$ yarn backend start:dev
 ```
 
-## `cli db:migrate:reset`
+### `yarn backend build`
 
-reset your database and apply all migrations
-
-```
-USAGE
-  $ cli db:migrate:reset
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ cli db:migrate:reset
-```
-
-## `cli db:migrate:status`
-
-check the status of migrations in the production/staging database
+Build the backend for production.
 
 ```
-USAGE
-  $ cli db:migrate:status
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ cli db:migrate:status
+$ yarn backend build
 ```
 
-## `cli db:studio`
+### `yarn backend lint`
 
-launch Prisma Studio
-
-```
-USAGE
-  $ cli db:studio
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ cli db:studio
-```
-
-## `cli db:sync`
-
-sync database with the current version of the schema
+Check the backend for linter errors.
 
 ```
-USAGE
-  $ cli db:sync
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-
-EXAMPLE
-  $ cli db:sync
+$ yarn backend lint
+$ yarn backend lint --fix # to also fix errors if possible
 ```
 
-## `cli frontend:build`
+## Frontend
 
-build the frontend application
+### `yarn frontend start:dev`
 
-```
-USAGE
-  $ cli frontend:build
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ cli frontend:build
-```
-
-## `cli frontend:start`
-
-start the frontend application
+Start the frontend application in development mode.
 
 ```
-USAGE
-  $ cli frontend:start
-
-OPTIONS
-  -d, --dev     watch for changes
-  -h, --help    show CLI help
-  -u, --update  starts graphql code generation
-
-EXAMPLE
-  $ cli frontend:start
+$ yarn frontend start:dev
 ```
 
-## `cli frontend:update`
+### `yarn frontend build`
 
-run frontend related code generation
-
-```
-USAGE
-  $ cli frontend:update
-
-OPTIONS
-  -d, --dev         watch for changes
-  -e, --errorsOnly  overrides the errorsOnly config to true.
-  -h, --help        show CLI help
-
-EXAMPLE
-  $ cli frontend:update
-```
-
-## `cli help [COMMAND]`
-
-display help for cli
+Build the frontend for production.
 
 ```
-USAGE
-  $ cli help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
+$ yarn frontend build
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+### `yarn frontend lint`
 
-<!-- commandsstop -->
+Check the frontend for linter errors.
+
+```
+$ yarn frontend lint
+$ yarn frontend lint --fix # to also fix errors if possible
+```
+
+## Database
+
+### `yarn prisma db push`
+
+Push the Prisma schema state to the database.
+
+```
+$ yarn prisma db push
+```
+
+### `yarn prisma db pull`
+
+Pull the schema from an existing database, updating the Prisma schema.
+
+```
+$ yarn prisma db pull
+```
+
+### `yarn prisma migrate dev`
+
+Create migrations from your Prisma schema.
+
+```
+$ yarn prisma migrate dev
+```
