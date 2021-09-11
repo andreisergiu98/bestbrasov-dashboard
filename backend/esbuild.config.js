@@ -31,7 +31,7 @@ const plugins = [copyPrismaSchema(), nodeExternalsPlugin(), esbuildDecorators()]
 
 const devPlugins = [
 	esbuildTypechecking(),
-	esbuildRunner({ onSuccess: 'yarn start --inspect' }),
+	esbuildRunner({ onSuccess: 'yarn start:app:dev' }),
 ];
 
 async function build() {
