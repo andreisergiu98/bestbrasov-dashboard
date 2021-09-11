@@ -4,7 +4,6 @@
 	"description": "",
 	"license": "MIT",
 	"scripts": {
-		"lint": "eslint **/*.ts",
 		"build": "tsc"
 	},
 	"dependencies": {

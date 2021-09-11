@@ -4,7 +4,6 @@
 	"description": "GraphQL Code Generator plugin for generating TypeScript module declarations based on GraphQL operations",
 	"license": "MIT",
 	"scripts": {
-		"lint": "eslint **/*.ts",
 		"build": "tsc"
 	},
 	"dependencies": {
