@@ -1,1 +1,1 @@
-{"version":3,"file":"watch-worker.js","sourceRoot":"","sources":["../src/watch-worker.ts"],"names":[],"mappings":";;AAAA,mDAA4C;AAC5C,mCAAoC;AAEpC,iBAAS,CAAC,2BAAU,aAAV,2BAAU,uBAAV,2BAAU,CAAE,YAAY,CAAC,CAAC"}
+{"version":3,"file":"watch-worker.js","sourceRoot":"","sources":["../src/watch-worker.ts"],"names":[],"mappings":";;AAAA,mDAA4C;AAC5C,mCAAoC;AAEpC,IAAA,iBAAS,EAAC,2BAAU,aAAV,2BAAU,uBAAV,2BAAU,CAAE,YAAY,CAAC,CAAC"}

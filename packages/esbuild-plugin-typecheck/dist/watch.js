@@ -2,8 +2,8 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.watchMain = void 0;
 const tslib_1 = require('tslib');
-const typescript_1 = tslib_1.__importDefault(require('typescript'));
-const chalk_1 = tslib_1.__importDefault(require('chalk'));
+const typescript_1 = (0, tslib_1.__importDefault)(require('typescript'));
+const chalk_1 = (0, tslib_1.__importDefault)(require('chalk'));
 const namespace = chalk_1.default.blue('[ types ]');
 function watchMain(tsconfigPath = 'tsconfig.json') {
 	const configPath = typescript_1.default.findConfigFile(

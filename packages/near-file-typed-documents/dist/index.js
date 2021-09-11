@@ -10,7 +10,7 @@ const plugin = async (schema, documents, config) => {
 		typedDocumentTypeName = 'TypedDocumentNode',
 	} = config;
 	const mappedDocuments = documents.reduce((prev, documentRecord) => {
-		const fileName = path_1.basename(documentRecord.location);
+		const fileName = (0, path_1.basename)(documentRecord.location);
 		if (!prev[fileName]) {
 			prev[fileName] = [];
 		}
@@ -30,9 +30,9 @@ const plugin = async (schema, documents, config) => {
 			const operations = mappedDocuments[fileName];
 			const content = operations.map((operation) => {
 				const operationName = operation.name.value;
-				const typeName = pascal_case_1.pascalCase(operationName);
+				const typeName = (0, pascal_case_1.pascalCase)(operationName);
 				const typeNameSuffix = operation.operation
-					? pascal_case_1.pascalCase(operation.operation)
+					? (0, pascal_case_1.pascalCase)(operation.operation)
 					: 'Fragment';
 				const prefix = hasOperations ? '' : 'Types.';
 				const operationTypeName = prefix + typeName + typeNameSuffix;

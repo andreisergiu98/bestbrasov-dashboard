@@ -9,7 +9,6 @@ function esbuildTypechecking(options) {
 			new worker_threads_1.Worker(__dirname + '/watch-worker.js', {
 				workerData: options,
 			});
-			// watchMain(options?.tsconfigPath);
 		},
 	};
 }
