@@ -1,8 +1,9 @@
-import { lazy, LazyExoticComponent } from 'react';
+import { lazy, LazyExoticComponent, ReactNode } from 'react';
 
 interface AppRoute {
 	path: string;
 	title?: string;
+	fallback?: NonNullable<ReactNode>;
 	component: (() => JSX.Element) | LazyExoticComponent<() => JSX.Element>;
 }
 
