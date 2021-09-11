@@ -3,12 +3,7 @@ import config from '@lib/config';
 import { AppError } from '@lib/app-error';
 import { replaceUserSession } from './auth-user';
 import { sessionBlocklist, sessionEncoder } from '../auth-session';
-import {
-	getSessionCookie,
-	removeSessionCookies,
-	setSessionCookie,
-	setSessionTtlCookie,
-} from './auth-utils';
+import { getSessionCookie, removeSessionCookies, setSessionCookie } from './auth-utils';
 
 export const authentication =
 	() => async (ctx: Koa.AuthContext, next: () => Promise<void>) => {
@@ -40,7 +35,6 @@ export const authentication =
 		}
 
 		ctx.state.session = {
-			roles: [],
 			userId: session.userId,
 			sessionId: session.sessionId,
 			tokenSet: session.tokenSet,

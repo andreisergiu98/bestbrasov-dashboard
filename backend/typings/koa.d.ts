@@ -8,7 +8,6 @@ export interface AppState {
 	session: {
 		userId: string;
 		sessionId: string;
-		roles: string[];
 		tokenSet: TokenSet;
 		userRoles: UserRole[];
 	};
