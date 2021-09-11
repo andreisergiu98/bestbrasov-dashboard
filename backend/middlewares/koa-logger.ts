@@ -20,7 +20,7 @@ function getElapsedTime(start) {
 }
 
 function createLog(
-	ctx: Koa.AppContext,
+	ctx: Koa.UnknownContext,
 	start: number,
 	err?: (Error & { status?: number }) | null,
 	event?: string
@@ -42,6 +42,8 @@ function createLog(
 		length = prettyBytes(ctx.response.length);
 	}
 
+	const userId = ctx.state?.session?.userId ?? 'no-user-id';
+
 	return (
 		upstream +
 		' ' +
@@ -55,7 +57,7 @@ function createLog(
 		' ' +
 		chalk.gray(length) +
 		' ' +
-		chalk.gray(ctx.state?.session?.userId)
+		chalk.gray(userId)
 	);
 }
 
@@ -65,7 +67,7 @@ export const useKoaLogger = (options: LoggerOptions = {}) => {
 		...options,
 	});
 
-	return async (ctx: Koa.AppContext, next: () => Promise<void>) => {
+	return async (ctx: Koa.UnknownContext, next: () => Promise<void>) => {
 		ctx.log = logger;
 
 		const start = ctx[Symbol.for('request-received.startTime')]?.getTime() || Date.now();

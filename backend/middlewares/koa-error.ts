@@ -13,7 +13,7 @@ export const catchError =
 					message: e.message,
 				};
 				ctx.status = e.status;
-				ctx.log.info(e);
+				ctx.log.debug(e);
 
 				return;
 			}

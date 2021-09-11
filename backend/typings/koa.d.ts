@@ -20,6 +20,8 @@ export type AuthState = MakeMaybe<AppState, 'session'>;
 
 export type ErrorState = MakeMaybe<AppState, 'session'>;
 
+export type UnkownState = MakeMaybe<AppState, 'session'>;
+
 type WithLogger<T> = T & {
 	log: Logger;
 };
@@ -31,4 +33,6 @@ declare module 'koa' {
 	export type LoginContext = CreateContext<LoginState>;
 	export type AuthContext = CreateContext<AuthState>;
 	export type ErrorContext = CreateContext<ErrorState>;
+
+	export type UnknownContext = CreateContext<UnkownState>;
 }
