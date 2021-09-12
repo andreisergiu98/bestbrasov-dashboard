@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"target": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext"],
+		"rootDir": ".",
 		"allowJs": false,
 		"skipLibCheck": true,
 		"esModuleInterop": false,
@@ -16,11 +17,9 @@
 		"jsx": "react-jsx",
 		"types": ["react/next", "react-dom/next", "vite-plugin-svgr/client"],
 		"typeRoots": ["./typings"],
-		"baseUrl": ".",
 		"paths": {
 			"@generated/*": ["./__generated__/*", "./__generated__/"]
 		}
 	},
-	"include": ["."],
 	"exclude": [".vite", ".dist", ".eslintrc.js", ".vite.config.js"]
 }

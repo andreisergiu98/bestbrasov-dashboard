@@ -5,12 +5,12 @@
 	"private": true,
 	"scripts": {
 		"start": "node .dist",
-		"start:dev": "env FORCE_COLOR=true concurrently -n codegen,app -c magenta,blue 'yarn generate:dev' 'yarn build:dev'",
+		"start:dev": "yarn generate && env FORCE_COLOR=true concurrently -n codegen,app -c magenta,blue 'yarn generate:dev' 'yarn build:dev'",
 		"start:app:dev": "node --inspect --enable-source-maps .dist | pino-pretty -c -t SYS:dd.mm.yyyy HH:MM:ss",
 		"build": "yarn generate && tsc && node esbuild.config.js",
 		"build:dev": "dotenv -- node esbuild.config.js --dev",
 		"generate": "yarn prisma generate",
-		"generate:dev": "chokidar schema.prisma --initial -c \"yarn generate\"",
+		"generate:dev": "chokidar schema.prisma -c 'yarn generate'",
 		"lint": "eslint . --ext .js,.ts",
 		"prisma": "dotenv -- pnpify prisma"
 	},

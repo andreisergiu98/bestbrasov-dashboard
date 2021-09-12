@@ -14,7 +14,7 @@ module.exports = {
 		'import/resolver': {
 			typescript: {
 				alwaysTryTypes: true,
-				project: __dirname,
+				project: __dirname + '/tsconfig.eslint.json',
 			},
 		},
 	},
@@ -47,8 +47,8 @@ module.exports = {
 			{
 				patterns: [
 					{
-						group: ['*/__generated__/data/*'],
-						message: 'Please use @lib/data instead.',
+						group: ['*/__generated__/types/*'],
+						message: 'Use @generated/types instead.',
 					},
 				],
 			},

@@ -11,7 +11,7 @@ module.exports = {
 		'import/resolver': {
 			typescript: {
 				alwaysTryTypes: true,
-				project: __dirname,
+				project: __dirname + '/tsconfig.eslint.json',
 			},
 		},
 	},
@@ -35,11 +35,11 @@ module.exports = {
 				patterns: [
 					{
 						group: ['*/__generated/prisma/*'],
-						message: 'Please use @lib/prisma instead.',
+						message: 'Use @lib/prisma instead.',
 					},
 					{
 						group: ['*/__generated/data/*'],
-						message: 'Please use @lib/resolvers instead.',
+						message: 'Use modules/resolvers instead.',
 					},
 				],
 			},
