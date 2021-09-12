@@ -14,9 +14,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/client@npm:^3.5.0-beta.12":
-  version: 3.5.0-beta.12
-  resolution: "@apollo/client@npm:3.5.0-beta.12"
+"@apollo/client@npm:^3.4.11":
+  version: 3.4.11
+  resolution: "@apollo/client@npm:3.4.11"
   dependencies:
     "@graphql-typed-document-node/core": ^3.0.0
     "@wry/context": ^0.6.0
@@ -29,7 +29,7 @@ __metadata:
     symbol-observable: ^4.0.0
     ts-invariant: ^0.9.0
     tslib: ^2.3.0
-    zen-observable-ts: ^1.2.0
+    zen-observable-ts: ~1.1.0
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0
     react: ^16.8.0 || ^17.0.0
@@ -39,7 +39,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: 93e40fa2a4d5386fbc4daeb6bdcc43745fa27858efd480d1f1d9ec39ba47613872293e25e11d0490720056ed6fe2a8383d7b5dde79f0d60419889da286e23ca1
+  checksum: 8e068f737a506d4aae6cc63743fd44d20a0afdeda32b4eb84114a23f863331eeb7a7b8098fcdd08817ec2fbad4515d5d89b7a0ac5a915be60cdd4899d8bcf72f
   languageName: node
   linkType: hard
 
@@ -958,7 +958,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.31.0
     "@yarnpkg/pnpify": ^3.0.1-rc.3
     apollo-server-koa: ^3.3.0
-    bullmq: ^1.46.4
+    bullmq: ^1.46.5
     chalk: ^4.1.2
     chokidar-cli: ^3.0.0
     class-validator: ^0.13.1
@@ -983,7 +983,6 @@ __metadata:
     jsonwebtoken: ^8.5.1
     koa: ^2.13.1
     koa-bodyparser: ^4.3.0
-    module-alias: ^2.2.2
     openid-client: ^4.7.5
     pino: ^7.0.0-rc.4
     pino-pretty: ^7.0.0
@@ -1003,7 +1002,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bestbrasov/frontend@workspace:frontend"
   dependencies:
-    "@apollo/client": ^3.5.0-beta.12
+    "@apollo/client": ^3.4.11
     "@emotion/react": ^11.4.1
     "@emotion/styled": ^11.3.0
     "@graphql-codegen/cli": ^2.2.0
@@ -3766,6 +3765,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/zen-observable@npm:0.8.3":
+  version: 0.8.3
+  resolution: "@types/zen-observable@npm:0.8.3"
+  checksum: 08c88354abcf03a2176a2ec32e07da1f25fdad94fbc2f419bea53d77deb04ad4759518b4fe3fc695e61065dd4bdf7c8bd26b5211a6cd5be2233872806bdee48d
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^4.31.0":
   version: 4.31.0
   resolution: "@typescript-eslint/eslint-plugin@npm:4.31.0"
@@ -4952,9 +4958,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^1.46.4":
-  version: 1.46.4
-  resolution: "bullmq@npm:1.46.4"
+"bullmq@npm:^1.46.5":
+  version: 1.46.5
+  resolution: "bullmq@npm:1.46.5"
   dependencies:
     "@types/ioredis": ^4.27.0
     cron-parser: ^2.7.3
@@ -4964,7 +4970,7 @@ __metadata:
     semver: ^6.3.0
     tslib: ^1.10.0
     uuid: ^8.3.2
-  checksum: eb51c1c2f400424bd84cc826aea42bc1d33df0dd7a231ab08af7ee3b3b30f12b83aab38ef9497026fc66326f14f6925fbd5c57ef7c7a1d52ed41b89ed8de1afb
+  checksum: 804d8dcb64e4e440b68efdacf6ff95d809618295887390053ed43f38f7fefdfb405c46c461484ee4f808ac04ef9699b1f08787b16e7e2f1580295c6cea7a5927
   languageName: node
   linkType: hard
 
@@ -9575,13 +9581,6 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"module-alias@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "module-alias@npm:2.2.2"
-  checksum: 4b5543f834b484033e5bd184096ca8276b9195e32e88883ee6ea8d3a4789d97c470d26f5fa7271bd7a26588bf67e4d27dbdb594ee327aef1c9619d855dc78342
-  languageName: node
-  linkType: hard
-
 "moment-timezone@npm:^0.5.31":
   version: 0.5.33
   resolution: "moment-timezone@npm:0.5.33"
@@ -13202,12 +13201,13 @@ typescript@^4.4.3:
   languageName: node
   linkType: hard
 
-"zen-observable-ts@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "zen-observable-ts@npm:1.2.0"
+"zen-observable-ts@npm:~1.1.0":
+  version: 1.1.0
+  resolution: "zen-observable-ts@npm:1.1.0"
   dependencies:
+    "@types/zen-observable": 0.8.3
     zen-observable: 0.8.15
-  checksum: bb92cbd44aa62f311fe8de51a87b751cf797ddfcc1960753b9a7144ca228e9fee7b36fcebfb7d148d1abbabfe4f159fc5d5278a92b546c6307d6fadba2dde9d5
+  checksum: 1772727f2c96af228c52b008260e1e4ae512782abc9d4f4a78d1a61913aa3b55ae672ad343ecf6895d9b968b5e3f4a41b5a317702cdc6cd5f6f93bc0dacf8103
   languageName: node
   linkType: hard
 

@@ -1,7 +1,8 @@
 import config from '@lib/config';
 import { buildSchema, BuildSchemaOptions } from 'type-graphql';
-import { UserCrudResolver } from '@lib/resolvers';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
+
+import { UserCrudResolver } from './resolvers';
 
 export const schema: BuildSchemaOptions = {
 	resolvers: [UserCrudResolver],

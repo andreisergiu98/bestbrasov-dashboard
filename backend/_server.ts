@@ -1,21 +1,16 @@
 import Koa from 'koa';
 import bodyparser from 'koa-bodyparser';
 
-import http from 'http';
-
-import config from '@lib/config';
-import { logger } from '@lib/logger';
 import { prisma } from '@lib/prisma';
-import { createSchema } from '@lib/schema';
+import { createServer } from '@lib/apollo';
 import { redis, redisAuthBlocklist } from '@lib/redis';
-import { useApollo, useSubscriptions } from '@lib/apollo';
 import { pubsub, publisher, subscriber } from '@lib/pubsub';
 
 import { authentication } from './modules/auth';
 
 import { cors } from './middlewares/cors';
 import { catchError } from './middlewares/koa-error';
-import { useKoaLogger } from 'middlewares/koa-logger';
+import { koaLogger } from './middlewares/koa-logger';
 
 import { registerCronJobs } from './jobs/cron';
 
@@ -32,11 +27,9 @@ export async function init() {
 		redisAuthBlocklist.connect(),
 	]);
 
-	const schema = await createSchema(pubsub);
-
 	registerCronJobs();
 
-	app.use(useKoaLogger(config.logging.koa));
+	app.use(koaLogger());
 
 	app.use(catchError());
 
@@ -48,13 +41,5 @@ export async function init() {
 
 	app.use(routes);
 
-	await useApollo(app, schema);
-
-	const server = http.createServer(app.callback());
-
-	await useSubscriptions(server, schema);
-
-	server.listen(config.server.port, () => {
-		logger.info(`Server is running on port ${config.server.port}`);
-	});
+	await createServer(app, pubsub);
 }

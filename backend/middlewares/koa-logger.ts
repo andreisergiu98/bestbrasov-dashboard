@@ -2,6 +2,7 @@ import Koa from 'koa';
 import chalk from 'chalk';
 import prettyMs from 'pretty-ms';
 import prettyBytes from 'pretty-bytes';
+import config from '@lib/config';
 import { createLogger, LoggerOptions } from '@lib/logger';
 
 const colorCodes = {
@@ -61,9 +62,10 @@ function createLog(
 	);
 }
 
-export const useKoaLogger = (options: LoggerOptions = {}) => {
+export const koaLogger = (options: LoggerOptions = {}) => {
 	const logger = createLogger({
 		name: 'koa',
+		...config.logging.koa,
 		...options,
 	});
 
