@@ -1,6 +1,6 @@
 const esbuild = require('esbuild');
 const { nodeExternalsPlugin } = require('esbuild-node-externals');
-const { esbuildDecorators } = require('@anatine/esbuild-decorators');
+const { esbuildDecorators } = require('esbuild-plugin-decorators');
 const { esbuildTypechecking } = require('esbuild-plugin-typecheck');
 const { esbuildRunner } = require('esbuild-plugin-runner');
 const fs = require('fs');
@@ -42,6 +42,7 @@ async function build() {
 		sourcemap: true,
 		platform: 'node',
 		watch: isDev || undefined,
+		incremental: true,
 		target: 'node16',
 		plugins: isDev ? plugins.concat(devPlugins) : plugins,
 	});

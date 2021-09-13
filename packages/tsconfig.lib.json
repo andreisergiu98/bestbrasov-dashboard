@@ -9,7 +9,6 @@
 		"noImplicitThis": true,
 		"importHelpers": true,
 		"alwaysStrict": true,
-		"noImplicitReturns": true,
 		"noUnusedLocals": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
