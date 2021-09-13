@@ -26,7 +26,7 @@ module.exports = {
 		'/__generated__/**',
 		'/migrations/**',
 		'/.eslintrc.js',
-		'/esbuild.config.js',
+		'/esbuild*.js',
 	],
 	rules: {
 		'no-restricted-imports': [

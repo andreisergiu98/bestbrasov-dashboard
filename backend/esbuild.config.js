@@ -1,50 +1,38 @@
 const esbuild = require('esbuild');
+
 const { nodeExternalsPlugin } = require('esbuild-node-externals');
-const { esbuildDecorators } = require('esbuild-plugin-decorators');
-const { esbuildTypechecking } = require('esbuild-plugin-typecheck');
-const { esbuildRunner } = require('esbuild-plugin-runner');
-const fs = require('fs');
+const { esbuildDecorators } = require('esbuild-plugin-ts-decorators');
+const { esbuildWatchTypes } = require('esbuild-plugin-watch-types');
+const { esbuildCommands } = require('esbuild-plugin-commands');
+
+const { copyStaticFiles } = require('./esbuild.files');
 
 const args = process.argv.slice(2);
-
 const isDev = args.includes('--dev') || args.includes('-d');
 
-const outdir = '.dist';
-const prismaSchema = 'schema.prisma';
-const entryPoints = ['index.ts'];
-
-function copyPrismaSchema() {
-	return {
-		name: 'copy-prisma-schema',
-		async setup(build) {
-			build.onStart(async () => {
-				try {
-					await fs.promises.mkdir(outdir, { recursive: true });
-				} catch (e) {}
-				await fs.promises.copyFile(prismaSchema, `${outdir}/${prismaSchema}`);
-			});
-		},
-	};
-}
-
-const plugins = [copyPrismaSchema(), nodeExternalsPlugin(), esbuildDecorators()];
+const plugins = [
+	nodeExternalsPlugin(),
+	esbuildDecorators(),
+	copyStaticFiles({ files: ['schema.prisma'] }),
+];
 
 const devPlugins = [
-	esbuildTypechecking(),
-	esbuildRunner({ onSuccess: 'yarn start:app:dev' }),
+	...plugins,
+	esbuildCommands({ onSuccess: 'yarn start:app:dev' }),
+	esbuildWatchTypes(),
 ];
 
 async function build() {
 	await esbuild.build({
-		entryPoints,
-		outdir,
+		entryPoints: ['index.ts'],
+		outdir: '.dist',
 		bundle: true,
+		color: true,
 		sourcemap: true,
 		platform: 'node',
 		watch: isDev || undefined,
-		incremental: true,
 		target: 'node16',
-		plugins: isDev ? plugins.concat(devPlugins) : plugins,
+		plugins: isDev ? devPlugins : plugins,
 	});
 }
 
