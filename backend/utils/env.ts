@@ -106,9 +106,9 @@ export function EnvParam(key: string, options?: Options) {
 		validateValue(key, value, { ...options, type });
 
 		Object.defineProperty(target, propertyKey, {
-			get() {
-				return value;
-			},
+			value,
+			enumerable: true,
+			configurable: true,
 		});
 	};
 }
