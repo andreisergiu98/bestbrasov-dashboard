@@ -34,7 +34,6 @@ export async function useSubscriptions(server: http.Server, schema: GraphQLSchem
 					const data = await verifyWSToken(ctx.extra.request.headers.cookie);
 					ctx.extra.userId = data.userId;
 				} catch (e) {
-					console.log('unauthorized');
 					return false;
 				}
 			},
