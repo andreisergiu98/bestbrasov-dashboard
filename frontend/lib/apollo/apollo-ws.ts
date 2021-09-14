@@ -44,9 +44,4 @@ class WebSocketLink extends ApolloLink {
 
 export const webSocketLink = new WebSocketLink({
 	url: config.api.subscriptionsUrl,
-	connectionParams: () => {
-		return {
-			Authorization: auth.getWebSocketToken(),
-		};
-	},
 });

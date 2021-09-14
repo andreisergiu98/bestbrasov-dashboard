@@ -43,6 +43,7 @@
 		"tslib": "^2.3.1",
 		"type-graphql": "^1.1.1",
 		"ua-parser-js": "^0.7.28",
+		"universal-cookie": "^4.0.4",
 		"ws": "^8.2.2"
 	},
 	"devDependencies": {

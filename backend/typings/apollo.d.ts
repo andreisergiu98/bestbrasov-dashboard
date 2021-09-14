@@ -6,4 +6,9 @@ declare global {
 		prisma: PrismaClient;
 		session: AppState['session'];
 	}
+
+	export interface SubscriptionContext {
+		userId: string;
+		prisma: PrismaClient;
+	}
 }
