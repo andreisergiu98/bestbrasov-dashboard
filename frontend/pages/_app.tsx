@@ -1,13 +1,33 @@
+import { Providers, useAuth, UserProvider } from '../providers';
 import { Router } from '../components/router';
 import { Layout } from '../components/layout';
-import { Providers } from '../providers';
+import { LoadingScreen } from '../components/loading-screen';
+import { LoginPage } from './login';
 
-export default function App() {
+function App() {
+	const auth = useAuth();
+
+	if (auth.error || auth.loggedOut) {
+		return <LoginPage />;
+	}
+
+	if (auth.loading || !auth.user) {
+		return <LoadingScreen />;
+	}
+
 	return (
-		<Providers>
+		<UserProvider value={auth.user}>
 			<Layout>
 				<Router />
 			</Layout>
+		</UserProvider>
+	);
+}
+
+export default function WithProviders() {
+	return (
+		<Providers>
+			<App />
 		</Providers>
 	);
 }

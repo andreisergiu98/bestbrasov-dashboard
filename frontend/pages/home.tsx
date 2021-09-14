@@ -1,14 +1,7 @@
-import { Button } from '@material-ui/core';
-import { useLocation } from 'react-router-dom';
-import config from '../lib/config';
+import { useUser } from '../providers';
 
 export default function HomePage() {
-	const location = useLocation();
-	const backTo = window.location.origin + location.pathname;
+	const user = useUser();
 
-	return (
-		<div>
-			<Button href={`${config.api.baseUrl}/v1/auth/login?backTo=${backTo}`}>Login</Button>
-		</div>
-	);
+	return <div>{JSON.stringify(user, null, 4)}</div>;
 }

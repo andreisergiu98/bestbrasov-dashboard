@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Apollo from './apollo';
-import MaterialProvider from './material';
+import { ApolloProvider } from './apollo';
+import { MaterialProvider } from './material';
+import { AuthProvider } from './auth';
 
 interface Props {
 	children: ReactNode;
@@ -9,10 +10,12 @@ interface Props {
 
 export function Providers(props: Props) {
 	return (
-		<Apollo>
+		<ApolloProvider>
 			<BrowserRouter>
-				<MaterialProvider>{props.children}</MaterialProvider>
+				<MaterialProvider>
+					<AuthProvider>{props.children}</AuthProvider>
+				</MaterialProvider>
 			</BrowserRouter>
-		</Apollo>
+		</ApolloProvider>
 	);
 }

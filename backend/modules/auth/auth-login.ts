@@ -16,13 +16,17 @@ import {
 } from './auth-utils';
 
 export const login = async (ctx: Koa.LoginContext) => {
+	const origin = ctx.headers['referer'];
+
 	const silentLogin = getLoginParam(ctx.query.silent) === 'true';
 	const backToPath = getLoginParam(ctx.query.backTo) ?? '/';
 
 	const idToken = await maybeGetIdToken(ctx);
 
 	if (silentLogin && !idToken) {
-		throw new AppError(400, 'Cannot silent login without the previous token!');
+		ctx.status = 400;
+		ctx.body = createSilentCallbackIframe(false, origin);
+		return;
 	}
 
 	const { authorizationUrl, codeVerifier } = await googleOpenId.createAuthorization(
@@ -31,9 +35,9 @@ export const login = async (ctx: Koa.LoginContext) => {
 	);
 
 	setLoginStateCookie(ctx, {
-		codeVerifier,
 		backToPath,
 		silentLogin,
+		codeVerifier,
 	});
 
 	ctx.redirect(authorizationUrl);
@@ -67,6 +71,7 @@ const handleLoginCallback = async (ctx: Koa.LoginContext, state?: AuthState) => 
 
 	setSessionCookie(ctx, sessionToken);
 	setSessionTtlCookie(ctx, tokenSet.expires_at);
+
 	ctx.redirect(backToPath);
 };
 

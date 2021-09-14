@@ -1,0 +1,6 @@
+query TryAuth {
+	me {
+		roles
+		...UserProfile
+	}
+}

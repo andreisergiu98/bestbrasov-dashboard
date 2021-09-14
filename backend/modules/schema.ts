@@ -3,9 +3,10 @@ import { buildSchema, BuildSchemaOptions } from 'type-graphql';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 
 import { UserCrudResolver } from './resolvers';
+import { MeResolver } from './users';
 
 export const schema: BuildSchemaOptions = {
-	resolvers: [UserCrudResolver],
+	resolvers: [UserCrudResolver, MeResolver],
 	validate: true,
 	emitSchemaFile: config.schema.path,
 };

@@ -7,7 +7,7 @@ interface Props {
 	children: ReactNode;
 }
 
-export default function MaterialProvider(props: Props) {
+export function MaterialProvider(props: Props) {
 	return (
 		<StyledEngineProvider injectFirst>
 			<ThemeProvider theme={theme}>
