@@ -39,9 +39,6 @@ export class EnvParams {
 
 	@EnvParam('OPENID_GOOGLE_CLIENT_REDIRECT', { required: true })
 	readonly openidGoogleClientRedirect!: string;
-
-	@EnvParam('OPENID_GOOGLE_CLIENT_SILENT_REDIRECT', { required: true })
-	readonly openidGoogleClientSilentRedirect!: string;
 }
 
 export const env = new EnvParams();

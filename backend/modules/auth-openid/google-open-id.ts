@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention,camelcase */
 import config from '@lib/config';
 import { IncomingMessage } from 'http';
-import { CallbackParamsType, Client, generators, Issuer, TokenSet } from 'openid-client';
+import { Client, generators, Issuer, TokenSet } from 'openid-client';
 import { LoginUserInfo } from '../auth/auth-user';
 
 const defaultScopes = [
@@ -20,7 +20,6 @@ export class GoogleOpenId {
 		id: config.auth.googleOpenId.clientId,
 		secret: config.auth.googleOpenId.secret,
 		redirect: config.auth.googleOpenId.redirectUri,
-		silentRedirect: config.auth.googleOpenId.silentRedirectUri,
 	};
 
 	async discoverIssuer() {
@@ -34,22 +33,20 @@ export class GoogleOpenId {
 		return this.loadClient();
 	}
 
-	async createAuthorization(silent?: boolean) {
+	async createAuthorization(silent?: boolean, idToken?: string) {
 		const client = await this.getClient();
 		const codeVerifier = generators.codeVerifier();
 		const codeChallenge = generators.codeChallenge(codeVerifier);
 
 		let prompt: string | undefined = undefined;
-		let redirectUri = this.config.redirect;
-
-		if (silent) {
+		if (silent && idToken) {
 			prompt = 'none';
-			redirectUri = this.config.silentRedirect;
 		}
 
 		const authorizationUrl = await client.authorizationUrl({
 			prompt,
-			redirect_uri: redirectUri,
+			id_token_hint: idToken,
+			redirect_uri: this.config.redirect,
 			scope: defaultScopes.join(' '),
 			code_challenge: codeChallenge,
 			code_challenge_method: 'S256',
@@ -61,20 +58,12 @@ export class GoogleOpenId {
 		};
 	}
 
-	async callback(params: CallbackParamsType, codeVerifier: string, silent = false) {
+	async callback(req: IncomingMessage, codeVerifier: string) {
 		const client = await this.getClient();
-		return client.callback(
-			silent ? this.config.silentRedirect : this.config.redirect,
-			params,
-			{
-				code_verifier: codeVerifier,
-			}
-		);
-	}
-
-	async getCallbackParams(req: IncomingMessage) {
-		const client = await this.getClient();
-		return client.callbackParams(req);
+		const params = client.callbackParams(req);
+		return client.callback(this.config.redirect, params, {
+			code_verifier: codeVerifier,
+		});
 	}
 
 	async getUserInfo(tokenSet: TokenSet): Promise<LoginUserInfo> {
@@ -98,7 +87,7 @@ export class GoogleOpenId {
 		this.authClient = new googleIssuer.Client({
 			client_id: this.config.id,
 			client_secret: this.config.secret,
-			redirect_uris: [this.config.redirect, this.config.silentRedirect],
+			redirect_uris: [this.config.redirect],
 			response_types: ['code'],
 		});
 		return this.authClient;

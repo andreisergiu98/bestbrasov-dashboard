@@ -9,7 +9,7 @@ export class AppConfig {
 		baseUrl: env.apiBaseUrl,
 		graphqlUrl: env.apiGraphql,
 		subscriptionsUrl: env.apiSubscriptions,
-		authRefreshUrl: env.apiBaseUrl + '/v1/auth/silent-callback',
+		authRefreshUrl: env.apiBaseUrl + '/v1/auth/login?silent=true',
 	};
 }
 

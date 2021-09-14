@@ -1,21 +1,18 @@
 import Koa from 'koa';
 import config from '@lib/config';
+import Cookies from 'universal-cookie';
 
 const SESSION_COOKIE_KEY = 'x-auth-token';
-const SESSION_WS_COOKIE_KEY = 'x-auth-ws-token';
 const SESSION_TTL_COOKIE_KEY = 'x-auth-ttl';
 const LOGIN_STATE_COOKIE_KEY = 'x-auth-login-state';
 
 export interface AuthState {
 	backToPath: string;
+	silentLogin: boolean;
 	codeVerifier: string;
 }
 
-function encodeLoginState(codeVerifier: string, backToPath: string) {
-	const state = {
-		codeVerifier,
-		backToPath,
-	};
+function encodeLoginState(state: AuthState) {
 	return Buffer.from(JSON.stringify(state)).toString('base64');
 }
 
@@ -32,6 +29,12 @@ export function getLoginParam(param?: string | string[]) {
 
 export function getSessionCookie(ctx: Koa.Context) {
 	return ctx.cookies.get(SESSION_COOKIE_KEY);
+}
+
+export function getSessionCookieFromCookies(cookie: string) {
+	const cookies = new Cookies(cookie);
+	const token: string | undefined = cookies.get(SESSION_COOKIE_KEY);
+	return token;
 }
 
 export function setSessionCookie(ctx: Koa.Context, token: string): void {
@@ -57,7 +60,6 @@ export function setSessionTtlCookie(ctx: Koa.Context, ttl?: number): void {
 
 export function removeSessionCookies(ctx: Koa.Context) {
 	ctx.cookies.set(SESSION_COOKIE_KEY, '');
-	ctx.cookies.set(SESSION_WS_COOKIE_KEY, '');
 	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, '');
 }
 
@@ -68,13 +70,10 @@ export function getLoginStateCookie(ctx: Koa.Context) {
 	}
 }
 
-export function setLoginStateCookie(
-	ctx: Koa.Context,
-	codeVerifier: string,
-	backToPath: string
-) {
-	const state = encodeLoginState(codeVerifier, backToPath);
-	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, state, {
+export function setLoginStateCookie(ctx: Koa.Context, state: AuthState) {
+	const encodedState = encodeLoginState(state);
+
+	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, encodedState, {
 		maxAge: 15 * 60 * 1000,
 		httpOnly: true,
 		sameSite: false,

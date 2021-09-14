@@ -48,7 +48,7 @@ export class ServerConfig {
 	};
 
 	readonly auth = {
-		whitelist: ['/v1/auth/login', '/v1/auth/callback', '/v1/auth/silent-callback'],
+		whitelist: ['/v1/auth/login', '/v1/auth/callback'],
 		secretIssueTTL: 12, // months
 		secretValidTTL: 6, // months
 
@@ -61,7 +61,6 @@ export class ServerConfig {
 			clientId: env.openidGoogleClientId,
 			secret: env.openidGoogleClientSecret,
 			redirectUri: env.openidGoogleClientRedirect,
-			silentRedirectUri: env.openidGoogleClientSilentRedirect,
 		},
 	};
 
