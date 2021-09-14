@@ -22,7 +22,7 @@ export async function useSubscriptions(server: http.Server, schema: GraphQLSchem
 			schema,
 			context: (ctx): SubscriptionContext => {
 				if (!ctx.extra.userId) {
-					throw new Error('No in websocket conenction userId');
+					throw new Error('No userId in websocket connection!');
 				}
 				return {
 					prisma,
