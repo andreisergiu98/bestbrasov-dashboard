@@ -9,8 +9,8 @@
 
 # generated
 /__generated__
-*.gql.d.ts
-*.graphql.d.ts
+*.gql.ts
+*.graphql.ts
 
 # misc
 .env.local

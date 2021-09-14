@@ -4,7 +4,7 @@
 		"**/.pnp.*": true
 	},
 	"files.exclude": {
-		"frontend/**/*.gql.d.ts": true
+		"frontend/**/*.gql.ts": true
 	},
 	"eslint.nodePath": ".yarn/sdks",
 	"typescript.tsdk": ".yarn/sdks/typescript/lib",

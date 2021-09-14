@@ -10,8 +10,13 @@ generates:
   ./:
     preset: near-operation-file
     presetConfig:
-      extension: .gql.d.ts
+      extension: .gql.ts
       baseTypesPath: __generated__/types
     plugins:
+      - add
       - typescript-operations
-      - near-file-typed-documents
+      - typed-document-node
+    config:
+      content: "/* eslint-disable */"
+      documentVariableSuffix: ""
+      documentNodeImport: "@apollo/client#TypedDocumentNode"

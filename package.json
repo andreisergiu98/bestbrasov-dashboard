@@ -4,13 +4,11 @@
 		"prisma": "yarn workspace @bestbrasov/backend prisma",
 		"backend": "yarn workspace @bestbrasov/backend",
 		"frontend": "yarn workspace @bestbrasov/frontend",
-		"build:packages": "yarn workspaces foreach -p --exclude '{@bestbrasov/backend,@bestbrasov/frontend}' run build",
 		"postinstall": "husky install"
 	},
 	"workspaces": [
 		"backend",
-		"frontend",
-		"packages/**"
+		"frontend"
 	],
 	"devDependencies": {
 		"@commitlint/cli": "^13.1.0",
