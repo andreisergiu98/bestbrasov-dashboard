@@ -16,7 +16,7 @@
 		"@commitlint/cli": "^13.1.0",
 		"@commitlint/config-conventional": "^13.1.0",
 		"@typescript-eslint/parser": "^4.31.1",
-		"@yarnpkg/sdks": "^2.4.2-rc.4",
+		"@yarnpkg/sdks": "^2.4.2-rc.5",
 		"eslint": "^7.32.0",
 		"eslint-import-resolver-typescript": "^2.5.0",
 		"eslint-plugin-import": "^2.24.2",

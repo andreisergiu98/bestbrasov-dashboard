@@ -21,9 +21,9 @@
 		"graphql-ws": "^5.5.0",
 		"history": "^5.0.1",
 		"js-cookie": "^3.0.1",
-		"react": "^18.0.0-alpha-edfe50510-20210823",
-		"react-dom": "^18.0.0-alpha-edfe50510-20210823",
-		"react-is": "^18.0.0-alpha-edfe50510-20210823",
+		"react": "^18.0.0-alpha-fd5e01c2e-20210913",
+		"react-dom": "^18.0.0-alpha-fd5e01c2e-20210913",
+		"react-is": "^18.0.0-alpha-fd5e01c2e-20210913",
 		"react-router-dom": "^6.0.0-beta.4",
 		"web-vitals": "^2.1.0"
 	},

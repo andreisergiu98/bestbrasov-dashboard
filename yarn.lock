@@ -944,7 +944,7 @@ __metadata:
     "@types/ws": ^7.4.7
     "@typescript-eslint/eslint-plugin": ^4.31.1
     "@typescript-eslint/parser": ^4.31.1
-    "@yarnpkg/pnpify": ^3.0.1
+    "@yarnpkg/pnpify": ^3.0.1-rc.5
     apollo-server-koa: ^3.3.0
     bullmq: ^1.46.5
     chalk: ^4.1.2
@@ -953,11 +953,11 @@ __metadata:
     concurrently: ^6.2.1
     date-fns: ^2.23.0
     dotenv-cli: ^4.0.0
-    esbuild: ^0.12.27
+    esbuild: ^0.12.28
     esbuild-node-externals: ^1.3.0
     esbuild-plugin-commands: ^1.0.0
+    esbuild-plugin-ts-checker: ^1.0.0
     esbuild-plugin-ts-decorators: ^1.0.1
-    esbuild-plugin-watch-types: ^1.0.1
     eslint: ^7.32.0
     eslint-plugin-import: ^2.24.2
     eventemitter3: ^4.0.7
@@ -1026,9 +1026,9 @@ __metadata:
     history: ^5.0.1
     js-cookie: ^3.0.1
     near-file-typed-documents: "workspace:packages/near-file-typed-documents"
-    react: ^18.0.0-alpha-edfe50510-20210823
-    react-dom: ^18.0.0-alpha-edfe50510-20210823
-    react-is: ^18.0.0-alpha-edfe50510-20210823
+    react: ^18.0.0-alpha-fd5e01c2e-20210913
+    react-dom: ^18.0.0-alpha-fd5e01c2e-20210913
+    react-is: ^18.0.0-alpha-fd5e01c2e-20210913
     react-router-dom: ^6.0.0-beta.4
     typescript: ^4.4.3
     vite: ^2.5.7
@@ -3520,13 +3520,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ps-tree@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@types/ps-tree@npm:1.1.1"
-  checksum: 3535a3643c20d3467dd63def73cca9600ab840577fa0c72f156119c697ac4185146faec5d9d68a26fe362b48106516a54576aee0d16afdace1919cdd9eecd901
-  languageName: node
-  linkType: hard
-
 "@types/qs@npm:*":
   version: 6.9.6
   resolution: "@types/qs@npm:6.9.6"
@@ -3914,19 +3907,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^3.1.0-rc.5":
-  version: 3.1.0-rc.5
-  resolution: "@yarnpkg/core@npm:3.1.0-rc.5"
+"@yarnpkg/core@npm:^3.1.0-rc.6":
+  version: 3.1.0-rc.6
+  resolution: "@yarnpkg/core@npm:3.1.0-rc.6"
   dependencies:
     "@arcanis/slice-ansi": ^1.0.2
     "@types/semver": ^7.1.0
     "@types/treeify": ^1.0.0
-    "@yarnpkg/fslib": ^2.6.0-rc.4
+    "@yarnpkg/fslib": ^2.6.0-rc.5
     "@yarnpkg/json-proxy": ^2.1.1
     "@yarnpkg/libzip": ^2.2.2
-    "@yarnpkg/parsers": ^2.4.1-rc.4
-    "@yarnpkg/pnp": ^3.1.0-rc.1
-    "@yarnpkg/shell": ^3.1.0-rc.1
+    "@yarnpkg/parsers": ^2.4.1-rc.5
+    "@yarnpkg/pnp": ^3.1.0-rc.2
+    "@yarnpkg/shell": ^3.1.0-rc.2
     camelcase: ^5.3.1
     chalk: ^3.0.0
     ci-info: ^2.0.0
@@ -3950,7 +3943,7 @@ __metadata:
     treeify: ^1.1.0
     tslib: ^1.13.0
     tunnel: ^0.0.6
-  checksum: 23c6d71440fa5c699aefb770dcd432a88ed5ce818802d6a47e74893816fb22d04d34cf3514d0e36ff5ce1c4690438733085e9bcd0d98b77b5af1ce2573bf4326
+  checksum: aa2918fe402aa51a3160819d6d86a8d637955c3019bf5a0dfbf43d15154237ee5d3834adac068265ed6a80dacc1752137f289a6cb9b8fe6ed2574af44d9ed6de
   languageName: node
   linkType: hard
 
@@ -3964,13 +3957,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^2.6.0-rc.4":
-  version: 2.6.0-rc.4
-  resolution: "@yarnpkg/fslib@npm:2.6.0-rc.4"
+"@yarnpkg/fslib@npm:^2.6.0-rc.5":
+  version: 2.6.0-rc.5
+  resolution: "@yarnpkg/fslib@npm:2.6.0-rc.5"
   dependencies:
     "@yarnpkg/libzip": ^2.2.2
     tslib: ^1.13.0
-  checksum: cf5396724a6d03c11b2e88def6bd99d4228e2a340392fbcd77fa30b9e877c308c9f0da0323cacd6b20ea035b9d525ac12015efd971ad13a061e4ecde80e57e3f
+  checksum: a41517f482aef3bb4bf55dd0eedbca8a6f9578db8aecea9f07ab6145c93bb70497b37353aa4876b717291148de2e1b6686b90569c4f5b8707261937db668d496
   languageName: node
   linkType: hard
 
@@ -4014,13 +4007,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^2.4.1-rc.4":
-  version: 2.4.1-rc.4
-  resolution: "@yarnpkg/parsers@npm:2.4.1-rc.4"
+"@yarnpkg/parsers@npm:^2.4.1-rc.5":
+  version: 2.4.1-rc.5
+  resolution: "@yarnpkg/parsers@npm:2.4.1-rc.5"
   dependencies:
     js-yaml: ^3.10.0
     tslib: ^1.13.0
-  checksum: e2064015f3a2665f7c5169b71ccb5f8bf6b48964602f4cdcaf9f90a397f93990a7b83eceddaeae540d01c7458d08b7645ffe2e92fd680e9f7faed494e3939e79
+  checksum: 1892e76947ab78cb4de7eb5b48d5bfc5f10815dd170135b6c4a24bcdba08f485c82acfe7548e5f99e56a21083a715695401eab9f703466c72ebcbb9c98fb39d8
   languageName: node
   linkType: hard
 
@@ -4036,19 +4029,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/pnp@npm:^3.1.0-rc.1":
-  version: 3.1.0-rc.1
-  resolution: "@yarnpkg/pnp@npm:3.1.0-rc.1"
+"@yarnpkg/pnp@npm:^3.1.0-rc.2":
+  version: 3.1.0-rc.2
+  resolution: "@yarnpkg/pnp@npm:3.1.0-rc.2"
   dependencies:
     "@types/node": ^13.7.0
-    "@yarnpkg/fslib": ^2.6.0-rc.4
+    "@yarnpkg/fslib": ^2.6.0-rc.5
     resolve.exports: ^1.0.2
     tslib: ^1.13.0
-  checksum: 8b31948d269ea499ba2da11f3a666d51033feefae79626836920fec07b4ed3d5cdec3bc5be27d1ac7b4ba921e34e84af31008c27921b856c51786680a38df08d
+  checksum: 862ff9b15aa47436bea1b17a420e52d2935071af412817919bd77ce48bc7be249a56a628a85d060a674004fc7413060385a3187d61d4dbc7ea0df3f9db9d4204
   languageName: node
   linkType: hard
 
-"@yarnpkg/pnpify@npm:^3.0.1":
+"@yarnpkg/pnpify@npm:^3.0.1-rc.5":
   version: 3.0.1
   resolution: "@yarnpkg/pnpify@npm:3.0.1"
   dependencies:
@@ -4064,13 +4057,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:^2.4.2-rc.4":
-  version: 2.4.2-rc.4
-  resolution: "@yarnpkg/sdks@npm:2.4.2-rc.4"
+"@yarnpkg/sdks@npm:^2.4.2-rc.5":
+  version: 2.4.2-rc.5
+  resolution: "@yarnpkg/sdks@npm:2.4.2-rc.5"
   dependencies:
-    "@yarnpkg/core": ^3.1.0-rc.5
-    "@yarnpkg/fslib": ^2.6.0-rc.4
-    "@yarnpkg/parsers": ^2.4.1-rc.4
+    "@yarnpkg/core": ^3.1.0-rc.6
+    "@yarnpkg/fslib": ^2.6.0-rc.5
+    "@yarnpkg/parsers": ^2.4.1-rc.5
     chalk: ^3.0.0
     clipanion: ^3.0.1
     comment-json: ^2.2.0
@@ -4078,7 +4071,7 @@ __metadata:
     tslib: ^1.13.0
   bin:
     sdks: ./lib/cli.js
-  checksum: 5b8856bf2a4adb102863f76b18d5367fb3a5c74b3705844a9eafcd952095c770f870a18ffc0be10d0efb854d00d32787856adc3c7576f25edb594b28b351b24c
+  checksum: 0fe7a6ee027857c536040de9e463fee09eeebfd827d4e36adca23f20bed264d70925f2c903e64587280a040369a94211e9b74031dc51da69b857e1c64a8ea824
   languageName: node
   linkType: hard
 
@@ -4101,12 +4094,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^3.1.0-rc.1":
-  version: 3.1.0-rc.1
-  resolution: "@yarnpkg/shell@npm:3.1.0-rc.1"
+"@yarnpkg/shell@npm:^3.1.0-rc.2":
+  version: 3.1.0-rc.2
+  resolution: "@yarnpkg/shell@npm:3.1.0-rc.2"
   dependencies:
-    "@yarnpkg/fslib": ^2.6.0-rc.4
-    "@yarnpkg/parsers": ^2.4.1-rc.4
+    "@yarnpkg/fslib": ^2.6.0-rc.5
+    "@yarnpkg/parsers": ^2.4.1-rc.5
     chalk: ^3.0.0
     clipanion: ^3.0.1
     cross-spawn: 7.0.3
@@ -4116,7 +4109,7 @@ __metadata:
     tslib: ^1.13.0
   bin:
     shell: ./lib/cli.js
-  checksum: e13777e70a325cac2f095cf4ba71b2beb33a1252801cb15f62ed0302da70aa24ba283738da1c76248d93da2f4c0f67f270120529a59405d5d9e4df7e77c9e20f
+  checksum: a2fe63bdfe8f9a6dd6c5e3e36f9e09f6fb73b1d44f7ecdb56f6c47469c2bc2daceba4b78f1945f9f69650f3e7642c9e07b3a9e95de7ad63d515c9e6dc8258baf
   languageName: node
   linkType: hard
 
@@ -6371,22 +6364,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-plugin-runner@workspace:packages/esbuild-plugin-runner":
-  version: 0.0.0-use.local
-  resolution: "esbuild-plugin-runner@workspace:packages/esbuild-plugin-runner"
+"esbuild-plugin-ts-checker@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "esbuild-plugin-ts-checker@npm:1.0.0"
   dependencies:
-    "@types/node": ^16.9.1
-    "@types/ps-tree": ^1.1.1
     chalk: ^4.1.2
-    esbuild: ^0.12.27
-    execa: ^5.1.1
-    tree-kill: ^1.2.2
     tslib: ^2.3.1
-    typescript: ^4.4.3
   peerDependencies:
-    esbuild: "*"
-  languageName: unknown
-  linkType: soft
+    esbuild: ^0.12.0
+    typescript: ^4.0.0
+  checksum: 489d59de0e36f4d0d039968499bbbe65c842e4e6a7f74cef4f99e0025ea863d2dd7784168b2a137a830499322522ed917d9966c89ab91a3ab92928477cfe0727
+  languageName: node
+  linkType: hard
 
 "esbuild-plugin-ts-decorators@npm:^1.0.1":
   version: 1.0.1
@@ -6401,19 +6390,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-plugin-watch-types@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "esbuild-plugin-watch-types@npm:1.0.1"
-  dependencies:
-    chalk: ^4.1.2
-    tslib: ^2.3.1
-  peerDependencies:
-    esbuild: ^0.12.0
-    typescript: ^4.0.0
-  checksum: 8cd2ee8b38dc16f6c812edbad08478251e50f660e0dd281dc6845cb49ca4ce1385a4c831d8fd36f7c5b0543852500a50c1e7f292154e0890e1a0e629edd57ffc
-  languageName: node
-  linkType: hard
-
 "esbuild@npm:^0.12.17":
   version: 0.12.22
   resolution: "esbuild@npm:0.12.22"
@@ -6423,12 +6399,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.12.27":
-  version: 0.12.27
-  resolution: "esbuild@npm:0.12.27"
+"esbuild@npm:^0.12.28":
+  version: 0.12.28
+  resolution: "esbuild@npm:0.12.28"
   bin:
     esbuild: bin/esbuild
-  checksum: b40a7098a51d9d74c50a5912477079ecbd96c211d00cbabde3cb4560609b383265c7bbb0f7e350cfc40ed0e13996be25405d14f560eeaad48105cb7c753e24f8
+  checksum: 9127dc048aad41a59d736460b9ea3cf5e367a7e5a650b2b465e066ee291e3c5e9fa5ad4b56cd4dea76cde9a1dee25a0e9e94f558b24170fc124eb0778e043eae
   languageName: node
   linkType: hard
 
@@ -10756,16 +10732,16 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.0.0-alpha-edfe50510-20210823":
-  version: 18.0.0-alpha-edfe50510-20210823
-  resolution: "react-dom@npm:18.0.0-alpha-edfe50510-20210823"
+"react-dom@npm:^18.0.0-alpha-fd5e01c2e-20210913":
+  version: 18.0.0-alpha-fd5e01c2e-20210913
+  resolution: "react-dom@npm:18.0.0-alpha-fd5e01c2e-20210913"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    scheduler: 0.21.0-alpha-edfe50510-20210823
+    scheduler: 0.21.0-alpha-fd5e01c2e-20210913
   peerDependencies:
-    react: 18.0.0-alpha-edfe50510-20210823
-  checksum: dea0df6ea89670adb428c9f4a0625362d4eb9381e6303b1ac0327d13bf542c786dce8b6f450511cdc39411a26a35c23e734f3b0f7ee78f59f8cfcb1948b80da6
+    react: 18.0.0-alpha-fd5e01c2e-20210913
+  checksum: 5b34422e0c8d93c630dfc0dbc495210ed99a383cfce9bed1ca33dab46d8f37b7912ab0e8ee1262c2967b3afd70ea443fe0b8381d4615459023fb4b6876d4cb2f
   languageName: node
   linkType: hard
 
@@ -10783,10 +10759,10 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"react-is@npm:^18.0.0-alpha-edfe50510-20210823":
-  version: 18.0.0-alpha-edfe50510-20210823
-  resolution: "react-is@npm:18.0.0-alpha-edfe50510-20210823"
-  checksum: 25495c7fdcbb57cc45d4ac9f5975a7ea9edea6ac94c4325413295e6443bb9c7b660fc83ed5c866209864b63c110fc3cd09cf89c469165e934cae6927e869129c
+"react-is@npm:^18.0.0-alpha-fd5e01c2e-20210913":
+  version: 18.0.0-alpha-fd5e01c2e-20210913
+  resolution: "react-is@npm:18.0.0-alpha-fd5e01c2e-20210913"
+  checksum: f7b4c14a59f0c01b8871fb700d9769774e3dd1208f498de16439e181df143eb3234169e10b477f97588bdf76d63bc3f136af42294b173d434cd885ff130cffea
   languageName: node
   linkType: hard
 
@@ -10835,13 +10811,13 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"react@npm:^18.0.0-alpha-edfe50510-20210823":
-  version: 18.0.0-alpha-edfe50510-20210823
-  resolution: "react@npm:18.0.0-alpha-edfe50510-20210823"
+"react@npm:^18.0.0-alpha-fd5e01c2e-20210913":
+  version: 18.0.0-alpha-fd5e01c2e-20210913
+  resolution: "react@npm:18.0.0-alpha-fd5e01c2e-20210913"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-  checksum: 5cfea878ea76c1279fdb99b6eb45709a776de0d629ca890285b5dfa8582d831fac2c2ba136281d2b69b001b8f40a98a86f9d7547d80b403dd71a037c988b857e
+  checksum: 21ce782af968d9fcdf4eb5b71e55654a5b5c9a0cf069bd76a540dd7538479fd814d5aefe7d1e2cf26e60242198645bc33b35c79631b3ea9a1da9486ada96c244
   languageName: node
   linkType: hard
 
@@ -11277,7 +11253,7 @@ resolve@^2.0.0-next.3:
     "@commitlint/cli": ^13.1.0
     "@commitlint/config-conventional": ^13.1.0
     "@typescript-eslint/parser": ^4.31.1
-    "@yarnpkg/sdks": ^2.4.2-rc.4
+    "@yarnpkg/sdks": ^2.4.2-rc.5
     eslint: ^7.32.0
     eslint-import-resolver-typescript: ^2.5.0
     eslint-plugin-import: ^2.24.2
@@ -11334,13 +11310,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.21.0-alpha-edfe50510-20210823":
-  version: 0.21.0-alpha-edfe50510-20210823
-  resolution: "scheduler@npm:0.21.0-alpha-edfe50510-20210823"
+"scheduler@npm:0.21.0-alpha-fd5e01c2e-20210913":
+  version: 0.21.0-alpha-fd5e01c2e-20210913
+  resolution: "scheduler@npm:0.21.0-alpha-fd5e01c2e-20210913"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-  checksum: ea835a16abe7a61dcf5299935716591ccd596f6f5b14edadfe4b1df34acc770f019364e9d426f5e209a831722931a290653acc4ea933f138ef614afd210b8327
+  checksum: 28269f0d4dd883bf3274bab0be3e1449acbbdaac431d961906f6dec18d6780b7e90431901c2b328e8b8fcca7f48acea996ab2abc2a8e82494e3996fb24f1f29c
   languageName: node
   linkType: hard
 
