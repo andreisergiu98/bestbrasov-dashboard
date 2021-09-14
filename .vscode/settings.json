@@ -4,6 +4,7 @@
 		"**/.pnp.*": true
 	},
 	"files.exclude": {
+		"frontend/.vite": true,
 		"frontend/**/*.gql.ts": true
 	},
 	"eslint.nodePath": ".yarn/sdks",
