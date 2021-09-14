@@ -1,0 +1,43 @@
+$amount: 10px;
+
+@keyframes ball-pulse {
+	100% {
+		transform: translateY(0);
+	}
+
+	33% {
+		transform: translateY($amount);
+	}
+
+	66% {
+		transform: translateY(-$amount);
+	}
+}
+
+.loading {
+	div {
+		display: inline-block;
+		width: 15px;
+		height: 15px;
+		margin: 3px;
+		border-radius: 100%;
+	}
+
+	div:first-child {
+		background: #69cd28;
+	}
+
+	div:nth-child(2) {
+		background: #1973be;
+	}
+
+	div:last-child {
+		background: #faa519;
+	}
+
+	@for $i from 1 through 3 {
+		div:nth-child(#{$i}) {
+			animation: ball-pulse 0.6s 0.07s * $i infinite ease-in-out;
+		}
+	}
+}
