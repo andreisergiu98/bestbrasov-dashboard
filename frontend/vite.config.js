@@ -15,5 +15,8 @@ export default defineConfig({
 	build: {
 		outDir: '.dist',
 	},
+	resolve: {
+		alias: [{ find: /^(.*)\.gql$/, replacement: '$1.gql.ts' }],
+	},
 	clearScreen: false,
 });

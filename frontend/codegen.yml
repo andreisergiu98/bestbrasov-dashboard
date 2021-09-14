@@ -1,6 +1,7 @@
 overwrite: true
 schema:
   - ../backend/*.generated.gql
+  - ./schemas/*.gql
 documents:
   - "./**/*.(gql)"
 generates:
@@ -19,4 +20,5 @@ generates:
     config:
       content: "/* eslint-disable */"
       documentVariableSuffix: ""
+      fragmentVariableSuffix: ""
       documentNodeImport: "@apollo/client#TypedDocumentNode"

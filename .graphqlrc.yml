@@ -1,4 +1,12 @@
 projects:
   frontend:
-    schema: "backend/api.generated.gql"
-    documents: "frontend/**/*.{gql}"
+    schema:
+      - "backend/api.generated.gql"
+      - "frontend/schemas/*.gql"
+    include:
+      - "frontend/**/*.gql"
+    documents:
+      - "frontend/**/*.gql"
+    extensions:
+      customDirectives:
+        - directive @client on FIELD
