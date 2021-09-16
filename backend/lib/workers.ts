@@ -9,6 +9,7 @@ import {
 	WorkerOptions,
 	QueueEventsOptions,
 	QueueSchedulerOptions,
+	ConnectionOptions,
 } from 'bullmq';
 
 import config from './config';
@@ -36,7 +37,7 @@ export class Workers {
 				connectionName: config.workers.db.name,
 			});
 		}
-		return this.redis;
+		return this.redis as ConnectionOptions;
 	}
 
 	create<T>(name: string, runner: Processor<T>, options?: WorkerOpt) {
