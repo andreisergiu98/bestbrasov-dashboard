@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite';
-import svgr from 'vite-plugin-svgr';
 import checker from 'vite-plugin-checker';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 
 export default defineConfig({
-	plugins: [svgr(), reactRefresh(), checker({ typescript: true })],
+	plugins: [reactRefresh(), checker({ typescript: true })],
 	esbuild: {
 		jsxFactory: '__jsxElement__',
 		jsxFragment: '__jsxFragment__',

@@ -15,7 +15,7 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
-		"types": ["react/next", "react-dom/next", "vite-plugin-svgr/client"],
+		"types": ["react/next", "react-dom/next"],
 		"typeRoots": ["./typings"],
 		"paths": {
 			"@generated/*": ["./__generated__/*", "./__generated__/"]
