@@ -12,7 +12,7 @@ function App() {
 	}
 
 	if (auth.loading || !auth.user) {
-		return <LoadingScreen />;
+		return <LoadingScreen h="100vh" />;
 	}
 
 	return (

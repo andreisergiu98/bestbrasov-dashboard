@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from './apollo';
-import { MaterialProvider } from './material';
+import { ChakraProvider } from './chakra';
 import { AuthProvider } from './auth';
 
 interface Props {
@@ -12,9 +12,9 @@ export function Providers(props: Props) {
 	return (
 		<ApolloProvider>
 			<BrowserRouter>
-				<MaterialProvider>
+				<ChakraProvider>
 					<AuthProvider>{props.children}</AuthProvider>
-				</MaterialProvider>
+				</ChakraProvider>
 			</BrowserRouter>
 		</ApolloProvider>
 	);

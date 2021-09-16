@@ -1,0 +1,15 @@
+.sidebarDrawer {
+	flex-shrink: 0;
+
+	&:global(.open) {
+		transition: cubic-bezier(0.4, 0, 0.6, 1) 225ms width;
+	}
+
+	&:global(.closed) {
+		transition: cubic-bezier(0.4, 0, 0.6, 1) 195ms width;
+	}
+}
+
+.activeItem {
+	background: var(--chakra-colors-whiteAlpha-200);
+}

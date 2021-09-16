@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { Box, CircularProgress } from '@material-ui/core';
+import { Flex, CircularProgress, useColorMode } from '@chakra-ui/react';
 
 interface Props {
 	className?: string;
@@ -7,23 +7,34 @@ interface Props {
 }
 
 export function Loading(props: Props) {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const colors: any = ['primary', 'secondary', 'success', 'warning', 'info', 'error'];
-	const index = Math.floor(Math.random() * colors.length);
+	const { colorMode } = useColorMode();
+
+	const colorsDark = ['green.200', 'red.400', 'teal.300', 'blue.200', 'purple.300'];
+	const colorsLight = ['green.500', 'red.600', 'teal.500', 'blue.600', 'purple.600'];
+
+	const index = Math.floor(Math.random() * colorsDark.length);
+
+	const color = colorMode === 'light' ? colorsLight[index] : colorsDark[index];
+	const track = colorMode === 'light' ? 'gray.300' : 'gray.500';
 
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				height: '100%',
-				width: '100%',
-				margin: 'auto',
-			}}
-			className={props.className}
+		<Flex
+			h="100%"
+			w="100%"
+			direction="column"
+			m="auto"
 			style={props.style}
+			className={props.className}
 		>
-			<CircularProgress color={colors[index]} sx={{ margin: 'auto' }} />
-		</Box>
+			<CircularProgress
+				m="auto"
+				size="12"
+				thickness="8"
+				capIsRound={true}
+				color={color}
+				trackColor={track}
+				isIndeterminate={true}
+			/>
+		</Flex>
 	);
 }

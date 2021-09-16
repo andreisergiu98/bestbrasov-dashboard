@@ -1,0 +1,18 @@
+.topbar {
+	&:global(.open) {
+		transition-duration: 225ms;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+		transition-property: width, margin;
+	}
+
+	&:global(.closed) {
+		transition-duration: 195ms;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+		transition-property: width, margin;
+	}
+
+	:global(.hamburg-sidebar-open) {
+		opacity: 0;
+		pointer-events: none;
+	}
+}

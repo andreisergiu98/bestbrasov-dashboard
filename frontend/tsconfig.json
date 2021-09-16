@@ -19,7 +19,8 @@
 		"typeRoots": ["./typings"],
 		"paths": {
 			"@generated/*": ["./__generated__/*", "./__generated__/"]
-		}
+		},
+		"plugins": [{ "name": "typescript-plugin-css-modules" }]
 	},
 	"exclude": [".vite", ".dist", ".eslintrc.js", ".vite.config.js"]
 }

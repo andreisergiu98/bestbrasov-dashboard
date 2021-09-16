@@ -1,10 +1,10 @@
+import { Box, BoxProps } from '@chakra-ui/react';
 import { LoadingBest } from '../loading-best';
-import classes from './loading-screen.module.scss';
 
-export function LoadingScreen() {
+export function LoadingScreen(props: BoxProps) {
 	return (
-		<div className={classes.wrapper}>
-			<LoadingBest className={classes.loading} />
-		</div>
+		<Box w="100%" h="100%" display="flex" {...props}>
+			<LoadingBest m="auto" />
+		</Box>
 	);
 }

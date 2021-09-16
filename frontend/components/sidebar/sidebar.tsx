@@ -1,67 +1,48 @@
 import { ReactNode } from 'react';
-import { Divider, Toolbar, IconButton, Drawer, Typography } from '@material-ui/core';
-import { ChevronLeftRounded } from '@material-ui/icons';
-import { sidebarApi, useSidebarOpen } from './sidebar-api';
+import { Box, Divider, useColorModeValue } from '@chakra-ui/react';
+
+import { useSidebarOpen } from './sidebar-api';
 import { SidebarItems } from './sidebar-items';
+import { SidebarToolbar } from './sidebar-toolbar';
+
+import classes from './sidebar.module.scss';
 
 export const sidebarWidth = 240;
-
-interface SidebarDrawerProps {
+export const sidebarClosedWidth = 60;
+interface SidebarProps {
 	children?: ReactNode;
 }
 
-export function SidebarDrawer(props: SidebarDrawerProps) {
-	const open = useSidebarOpen();
+function SidebarDrawer(props: SidebarProps) {
+	const isOpen = useSidebarOpen();
+	const className = `${classes.sidebarDrawer} ${isOpen ? 'open' : 'closed'}`;
+
+	const width = (isOpen ? sidebarWidth : sidebarClosedWidth) + 'px';
+
 	return (
-		<Drawer
-			variant="permanent"
-			sx={{
-				'& .MuiDrawer-paper': {
-					position: 'relative',
-					whiteSpace: 'nowrap',
-					width: sidebarWidth,
-					boxSizing: 'border-box',
-					transition: (theme) =>
-						theme.transitions.create('width', {
-							easing: theme.transitions.easing.sharp,
-							duration: theme.transitions.duration.enteringScreen,
-						}),
-					...(!open && {
-						overflowX: 'hidden',
-						transition: (theme) =>
-							theme.transitions.create('width', {
-								easing: theme.transitions.easing.sharp,
-								duration: theme.transitions.duration.leavingScreen,
-							}),
-						width: (theme) => ({
-							xs: theme.spacing(7),
-						}),
-					}),
-				},
-			}}
+		<Box
+			display="flex"
+			minH="100vh"
+			width={width}
+			zIndex="1000"
+			overflow="hidden"
+			className={className}
+			bg={useColorModeValue('white', 'gray.900')}
 		>
 			{props.children}
-		</Drawer>
+		</Box>
 	);
 }
 
-export function Sidebar() {
+export function Sidebar(props: SidebarProps) {
 	return (
 		<SidebarDrawer>
-			<Toolbar
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					px: [2],
-				}}
-			>
-				<Typography variant="h6">BEST Brasov</Typography>
-				<IconButton onClick={sidebarApi.toggleSidebar} sx={{ marginLeft: 'auto' }}>
-					<ChevronLeftRounded />
-				</IconButton>
-			</Toolbar>
-			<Divider />
-			<SidebarItems />
+			<Box minW={sidebarWidth}>
+				<SidebarToolbar />
+				<Divider />
+				<SidebarItems />
+				{props.children}
+			</Box>
 		</SidebarDrawer>
 	);
 }

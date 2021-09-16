@@ -1,10 +1,5 @@
-import { Divider, List } from '@material-ui/core';
-import {
-	HomeRounded,
-	PeopleRounded,
-	EventRounded,
-	BusinessRounded,
-} from '@material-ui/icons';
+import { Divider, List } from '@chakra-ui/react';
+import { FiHome, FiUsers, FiCalendar, FiBriefcase } from 'react-icons/fi';
 import { SidebarItem } from './sidebar-item';
 import { createRoute } from '../../routes';
 
@@ -12,26 +7,10 @@ export function SidebarItems() {
 	return (
 		<>
 			<List>
-				<SidebarItem
-					to={createRoute.home()}
-					title="Home"
-					icon={<HomeRounded color="primary" />}
-				/>
-				<SidebarItem
-					to={createRoute.events()}
-					title="Events"
-					icon={<EventRounded color="primary" />}
-				/>
-				<SidebarItem
-					to={createRoute.companies()}
-					title="Companies"
-					icon={<BusinessRounded color="primary" />}
-				/>
-				<SidebarItem
-					to={createRoute.users()}
-					title="Users"
-					icon={<PeopleRounded color="primary" />}
-				/>
+				<SidebarItem to={createRoute.home()} title="Home" icon={FiHome} />
+				<SidebarItem to={createRoute.events()} title="Events" icon={FiUsers} />
+				<SidebarItem to={createRoute.companies()} title="Companies" icon={FiCalendar} />
+				<SidebarItem to={createRoute.users()} title="Users" icon={FiBriefcase} />
 			</List>
 			<Divider />
 		</>

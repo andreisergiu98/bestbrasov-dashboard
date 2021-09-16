@@ -1,13 +1,14 @@
-import { ComponentPropsWithoutRef } from 'react';
-import styles from './loading.module.scss';
+import { Box, BoxProps } from '@chakra-ui/react';
+import { clsx } from '../../utils/styles';
+import classes from './loading.module.scss';
 
-export function LoadingBest(props: ComponentPropsWithoutRef<'div'>) {
+export function LoadingBest(props: BoxProps) {
 	const { className, ...others } = props;
 	return (
-		<div className={styles.loading + ' ' + className} {...others}>
+		<Box className={clsx('ui__loading-best', classes.loading, className)} {...others}>
 			<div />
 			<div />
 			<div />
-		</div>
+		</Box>
 	);
 }

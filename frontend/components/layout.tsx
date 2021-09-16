@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import { Box, Container } from '@material-ui/core';
-import { Topbar } from './topbar';
+import { Flex, Container, useColorModeValue } from '@chakra-ui/react';
 import { Sidebar } from './sidebar';
+import { Topbar, topbarHeight } from './topbar';
 
 interface Props {
 	children?: ReactNode;
@@ -9,29 +9,28 @@ interface Props {
 
 export function Layout(props: Props) {
 	return (
-		<Box sx={{ display: 'flex' }}>
+		<Flex>
 			<Topbar />
 			<Sidebar />
-			<Box
-				component="main"
-				sx={{
-					backgroundColor: (theme) =>
-						theme.palette.mode === 'light'
-							? theme.palette.grey[100]
-							: theme.palette.grey[900],
-					flexGrow: 1,
-					height: '100vh',
-					overflow: 'auto',
-					paddingTop: '64px',
-				}}
+			<Flex
+				style={{ flexGrow: 1 }}
+				pt={topbarHeight + 'px'}
+				height="100vh"
+				overflow="auto"
+				bg={useColorModeValue('gray.50', 'gray.800')}
 			>
 				<Container
-					maxWidth="lg"
-					sx={{ mt: 4, mb: 4, minHeight: 'calc(100% - 64px)', display: 'flex' }}
+					pt="4"
+					pb="4"
+					display="flex"
+					flexDirection="column"
+					bg={useColorModeValue('gray.50', 'gray.800')}
+					maxWidth="container.xl"
+					minHeight={`calc(100vh - ${topbarHeight}px)`}
 				>
 					{props.children}
 				</Container>
-			</Box>
-		</Box>
+			</Flex>
+		</Flex>
 	);
 }
