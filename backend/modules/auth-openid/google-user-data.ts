@@ -34,7 +34,7 @@ async function getBirthday(tokens: TokenSet) {
 		const { year, month, day } = birthday;
 
 		if (year && month && day) {
-			return new Date(year, month, day);
+			return new Date(Date.UTC(year, month - 1, day));
 		}
 	} catch (e) {
 		console.log(e);

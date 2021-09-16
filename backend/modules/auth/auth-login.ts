@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import { prisma } from '@lib/prisma';
 import { AppError } from '@lib/app-error';
 import { googleOpenId } from '../auth-openid';
 import { sessionEncoder } from '../auth-session';
@@ -21,9 +22,9 @@ export const login = async (ctx: Koa.LoginContext) => {
 	const silentLogin = getLoginParam(ctx.query.silent) === 'true';
 	const backToPath = getLoginParam(ctx.query.backTo) ?? '/';
 
-	const idToken = await maybeGetIdToken(ctx);
+	const loginHint = await maybeGetLoginHint(ctx);
 
-	if (silentLogin && !idToken) {
+	if (silentLogin && !loginHint) {
 		ctx.status = 400;
 		ctx.body = createSilentCallbackIframe(false, origin);
 		return;
@@ -31,7 +32,7 @@ export const login = async (ctx: Koa.LoginContext) => {
 
 	const { authorizationUrl, codeVerifier } = await googleOpenId.createAuthorization(
 		silentLogin,
-		idToken
+		loginHint
 	);
 
 	setLoginStateCookie(ctx, {
@@ -108,15 +109,19 @@ const handleSilentLoginCallback = async (ctx: Koa.LoginContext, state?: AuthStat
 	}
 };
 
-async function maybeGetIdToken(ctx: Koa.Context) {
+async function maybeGetLoginHint(ctx: Koa.Context) {
 	try {
 		const sessionToken = await getSessionCookie(ctx);
 		if (!sessionToken) {
 			return;
 		}
-		const { tokenSet } = await sessionEncoder.decode(sessionToken);
+		const { userId } = await sessionEncoder.decode(sessionToken);
 
-		return tokenSet.id_token;
+		const user = await prisma.user.findUnique({
+			where: { id: userId },
+		});
+
+		return user?.email;
 	} catch (e) {
 		//
 	}

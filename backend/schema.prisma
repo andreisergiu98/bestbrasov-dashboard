@@ -28,7 +28,7 @@ model User {
     profile     String?       @db.VarChar(512)
     gender      String?       @db.VarChar(20)
     phoneNumber String?       @db.VarChar(20)
-    birthday    DateTime?
+    birthday    DateTime?	  @db.Date
     roles       UserRole[]
     AuthSession AuthSession[]
 }

@@ -33,19 +33,19 @@ export class GoogleOpenId {
 		return this.loadClient();
 	}
 
-	async createAuthorization(silent?: boolean, idToken?: string) {
+	async createAuthorization(silent?: boolean, loginHint?: string) {
 		const client = await this.getClient();
 		const codeVerifier = generators.codeVerifier();
 		const codeChallenge = generators.codeChallenge(codeVerifier);
 
 		let prompt: string | undefined = undefined;
-		if (silent && idToken) {
+		if (silent) {
 			prompt = 'none';
 		}
 
 		const authorizationUrl = await client.authorizationUrl({
 			prompt,
-			id_token_hint: idToken,
+			loginHint,
 			redirect_uri: this.config.redirect,
 			scope: defaultScopes.join(' '),
 			code_challenge: codeChallenge,
@@ -76,7 +76,7 @@ export class GoogleOpenId {
 
 		return {
 			email: info.email,
-			profile: info.profile,
+			profile: info.picture,
 			lastName: info.family_name,
 			givenName: info.given_name,
 		};
