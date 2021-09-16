@@ -1,6 +1,6 @@
 import { fromPromise, ServerError } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { logout } from '../../providers/auth';
+import { setLoggedOut } from '../../providers/auth';
 import { auth } from '../auth';
 
 let pendingRequests: Array<() => void> = [];
@@ -22,7 +22,7 @@ export const authRefreshLink = onError(({ networkError, operation, forward }) =>
 				auth.refresh().catch((err) => {
 					console.log(err);
 					resolvePendingRequests();
-					logout();
+					setLoggedOut();
 					return forward(operation);
 				})
 			).flatMap(() => {

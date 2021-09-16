@@ -8,7 +8,7 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 const loggedOutVar = makeVar(false);
 
-export function logout() {
+export function setLoggedOut() {
 	loggedOutVar(true);
 }
 
@@ -20,7 +20,6 @@ function useAuthStore() {
 	const loggedOut = useReactiveVar(loggedOutVar);
 
 	return {
-		logout,
 		loggedOut,
 		user: query.data?.me,
 		error: query.error,
