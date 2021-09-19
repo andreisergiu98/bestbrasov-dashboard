@@ -11,5 +11,11 @@
 }
 
 .activeItem {
-	background: var(--chakra-colors-whiteAlpha-200);
+	@include light {
+		background: var(--chakra-colors-blackAlpha-200);
+	}
+
+	@include dark {
+		background: var(--chakra-colors-whiteAlpha-200);
+	}
 }

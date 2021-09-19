@@ -10,6 +10,11 @@ export default defineConfig({
 		jsxInject:
 			"import { createElement as __jsxElement__, Fragment as __jsxFragment__ } from 'react';",
 	},
+	css: {
+		preprocessorOptions: {
+			scss: { additionalData: `@import "styles/mixins";` },
+		},
+	},
 	cacheDir: '.vite',
 	build: {
 		outDir: '.dist',
