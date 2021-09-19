@@ -3,6 +3,8 @@
 		"arcanis.vscode-zipfs",
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
-		"graphql.vscode-graphql"
+		"graphql.vscode-graphql",
+		"mrmlnc.vscode-scss",
+		"andrewleedham.vscode-css-modules"
 	]
 }
