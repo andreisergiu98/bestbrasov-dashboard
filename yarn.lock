@@ -5,9 +5,9 @@ __metadata:
   version: 4
   cacheKey: 8
 
-"@apollo/client@npm:^3.4.11":
-  version: 3.4.11
-  resolution: "@apollo/client@npm:3.4.11"
+"@apollo/client@npm:^3.4.12":
+  version: 3.4.12
+  resolution: "@apollo/client@npm:3.4.12"
   dependencies:
     "@graphql-typed-document-node/core": ^3.0.0
     "@wry/context": ^0.6.0
@@ -30,7 +30,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: 8e068f737a506d4aae6cc63743fd44d20a0afdeda32b4eb84114a23f863331eeb7a7b8098fcdd08817ec2fbad4515d5d89b7a0ac5a915be60cdd4899d8bcf72f
+  checksum: 2ddedff505d0b05f8a0b3fa3615e1ed1c0c08ed0b6146159e4fd6b1e62b2f4dce32e5f8c77c6d0359b6ee8870773f5c594dc2b8104627795048114773f414681
   languageName: node
   linkType: hard
 
@@ -958,19 +958,19 @@ __metadata:
     "@types/koa__cors": ^3.0.3
     "@types/koa__router": ^8.0.8
     "@types/module-alias": ^2.0.1
-    "@types/node": ^16.9.1
+    "@types/node": ^16.9.3
     "@types/ua-parser-js": ^0.7.36
     "@types/ws": ^7.4.7
     "@typescript-eslint/eslint-plugin": ^4.31.1
     "@typescript-eslint/parser": ^4.31.1
-    "@yarnpkg/pnpify": ^3.0.1-rc.5
+    "@yarnpkg/pnpify": ^3.0.1
     apollo-server-koa: ^3.3.0
-    bullmq: ^1.47.0
+    bullmq: ^1.47.1
     chalk: ^4.1.2
     chokidar-cli: ^3.0.0
     class-validator: ^0.13.1
     concurrently: ^6.2.1
-    date-fns: ^2.23.0
+    date-fns: ^2.24.0
     dotenv-cli: ^4.0.0
     esbuild: ^0.12.28
     esbuild-node-externals: ^1.3.0
@@ -980,7 +980,7 @@ __metadata:
     eslint: ^7.32.0
     eslint-plugin-import: ^2.24.2
     eventemitter3: ^4.0.7
-    googleapis: ^86.1.0
+    googleapis: ^87.0.0
     graphql: ^15.5.3
     graphql-fields: ^2.0.3
     graphql-redis-subscriptions: ^2.4.0
@@ -993,7 +993,7 @@ __metadata:
     koa-bodyparser: ^4.3.0
     openid-client: ^4.8.0
     pino: ^7.0.0-rc.4
-    pino-pretty: ^7.0.0
+    pino-pretty: ^7.0.1
     pretty-bytes: ^5.6.0
     pretty-ms: ^7.0.1
     prisma: 3.0.2
@@ -1013,10 +1013,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bestbrasov/frontend@workspace:frontend"
   dependencies:
-    "@apollo/client": ^3.4.11
-    "@chakra-ui/portal": ^1.2.9
-    "@chakra-ui/react": ^1.6.7
-    "@chakra-ui/react-env": ^1.0.6
+    "@apollo/client": ^3.4.12
+    "@chakra-ui/react": 1.6.7
     "@emotion/react": ^11.4.1
     "@emotion/styled": ^11.3.0
     "@graphql-codegen/add": ^3.1.0
@@ -1042,7 +1040,7 @@ __metadata:
     eslint: ^7.32.0
     eslint-plugin-import: ^2.24.2
     eslint-plugin-jsx-a11y: ^6.4.1
-    eslint-plugin-react: ^7.25.1
+    eslint-plugin-react: ^7.25.2
     eslint-plugin-react-hooks: ^4.2.0
     framer-motion: ^4.1.17
     graphql: ^15.5.3
@@ -1054,10 +1052,10 @@ __metadata:
     react-icons: ^4.2.0
     react-is: ^18.0.0-alpha-fd5e01c2e-20210913
     react-router-dom: ^6.0.0-beta.4
-    sass: ^1.41.0
+    sass: ^1.41.1
     typescript: ^4.4.3
     typescript-plugin-css-modules: ^3.4.0
-    vite: ^2.5.7
+    vite: ^2.5.10
     vite-plugin-checker: ^0.3.4
     web-vitals: ^2.1.0
   languageName: unknown
@@ -1477,7 +1475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/portal@npm:1.2.9, @chakra-ui/portal@npm:^1.2.9":
+"@chakra-ui/portal@npm:1.2.9":
   version: 1.2.9
   resolution: "@chakra-ui/portal@npm:1.2.9"
   dependencies:
@@ -1537,7 +1535,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/react-env@npm:1.0.6, @chakra-ui/react-env@npm:^1.0.6":
+"@chakra-ui/react-env@npm:1.0.6":
   version: 1.0.6
   resolution: "@chakra-ui/react-env@npm:1.0.6"
   dependencies:
@@ -1559,7 +1557,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/react@npm:^1.6.7":
+"@chakra-ui/react@npm:1.6.7":
   version: 1.6.7
   resolution: "@chakra-ui/react@npm:1.6.7"
   dependencies:
@@ -2165,14 +2163,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/sheet@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "@emotion/sheet@npm:1.0.1"
-  checksum: 624e2ede033e9b668fe9e20be92a9b712a0efb290f39ad72baa267688d41c37fd684f9b9349dbd62f722818a50c175d1b364b8d49896bd7e89f03083228a5eab
-  languageName: node
-  linkType: hard
-
-"@emotion/sheet@npm:^1.0.2":
+"@emotion/sheet@npm:^1.0.0, @emotion/sheet@npm:^1.0.2":
   version: 1.0.2
   resolution: "@emotion/sheet@npm:1.0.2"
   checksum: 836b413c6657cd6a3de93c53eebd80ea9a6656123f1b78f539b2eaba145fb8566e3aa005b301f807632964f29f7c3cd85322dafb5634abdc1760794e0c7f76dd
@@ -4078,10 +4069,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.9.1":
-  version: 16.9.1
-  resolution: "@types/node@npm:16.9.1"
-  checksum: 41afcf183a22d59323a0199dd7e0f46591247f45fc08a4434edb26d56dc279ae4fdb80f37989ddd7a0f45e3857c4933e6e82057ede09c5a829f77e373e680375
+"@types/node@npm:^16.9.3":
+  version: 16.9.3
+  resolution: "@types/node@npm:16.9.3"
+  checksum: 5e72a0d69d54a1b8df68cb46c43388ebb500c696859e8ba1ef6adff6eadb366257b6211d6490aed13b756dc556938218255db3605e304a7c9ce956c0afe3be2e
   languageName: node
   linkType: hard
 
@@ -4662,7 +4653,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/pnpify@npm:^3.0.1-rc.5":
+"@yarnpkg/pnpify@npm:^3.0.1":
   version: 3.0.1
   resolution: "@yarnpkg/pnpify@npm:3.0.1"
   dependencies:
@@ -5541,9 +5532,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^1.47.0":
-  version: 1.47.0
-  resolution: "bullmq@npm:1.47.0"
+"bullmq@npm:^1.47.1":
+  version: 1.47.1
+  resolution: "bullmq@npm:1.47.1"
   dependencies:
     "@types/ioredis": ^4.27.0
     cron-parser: ^2.7.3
@@ -5553,7 +5544,7 @@ __metadata:
     semver: ^6.3.0
     tslib: ^1.10.0
     uuid: ^8.3.2
-  checksum: 9d6296ab861f6e675ca279c19f6449cd2971e92a11edb38b413678270bee9de9555368ffe5e9d478479261f560b2fed8012ec9501b7453f68e3d2535803dd390
+  checksum: 8e9062bfd33df9340afb87f806a70bb4d1a3aa68306ea8ee306a7fee66f5ef846a82388a8c95a709af683431182f8840c61ef29133bf0554878a1678c7ceb78e
   languageName: node
   linkType: hard
 
@@ -6083,10 +6074,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorette@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "colorette@npm:1.3.0"
-  checksum: bda403dfba4d032bee4169f2a6436a83ae3da488a53bcb3be92dc44ace056518245cc614b12429d7529493d6b090a119b2523b0d55e8cd6b81ad939a3003c008
+"colorette@npm:^2.0.0":
+  version: 2.0.2
+  resolution: "colorette@npm:2.0.2"
+  checksum: f2ec4e0c4c612737bc852cf3376e5d4261f8b6acefc9a52974c97473eeac855f8751dfcbb3cf3490bc4b644477ed9688aa4cade96d09742d0eafc8ec36fdab2b
   languageName: node
   linkType: hard
 
@@ -6559,10 +6550,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.23.0":
-  version: 2.23.0
-  resolution: "date-fns@npm:2.23.0"
-  checksum: 485216d550255a548552db16379e7a5cd440e262b90fbdc0362f63ee71d0e74bd00ce29ca8d76b343f6df36c1ecb6f22edba0b72848a4c32674e755619695c1f
+"date-fns@npm:^2.24.0":
+  version: 2.24.0
+  resolution: "date-fns@npm:2.24.0"
+  checksum: f930419e356cf6a6a02c7ed6c6e438df61b4011861002a3dc94a4efc83bc96a7f30ea3cc2e7231c421604c3d5131f9ffb097bf8e7f81a59d68f556864490664f
   languageName: node
   linkType: hard
 
@@ -7260,9 +7251,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:^7.25.1":
-  version: 7.25.1
-  resolution: "eslint-plugin-react@npm:7.25.1"
+"eslint-plugin-react@npm:^7.25.2":
+  version: 7.25.2
+  resolution: "eslint-plugin-react@npm:7.25.2"
   dependencies:
     array-includes: ^3.1.3
     array.prototype.flatmap: ^1.2.4
@@ -7279,7 +7270,7 @@ __metadata:
     string.prototype.matchall: ^4.0.5
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7
-  checksum: e22ffbb6d336558cab38717c8c6199b72635500b9bd909891ba45865adae5846912a2b3daa355b0c1b1bfe6664b28ee277c14943acc739e703316eff87c1fce4
+  checksum: 79ae67ace68e3a98ebc2f133c995a470e8d84a86c5d0ecf99ee46a9697dbb8f3a76ee351c49ecdbab4acf729392b39df9562116f63cb929247dd273d50d22662
   languageName: node
   linkType: hard
 
@@ -8159,13 +8150,13 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"googleapis@npm:^86.1.0":
-  version: 86.1.0
-  resolution: "googleapis@npm:86.1.0"
+"googleapis@npm:^87.0.0":
+  version: 87.0.0
+  resolution: "googleapis@npm:87.0.0"
   dependencies:
     google-auth-library: ^7.0.2
     googleapis-common: ^5.0.2
-  checksum: 82d24d77de2353769cdf5eee76c9ebe8083c35b787546af743dbb42913080c36a68ef8cb1cd948b84bb301a004b5284292a8b2c39d1c1f22e40166e0acfad583
+  checksum: 5dc8e00c7c82072b8f87d303d570527a717f61acefd1ad92916c33014520cbd239429800ad76d48e0becb62098b5f44dbdc1b2cd6cc521de2747cf6febdfee86
   languageName: node
   linkType: hard
 
@@ -11333,16 +11324,25 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"pino-pretty@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "pino-pretty@npm:7.0.0"
+"pino-abstract-transport@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "pino-abstract-transport@npm:0.3.0"
+  dependencies:
+    split2: ^3.2.2
+  checksum: ac4cca4275d9c6246a8fa19c94dcdd792c31e9b339dfe2f36c8eb4097af30ed794803c04591a49a4c03b149aff64d83b08b727792e203c2b33822da8d9dce180
+  languageName: node
+  linkType: hard
+
+"pino-pretty@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "pino-pretty@npm:7.0.1"
   dependencies:
     args: ^5.0.1
-    colorette: ^1.3.0
+    colorette: ^2.0.0
     dateformat: ^4.5.1
     fast-safe-stringify: ^2.0.7
     joycon: ^3.0.0
-    pino-abstract-transport: ^0.2.0
+    pino-abstract-transport: ^0.3.0
     pump: ^3.0.0
     readable-stream: ^3.6.0
     rfdc: ^1.3.0
@@ -11351,7 +11351,7 @@ fsevents@~2.3.2:
     strip-json-comments: ^3.1.1
   bin:
     pino-pretty: bin.js
-  checksum: 2e295bf028a466df4e279ef0611c5d0042aaaf8ef8b55d86cc44fc9798e53a8c4ce99d5d065d678b3f5ce6a615cf736ab9cd634cbec629e3d70e1fab0031cf98
+  checksum: d2bc379ecdd0b3509caa566dbe36d75d6ba2987c31922e708dae167bf1dd13239e4cf41aa4ccee69cd8918a342c0c40360e391c4c73429122ee26206ff3e19b6
   languageName: node
   linkType: hard
 
@@ -12450,7 +12450,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.32.13, sass@npm:^1.41.0":
+"sass@npm:^1.32.13":
   version: 1.41.0
   resolution: "sass@npm:1.41.0"
   dependencies:
@@ -12458,6 +12458,17 @@ resolve@^2.0.0-next.3:
   bin:
     sass: sass.js
   checksum: 12f791d1d336c304a75f69e54212ea840661a054b4d13b9c8a1a3ad9e44b7656e5eaf6d0372a826612ef08f8da9433159315c3ea1df5eed9832efaf8cb26358e
+  languageName: node
+  linkType: hard
+
+"sass@npm:^1.41.1":
+  version: 1.41.1
+  resolution: "sass@npm:1.41.1"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+  bin:
+    sass: sass.js
+  checksum: a5dcf0e80f068ecaf0feb7603acfbb0ce30885dde58ef1f03b2f153973aed075525d4e539ab5fdf7fbff47a66033716270f64579eafa17b7e4591f404281e1d6
   languageName: node
   linkType: hard
 
@@ -14031,9 +14042,9 @@ typescript@^4.4.3:
   languageName: node
   linkType: hard
 
-"vite@npm:^2.5.7":
-  version: 2.5.7
-  resolution: "vite@npm:2.5.7"
+"vite@npm:^2.5.10":
+  version: 2.5.10
+  resolution: "vite@npm:2.5.10"
   dependencies:
     esbuild: ^0.12.17
     fsevents: ~2.3.2
@@ -14045,7 +14056,7 @@ typescript@^4.4.3:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 715a96256f4788efd28b0af0a00e03b414bee8bdf65c2024a4120ea6d77cd7dbf870bc93f2ca45083f3a046f9560bd8a29399b2457bef9ccf03dc0f911f1b18a
+  checksum: 08b7cb50bd7ba2f35b9df235a993a38ce8f2f737324f00d75439c120e28d9d7b92a98bb6db8d103745c905f85eb784a3188527a906793c667689e545ecbe77ad
   languageName: node
   linkType: hard
 
