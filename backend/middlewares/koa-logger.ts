@@ -1,9 +1,9 @@
-import Koa from 'koa';
-import chalk from 'chalk';
-import prettyMs from 'pretty-ms';
-import prettyBytes from 'pretty-bytes';
 import config from '@lib/config';
 import { createLogger, LoggerOptions } from '@lib/logger';
+import chalk from 'chalk';
+import Koa from 'koa';
+import prettyBytes from 'pretty-bytes';
+import prettyMs from 'pretty-ms';
 
 const colorCodes = {
 	7: 'magenta',

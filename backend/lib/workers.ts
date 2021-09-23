@@ -1,17 +1,16 @@
-import IORedis, { Redis } from 'ioredis';
 import {
-	Queue,
-	Worker,
-	QueueScheduler,
-	QueueEvents,
-	Processor,
-	QueueOptions,
-	WorkerOptions,
-	QueueEventsOptions,
-	QueueSchedulerOptions,
 	ConnectionOptions,
+	Processor,
+	Queue,
+	QueueEvents,
+	QueueEventsOptions,
+	QueueOptions,
+	QueueScheduler,
+	QueueSchedulerOptions,
+	Worker,
+	WorkerOptions,
 } from 'bullmq';
-
+import IORedis, { Redis } from 'ioredis';
 import config from './config';
 
 interface WorkerOpt {

@@ -1,19 +1,14 @@
+import { registerCronJobs } from '@jobs/cron';
+import { createServer } from '@lib/apollo';
+import { prisma } from '@lib/prisma';
+import { publisher, pubsub, subscriber } from '@lib/pubsub';
+import { redis, redisAuthBlocklist } from '@lib/redis';
 import Koa from 'koa';
 import bodyparser from 'koa-bodyparser';
-
-import { prisma } from '@lib/prisma';
-import { createServer } from '@lib/apollo';
-import { redis, redisAuthBlocklist } from '@lib/redis';
-import { pubsub, publisher, subscriber } from '@lib/pubsub';
-
-import { authentication } from './modules/auth';
-
 import { cors } from './middlewares/cors';
 import { catchError } from './middlewares/koa-error';
 import { koaLogger } from './middlewares/koa-logger';
-
-import { registerCronJobs } from './jobs/cron';
-
+import { authentication } from './modules/auth';
 import { routes } from './routes';
 
 const app = new Koa();

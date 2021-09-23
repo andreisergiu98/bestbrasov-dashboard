@@ -1,7 +1,7 @@
-import { Providers, useAuth, UserProvider } from '../providers';
-import { Router } from '../components/router';
 import { Layout } from '../components/layout';
 import { LoadingScreen } from '../components/loading-screen';
+import { Router } from '../components/router';
+import { Providers, useAuth, UserProvider } from '../providers';
 import { LoginPage } from './login';
 
 function App() {

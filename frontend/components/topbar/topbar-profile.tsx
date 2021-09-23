@@ -1,17 +1,17 @@
 import {
 	Avatar,
 	Box,
+	Flex,
 	HStack,
-	VStack,
-	useColorModeValue,
-	Text,
 	Menu,
 	MenuButton,
 	MenuDivider,
 	MenuItem,
 	MenuList,
-	Flex,
 	Spinner,
+	Text,
+	useColorModeValue,
+	VStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';

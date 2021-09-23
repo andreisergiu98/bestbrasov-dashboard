@@ -1,5 +1,5 @@
+import { CircularProgress, Flex, useColorModeValue } from '@chakra-ui/react';
 import { CSSProperties } from 'react';
-import { Flex, CircularProgress, useColorModeValue } from '@chakra-ui/react';
 
 interface Props {
 	className?: string;

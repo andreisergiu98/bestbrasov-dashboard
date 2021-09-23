@@ -1,4 +1,4 @@
-import { EnvParam } from '../utils/env';
+import { EnvParam } from '@utils/env';
 
 export class EnvParams {
 	@EnvParam('NODE_ENV', {

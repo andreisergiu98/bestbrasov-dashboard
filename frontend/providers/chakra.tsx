@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
 import {
 	ChakraProvider as BaseProvider,
 	extendTheme,
 	ThemeConfig,
 } from '@chakra-ui/react';
+import { ReactNode } from 'react';
 
 type StorageColorMode = 'dark' | 'light' | undefined;
 

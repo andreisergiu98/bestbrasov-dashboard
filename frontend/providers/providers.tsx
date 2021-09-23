@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from './apollo';
-import { ChakraProvider } from './chakra';
 import { AuthProvider } from './auth';
+import { ChakraProvider } from './chakra';
 
 interface Props {
 	children: ReactNode;

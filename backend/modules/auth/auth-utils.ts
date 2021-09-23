@@ -1,5 +1,5 @@
-import Koa from 'koa';
 import config from '@lib/config';
+import Koa from 'koa';
 import Cookies from 'universal-cookie';
 
 const SESSION_COOKIE_KEY = 'x-auth-token';

@@ -1,7 +1,7 @@
-import { ParameterizedContext } from 'koa';
 import { RouterParamContext } from '@koa/router';
 import { Logger } from '@lib/logger';
 import { UserRole } from '@lib/prisma';
+import { ParameterizedContext } from 'koa';
 import { TokenSet } from 'openid-client';
 
 export interface AppState {

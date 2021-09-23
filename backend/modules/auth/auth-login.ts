@@ -1,6 +1,6 @@
-import Koa from 'koa';
-import { prisma } from '@lib/prisma';
 import { AppError } from '@lib/app-error';
+import { prisma } from '@lib/prisma';
+import Koa from 'koa';
 import { googleOpenId } from '../auth-openid';
 import { sessionEncoder } from '../auth-session';
 import { createUserSession, verifyUserSession } from './auth-user';
@@ -10,10 +10,10 @@ import {
 	getLoginParam,
 	getLoginStateCookie,
 	getSessionCookie,
+	removeLoginStateCookie,
 	setLoginStateCookie,
 	setSessionCookie,
 	setSessionTtlCookie,
-	removeLoginStateCookie,
 } from './auth-utils';
 
 export const login = async (ctx: Koa.LoginContext) => {

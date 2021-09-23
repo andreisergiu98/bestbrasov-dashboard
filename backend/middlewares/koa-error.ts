@@ -1,5 +1,5 @@
-import Koa from 'koa';
 import { AppError } from '@lib/app-error';
+import Koa from 'koa';
 
 export const catchError =
 	() => async (ctx: Koa.ErrorContext, next: () => Promise<void>) => {

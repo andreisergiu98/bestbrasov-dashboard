@@ -1,6 +1,6 @@
+import reactRefresh from '@vitejs/plugin-react-refresh';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
-import reactRefresh from '@vitejs/plugin-react-refresh';
 
 export default defineConfig({
 	plugins: [reactRefresh(), checker({ typescript: true })],

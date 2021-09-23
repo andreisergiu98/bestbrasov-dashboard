@@ -1,24 +1,24 @@
 {
-	"search.exclude": {
-		"**/.yarn": true,
-		"**/.pnp.*": true
-	},
-	"files.exclude": {
-		"frontend/.vite": true,
-		"frontend/**/*.gql.ts": true,
-		"frontend/**/*.scss.d.ts": true
-	},
-	"eslint.nodePath": ".yarn/sdks",
-	"typescript.tsdk": ".yarn/sdks/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true,
-	"prettier.prettierPath": ".yarn/sdks/prettier/index.js",
-	"files.insertFinalNewline": true,
-	"files.trimFinalNewlines": true,
-	"files.trimTrailingWhitespace": true,
-	"editor.insertSpaces": false,
-	"editor.detectIndentation": false,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"[prisma]": {
-		"editor.defaultFormatter": "Prisma.prisma"
-	}
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "files.exclude": {
+    "frontend/.vite": true,
+    "frontend/**/*.gql.ts": true,
+    "frontend/**/*.scss.d.ts": true
+  },
+  "eslint.nodePath": ".yarn/sdks",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.insertSpaces": false,
+  "editor.detectIndentation": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }

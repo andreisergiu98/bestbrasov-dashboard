@@ -1,12 +1,10 @@
-import http from 'http';
-import { Server } from 'ws';
-import { GraphQLSchema } from 'graphql';
-import { useServer } from 'graphql-ws/lib/use/ws';
-
 import config from '@lib/config';
 import { logger } from '@lib/logger';
 import { prisma } from '@lib/prisma';
-
+import { GraphQLSchema } from 'graphql';
+import { useServer } from 'graphql-ws/lib/use/ws';
+import http from 'http';
+import { Server } from 'ws';
 import { verifyWSToken } from '../../modules/auth';
 
 export async function useSubscriptions(server: http.Server, schema: GraphQLSchema) {

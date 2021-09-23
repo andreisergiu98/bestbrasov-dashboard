@@ -1,10 +1,8 @@
-import { ReactNode } from 'react';
 import { Box, Divider, useColorModeValue } from '@chakra-ui/react';
-
+import { ReactNode } from 'react';
 import { useSidebarOpen } from './sidebar-api';
 import { SidebarItems } from './sidebar-items';
 import { SidebarToolbar } from './sidebar-toolbar';
-
 import classes from './sidebar.module.scss';
 
 export const sidebarWidth = 240;

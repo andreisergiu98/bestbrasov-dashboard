@@ -1,5 +1,5 @@
 import { Box, BoxProps } from '@chakra-ui/react';
-import { clsx } from '../../utils/styles';
+import clsx from 'clsx';
 import classes from './loading.module.scss';
 
 export function LoadingBest(props: BoxProps) {

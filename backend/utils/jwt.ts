@@ -1,10 +1,10 @@
 import {
-	sign,
-	verify,
 	decode,
 	GetPublicKeyOrSecret,
 	Secret,
+	sign,
 	SignOptions,
+	verify,
 	VerifyOptions,
 } from 'jsonwebtoken';
 

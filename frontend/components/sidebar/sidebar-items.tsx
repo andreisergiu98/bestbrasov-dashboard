@@ -1,7 +1,7 @@
 import { Divider, List } from '@chakra-ui/react';
-import { FiHome, FiUsers, FiCalendar, FiBriefcase } from 'react-icons/fi';
-import { SidebarItem } from './sidebar-item';
+import { FiBriefcase, FiCalendar, FiHome, FiUsers } from 'react-icons/fi';
 import { createRoute } from '../../routes';
+import { SidebarItem } from './sidebar-item';
 
 export function SidebarItems() {
 	return (

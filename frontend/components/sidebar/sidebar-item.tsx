@@ -1,9 +1,9 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
-import { NavLink as BaseNavLink, NavLinkProps } from 'react-router-dom';
 import { Button, Icon, Text, Tooltip } from '@chakra-ui/react';
-import { IconType } from 'react-icons';
 import clsx from 'clsx';
-import { sidebarWidth, sidebarClosedWidth } from './sidebar';
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
+import { IconType } from 'react-icons';
+import { NavLink as BaseNavLink, NavLinkProps } from 'react-router-dom';
+import { sidebarClosedWidth, sidebarWidth } from './sidebar';
 import { useSidebarOpen } from './sidebar-api';
 import classes from './sidebar.module.scss';
 

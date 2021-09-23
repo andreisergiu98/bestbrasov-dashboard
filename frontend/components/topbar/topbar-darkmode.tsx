@@ -1,6 +1,6 @@
 import { IconButton, useColorMode } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import { FiMoon, FiSun } from 'react-icons/fi';
 
 export function TopbarDarkMode() {
 	const { colorMode, toggleColorMode } = useColorMode();

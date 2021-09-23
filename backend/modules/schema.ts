@@ -1,7 +1,6 @@
 import config from '@lib/config';
-import { buildSchema, BuildSchemaOptions } from 'type-graphql';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
-
+import { buildSchema, BuildSchemaOptions } from 'type-graphql';
 import { UserCrudResolver } from './resolvers';
 import { MeResolver } from './users';
 

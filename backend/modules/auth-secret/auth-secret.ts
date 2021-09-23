@@ -1,8 +1,8 @@
+import config from '@lib/config';
+import { AuthSecret, prisma } from '@lib/prisma';
+import { redis } from '@lib/redis';
 import crypto from 'crypto';
 import { add } from 'date-fns';
-import config from '@lib/config';
-import { prisma, AuthSecret } from '@lib/prisma';
-import { redis } from '@lib/redis';
 
 async function getSecretById(id: string) {
 	let cacheHit = true;

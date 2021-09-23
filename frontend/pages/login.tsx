@@ -1,7 +1,6 @@
 import { Button, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
-
 import { auth } from '../lib/auth';
 import { getCurrentYear } from '../utils/time';
 

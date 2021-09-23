@@ -9,4 +9,5 @@ backend/api.generated.gql
 frontend/__generated__
 frontend/.dist
 frontend/.vite
-frontend/**/*.gql.d.ts
+frontend/**/*.gql.ts
+frontend/**/*.scss.d.ts

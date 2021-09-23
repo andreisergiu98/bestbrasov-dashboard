@@ -1,12 +1,9 @@
-import Koa from 'koa';
-import http from 'http';
-import { RedisPubSub } from 'graphql-redis-subscriptions';
-
 import config from '@lib/config';
 import { logger } from '@lib/logger';
-
+import { RedisPubSub } from 'graphql-redis-subscriptions';
+import http from 'http';
+import Koa from 'koa';
 import { createSchema } from '../../modules/schema';
-
 import { useApolloServer } from './apollo-server';
 import { useSubscriptions } from './apollo-subscriptions';
 

@@ -1,13 +1,10 @@
-import { IconButton, Text, Box, useColorModeValue } from '@chakra-ui/react';
+import { Box, IconButton, Text, useColorModeValue } from '@chakra-ui/react';
 import { FiBell, FiMenu } from 'react-icons/fi';
-
 import { sidebarWidth } from '../sidebar/sidebar';
 import { sidebarApi, useSidebarOpen } from '../sidebar/sidebar-api';
-
-import { TopbarTitle } from './topbar-title';
-import { TopbarProfile } from './topbar-profile';
 import { TopbarDarkMode } from './topbar-darkmode';
-
+import { TopbarProfile } from './topbar-profile';
+import { TopbarTitle } from './topbar-title';
 import classes from './topbar.module.scss';
 
 export const topbarHeight = 72;

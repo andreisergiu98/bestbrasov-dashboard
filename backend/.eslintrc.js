@@ -34,15 +34,16 @@ module.exports = {
 			{
 				patterns: [
 					{
-						group: ['*/__generated/prisma/*'],
-						message: 'Use @lib/prisma instead.',
+						group: ['*/__generated__/prisma*'],
+						message: 'Use "@lib/prisma" instead.',
 					},
 					{
-						group: ['*/__generated/data/*'],
-						message: 'Use modules/resolvers instead.',
+						group: ['*/__generated__/data*'],
+						message: 'Use "modules/resolvers" instead.',
 					},
 				],
 			},
 		],
+		'@typescript-eslint/naming-convention': 'off',
 	},
 };

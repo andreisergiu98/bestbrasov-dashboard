@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import { init } from './_server';
 import { createSchema } from './modules/schema';
+import { init } from './_server';
 
 const emitOnly = process.argv.includes('--emitOnly');
 

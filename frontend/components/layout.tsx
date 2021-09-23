@@ -1,5 +1,5 @@
+import { Container, Flex, useColorModeValue } from '@chakra-ui/react';
 import { ReactNode } from 'react';
-import { Flex, Container, useColorModeValue } from '@chakra-ui/react';
 import { Sidebar } from './sidebar';
 import { Topbar, topbarHeight } from './topbar';
 

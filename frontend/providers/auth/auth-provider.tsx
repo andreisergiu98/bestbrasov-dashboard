@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useContext } from 'react';
 import { makeVar, useQuery, useReactiveVar } from '@apollo/client';
+import { createContext, ReactNode, useContext } from 'react';
 import { TryAuth } from './me.query.gql';
 
 type AuthContextValue = ReturnType<typeof useAuthStore>;

@@ -1,5 +1,5 @@
-import config from '../config';
 import { setLoggedOut } from '../../providers/auth';
+import config from '../config';
 import { AuthRefresh } from './auth-refresh';
 
 class Auth {

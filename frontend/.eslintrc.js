@@ -47,7 +47,7 @@ module.exports = {
 				patterns: [
 					{
 						group: ['*/__generated__/types/*'],
-						message: 'Use @generated/types instead.',
+						message: 'Use "@generated/types" instead.',
 					},
 				],
 			},

@@ -1,4 +1,4 @@
-import { IconButton, Box, Text } from '@chakra-ui/react';
+import { Box, IconButton, Text } from '@chakra-ui/react';
 import { FiChevronLeft } from 'react-icons/fi';
 import { topbarHeight } from '../topbar';
 import { sidebarApi } from './sidebar-api';

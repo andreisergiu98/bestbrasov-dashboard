@@ -1,5 +1,5 @@
 import { ReactNode, Suspense } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { routes } from '../routes';
 import { Loading } from './loading';
 

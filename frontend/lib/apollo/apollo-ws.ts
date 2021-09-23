@@ -1,8 +1,6 @@
-import { print, GraphQLError } from 'graphql';
-import { createClient, ClientOptions, Client } from 'graphql-ws';
-import { ApolloLink, Operation, FetchResult, Observable } from '@apollo/client/core';
-
-import { auth } from '../auth';
+import { ApolloLink, FetchResult, Observable, Operation } from '@apollo/client/core';
+import { GraphQLError, print } from 'graphql';
+import { Client, ClientOptions, createClient } from 'graphql-ws';
 import config from '../config';
 
 class WebSocketLink extends ApolloLink {

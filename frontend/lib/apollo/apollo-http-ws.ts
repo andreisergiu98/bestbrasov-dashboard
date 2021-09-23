@@ -1,6 +1,5 @@
 import { split } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
-
 import { httpLink } from './apollo-http';
 import { webSocketLink } from './apollo-ws';
 

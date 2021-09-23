@@ -1,8 +1,8 @@
-import Koa from 'koa';
-import config from '@lib/config';
 import { AppError } from '@lib/app-error';
-import { replaceUserSession } from './auth-user';
+import config from '@lib/config';
+import Koa from 'koa';
 import { sessionBlocklist, sessionEncoder } from '../auth-session';
+import { replaceUserSession } from './auth-user';
 import { getSessionCookie, removeSessionCookies, setSessionCookie } from './auth-utils';
 
 export const authentication =

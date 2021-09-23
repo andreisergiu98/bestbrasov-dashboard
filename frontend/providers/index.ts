@@ -1,3 +1,3 @@
-export * from './providers';
-export { useAuth, useUser, UserProvider } from './auth';
+export { useAuth, UserProvider, useUser } from './auth';
 export type { Self } from './auth';
+export * from './providers';
