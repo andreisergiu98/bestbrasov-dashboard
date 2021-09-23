@@ -11,13 +11,14 @@ export default defineConfig({
 			"import { createElement as __jsxElement__, Fragment as __jsxFragment__ } from 'react';",
 	},
 	css: {
-		preprocessorOptions: {
-			scss: { additionalData: `@import "styles/mixins";` },
+		modules: {
+			localsConvention: 'camelCaseOnly',
 		},
 	},
 	cacheDir: '.vite',
 	build: {
 		outDir: '.dist',
+		chunkSizeWarningLimit: 768,
 	},
 	resolve: {
 		alias: [{ find: /^(.*)\.gql$/, replacement: '$1.gql.ts' }],

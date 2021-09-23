@@ -10,7 +10,7 @@
 # generated
 /__generated__
 *.gql.ts
-*.graphql.ts
+*.scss.d.ts
 
 # misc
 .env.local

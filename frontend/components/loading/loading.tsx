@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { Flex, CircularProgress, useColorMode } from '@chakra-ui/react';
+import { Flex, CircularProgress, useColorModeValue } from '@chakra-ui/react';
 
 interface Props {
 	className?: string;
@@ -7,15 +7,13 @@ interface Props {
 }
 
 export function Loading(props: Props) {
-	const { colorMode } = useColorMode();
-
 	const colorsDark = ['green.200', 'red.400', 'teal.300', 'blue.200', 'purple.300'];
 	const colorsLight = ['green.500', 'red.600', 'teal.500', 'blue.600', 'purple.600'];
 
 	const index = Math.floor(Math.random() * colorsDark.length);
 
-	const color = colorMode === 'light' ? colorsLight[index] : colorsDark[index];
-	const track = colorMode === 'light' ? 'gray.300' : 'gray.500';
+	const color = useColorModeValue(colorsLight[index], colorsDark[index]);
+	const track = useColorModeValue('gray.300', 'gray.500');
 
 	return (
 		<Flex

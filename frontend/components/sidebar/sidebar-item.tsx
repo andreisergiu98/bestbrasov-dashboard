@@ -1,25 +1,25 @@
 import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
-import { NavLink as BaseNavLink } from 'react-router-dom';
-import { IconType } from 'react-icons';
+import { NavLink as BaseNavLink, NavLinkProps } from 'react-router-dom';
 import { Button, Icon, Text, Tooltip } from '@chakra-ui/react';
-
+import { IconType } from 'react-icons';
+import clsx from 'clsx';
+import { sidebarWidth, sidebarClosedWidth } from './sidebar';
+import { useSidebarOpen } from './sidebar-api';
 import classes from './sidebar.module.scss';
-import { sidebarWidth, sidebarClosedWidth, useSidebarOpen } from '.';
+
 interface LinkProps extends Omit<ComponentPropsWithoutRef<'a'>, 'href'> {
 	to: string;
 }
 
 const NavLink = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
 	const { to, className = '', children, ...rest } = props;
-	const activeClassName = `${className} ${classes.activeItem}`;
+
+	const getClassName: NavLinkProps['className'] = ({ isActive }) => {
+		return clsx(classes.sidebarItem, isActive && classes.activeItem, className);
+	};
 
 	return (
-		<BaseNavLink
-			{...rest}
-			ref={ref}
-			to={to}
-			className={({ isActive }) => (isActive ? activeClassName : className)}
-		>
+		<BaseNavLink {...rest} ref={ref} to={to} className={getClassName}>
 			{children}
 		</BaseNavLink>
 	);

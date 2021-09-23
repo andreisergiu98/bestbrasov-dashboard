@@ -1,4 +1,6 @@
-.sidebarDrawer {
+@import 'styles/helpers';
+
+.sidebar-drawer {
 	flex-shrink: 0;
 
 	&:global(.open) {
@@ -8,14 +10,23 @@
 	&:global(.closed) {
 		transition: cubic-bezier(0.4, 0, 0.6, 1) 195ms width;
 	}
+
+	.sidebar-item {
+		&:focus,
+		&[data-focus] {
+			box-shadow: none;
+		}
+	}
 }
 
-.activeItem {
-	@include light {
-		background: var(--chakra-colors-blackAlpha-200);
-	}
+.active-item {
+	&:not(:active) {
+		@include light {
+			background: $chakraColorsBlackAlpha200;
+		}
 
-	@include dark {
-		background: var(--chakra-colors-whiteAlpha-200);
+		@include dark {
+			background: $chakraColorsWhiteAlpha200;
+		}
 	}
 }

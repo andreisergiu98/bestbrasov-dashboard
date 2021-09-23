@@ -5,7 +5,8 @@
 	},
 	"files.exclude": {
 		"frontend/.vite": true,
-		"frontend/**/*.gql.ts": true
+		"frontend/**/*.gql.ts": true,
+		"frontend/**/*.scss.d.ts": true
 	},
 	"eslint.nodePath": ".yarn/sdks",
 	"typescript.tsdk": ".yarn/sdks/typescript/lib",

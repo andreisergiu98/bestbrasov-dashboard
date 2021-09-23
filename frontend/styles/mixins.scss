@@ -1,12 +1,10 @@
 @mixin dark {
-	body.chakra-ui-dark,
 	:global(body.chakra-ui-dark) & {
 		@content;
 	}
 }
 
 @mixin light {
-	body.chakra-ui-light,
 	:global(body.chakra-ui-light) & {
 		@content;
 	}
