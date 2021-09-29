@@ -1,5 +1,5 @@
+import { User } from '@lib/models';
 import { Ctx, Query, Resolver } from 'type-graphql';
-import { User } from '../resolvers';
 
 @Resolver()
 export class MeResolver {
