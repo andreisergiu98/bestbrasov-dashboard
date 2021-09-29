@@ -1,10 +1,6 @@
 import { makeVar, useQuery, useReactiveVar } from '@apollo/client';
-import { createContext, ReactNode, useContext } from 'react';
+import { createContextProvider } from '@utils/context';
 import { TryAuth } from './me.query.gql';
-
-type AuthContextValue = ReturnType<typeof useAuthStore>;
-
-const AuthContext = createContext<AuthContextValue | null>(null);
 
 const loggedOutVar = makeVar(false);
 
@@ -27,15 +23,9 @@ function useAuthStore() {
 	};
 }
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-	const value = useAuthStore();
-	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export function useAuth(): AuthContextValue {
-	const value = useContext(AuthContext);
-	if (!value) {
-		throw new Error("Cannot use 'useUser' hook without 'AuthProvider'");
-	}
-	return value;
-}
+export const [AuthProvider, useAuth] = createContextProvider(
+	{
+		name: 'Auth',
+	},
+	useAuthStore
+);
