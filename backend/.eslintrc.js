@@ -27,6 +27,7 @@ module.exports = {
 		'/migrations/**',
 		'/.eslintrc.js',
 		'/esbuild*.js',
+		'/jest.config.js',
 	],
 	rules: {
 		'no-restricted-imports': [
@@ -34,12 +35,12 @@ module.exports = {
 			{
 				patterns: [
 					{
-						group: ['*/__generated__/prisma*'],
+						group: ['*/__generated__/prisma', '*/__generated__/prisma*'],
 						message: 'Use "@lib/prisma" instead.',
 					},
 					{
-						group: ['*/__generated__/data*'],
-						message: 'Use "modules/resolvers" instead.',
+						group: ['*/__generated__/data', '*/__generated__/data*'],
+						message: 'Use "@lib/" modules instead.',
 					},
 				],
 			},
