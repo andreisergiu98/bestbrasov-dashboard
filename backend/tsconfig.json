@@ -40,6 +40,7 @@
 		"paths": {
 			"@jobs/*": ["./jobs/*", "./jobs/"],
 			"@lib/*": ["./lib/*", "./lib/"],
+			"@rules/*": ["./rules/*", "./rules/"],
 			"@typings/*": ["./typings/*", "./typings/"],
 			"@utils/*": ["./utils/*", "./utils/"]
 		} /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
