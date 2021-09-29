@@ -4,16 +4,12 @@ import { ApolloProvider } from './apollo';
 import { AuthProvider } from './auth';
 import { ChakraProvider } from './chakra';
 
-interface Props {
-	children: ReactNode;
-}
-
-export function Providers(props: Props) {
+export function Providers({ children }: { children: ReactNode }) {
 	return (
 		<ApolloProvider>
 			<BrowserRouter>
 				<ChakraProvider>
-					<AuthProvider>{props.children}</AuthProvider>
+					<AuthProvider>{children}</AuthProvider>
 				</ChakraProvider>
 			</BrowserRouter>
 		</ApolloProvider>

@@ -1,6 +1,6 @@
 import { fromPromise, ServerError } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { setLoggedOut } from '../../providers/auth';
+import { setLoggedOut } from '@providers/auth';
 import { auth } from '../auth';
 
 let pendingRequests: Array<() => void> = [];

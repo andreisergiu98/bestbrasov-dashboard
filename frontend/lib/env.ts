@@ -1,4 +1,4 @@
-import { createEnvParam } from '../utils/env';
+import { createEnvParam } from '@utils/env';
 
 class EnvParams {
 	readonly development = createEnvParam<boolean>('MODE', {

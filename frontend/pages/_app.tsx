@@ -1,7 +1,8 @@
-import { Layout } from '../components/layout';
-import { LoadingScreen } from '../components/loading-screen';
-import { Router } from '../components/router';
-import { Providers, useAuth, UserProvider } from '../providers';
+import { Layout } from '@components/layout';
+import { LoadingScreen } from '@components/loading-screen';
+import { Router } from '@components/router';
+import { useAuth, UserProvider } from '@providers/auth';
+import { withProviders } from '@providers/providers';
 import { LoginPage } from './login';
 
 function App() {
@@ -24,10 +25,4 @@ function App() {
 	);
 }
 
-export default function WithProviders() {
-	return (
-		<Providers>
-			<App />
-		</Providers>
-	);
-}
+export default withProviders(App);

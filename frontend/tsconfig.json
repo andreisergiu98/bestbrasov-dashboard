@@ -18,7 +18,12 @@
 		"types": ["react/next", "react-dom/next"],
 		"typeRoots": ["./typings"],
 		"paths": {
-			"@generated/*": ["./__generated__/*", "./__generated__/"]
+			"@generated/*": ["./__generated__/*", "./__generated__/"],
+			"@components/*": ["./components/*", "./components/"],
+			"@lib/*": ["./lib/*", "./lib/"],
+			"@hooks/*": ["./hooks/*", "./hooks/"],
+			"@providers/*": ["./providers/*", "./providers/"],
+			"@utils/*": ["./utils/*", "./utils/"]
 		}
 	},
 	"exclude": [".vite", ".dist", ".eslintrc.js", ".vite.config.js"]

@@ -21,7 +21,29 @@ export default defineConfig({
 		chunkSizeWarningLimit: 768,
 	},
 	resolve: {
-		alias: [{ find: /^(.*)\.gql$/, replacement: '$1.gql.ts' }],
+		alias: [
+			{ find: /^(.*)\.gql$/, replacement: '$1.gql.ts' },
+			{
+				find: /^@components\//,
+				replacement: '/components/',
+			},
+			{
+				find: /^@hooks\//,
+				replacement: '/hooks/',
+			},
+			{
+				find: /^@lib\//,
+				replacement: '/lib/',
+			},
+			{
+				find: /^@providers\//,
+				replacement: '/providers/',
+			},
+			{
+				find: /^@utils\//,
+				replacement: '/utils/',
+			},
+		],
 	},
 	clearScreen: false,
 });

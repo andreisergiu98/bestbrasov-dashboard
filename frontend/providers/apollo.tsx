@@ -1,6 +1,6 @@
 import { ApolloProvider as BaseProvider } from '@apollo/client';
+import { apollo } from '@lib/apollo';
 import { ReactNode } from 'react';
-import { apollo } from '../lib/apollo';
 
 interface Props {
 	children: ReactNode;

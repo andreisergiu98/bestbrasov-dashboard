@@ -1,4 +1,4 @@
-import { useUser } from '../providers';
+import { useUser } from '@providers/auth';
 
 export default function HomePage() {
 	const user = useUser();

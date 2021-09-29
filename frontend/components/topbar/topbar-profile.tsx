@@ -13,11 +13,11 @@ import {
 	useColorModeValue,
 	VStack,
 } from '@chakra-ui/react';
+import { useIsMounted } from '@hooks/is-mounted';
+import { auth } from '@lib/auth';
+import { useUser } from '@providers/auth';
 import { useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
-import { useIsMounted } from '../../hooks/is-mounted';
-import { auth } from '../../lib/auth';
-import { useUser } from '../../providers';
 
 function LogoutItem() {
 	const isMounted = useIsMounted();
