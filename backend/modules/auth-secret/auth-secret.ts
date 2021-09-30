@@ -1,8 +1,14 @@
 import config from '@lib/config';
-import { AuthSecret, prisma } from '@lib/prisma';
-import { redis } from '@lib/redis';
-import crypto from 'crypto';
-import { add } from 'date-fns';
+import { prisma } from '@lib/prisma';
+import { generateRandomBytes } from '@utils/crypto';
+import { add, subMonths } from 'date-fns';
+import {
+	cacheIssuingSecret,
+	cacheSecret,
+	getIssuingSecretFromCache,
+	getSecretFromCache,
+	removeSecretFromCache,
+} from './auth-secret-cache';
 
 async function getSecretById(id: string) {
 	let cacheHit = true;
@@ -30,9 +36,15 @@ async function getSecretById(id: string) {
 }
 
 async function getIssuingSecret() {
-	const secret = await prisma.authSecret.findFirst({
-		where: { issuing: true },
-	});
+	let cacheHit = true;
+	let secret = await getIssuingSecretFromCache();
+
+	if (!secret) {
+		cacheHit = false;
+		secret = await prisma.authSecret.findFirst({
+			where: { issuing: true },
+		});
+	}
 
 	if (!secret) {
 		return createIssuingSecret();
@@ -43,48 +55,15 @@ async function getIssuingSecret() {
 		return createIssuingSecret();
 	}
 
+	if (!cacheHit) {
+		cacheIssuingSecret(secret);
+	}
+
 	return secret;
 }
 
-async function removeInvalidSecrets() {
-	// Remove secret keys not valid more than 1 months
-	const date = new Date();
-	date.setMonth(date.getMonth() - 1);
-
-	const secrets = await prisma.authSecret.findMany({
-		where: {
-			validUntil: { lt: date },
-		},
-		select: {
-			id: true,
-		},
-	});
-
-	await Promise.all(secrets.map((secret) => removeSecret(secret.id)));
-}
-
-async function getSecretFromCache(id: string) {
-	const cached = await redis.get(`auth:secret#${id}`);
-	if (!cached) return null;
-
-	const instance = JSON.parse(cached) as AuthSecret;
-
-	// revive dates
-	instance.createdAt = new Date(instance.createdAt);
-	instance.validUntil = new Date(instance.validUntil);
-	instance.issuesUntil = new Date(instance.issuesUntil);
-
-	return instance;
-}
-
-async function cacheSecret(key: AuthSecret) {
-	const cacheKey = `auth:secret#${key.id}`;
-	const ttl = key.validUntil.getTime() - new Date().getTime();
-	await redis.set(cacheKey, JSON.stringify(key), 'PX', ttl);
-}
-
 async function createIssuingSecret() {
-	const key = await generateRandomKey();
+	const key = await generateRandomBytes(32, 'hex');
 
 	await prisma.$transaction([
 		prisma.authSecret.updateMany({
@@ -113,24 +92,31 @@ async function createIssuingSecret() {
 		);
 	}
 
+	cacheIssuingSecret(secret);
+
 	return secret;
 }
 
-async function removeSecret(id: string) {
-	const cacheKey = `auth:secret#${id}`;
-	await Promise.all([redis.del(cacheKey), prisma.authSecret.delete({ where: { id } })]);
-}
+// Remove secret keys invalid for more than 1 month
+async function removeInvalidSecrets() {
+	const date = subMonths(new Date(), 1);
 
-async function generateRandomKey() {
-	return new Promise<string>((resolve, reject) => {
-		crypto.randomBytes(32, (err, buff) => {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(buff.toString('base64'));
-			}
-		});
+	const secrets = await prisma.authSecret.findMany({
+		where: {
+			validUntil: { lt: date },
+		},
+		select: {
+			id: true,
+		},
 	});
+
+	const ids = secrets.map((secret) => secret.id);
+
+	await prisma.authSecret.deleteMany({
+		where: { id: { in: ids } },
+	});
+
+	await Promise.all(ids.map((id) => removeSecretFromCache(id)));
 }
 
 export const authSecret = {

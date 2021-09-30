@@ -49,6 +49,9 @@ export class ServerConfig {
 
 	readonly auth = {
 		whitelist: ['/v1/auth/login', '/v1/auth/callback'],
+
+		tokenTTL: 1, // hours
+
 		secretIssueTTL: 12, // months
 		secretValidTTL: 6, // months
 
