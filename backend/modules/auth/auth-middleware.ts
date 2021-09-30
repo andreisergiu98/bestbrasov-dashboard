@@ -39,6 +39,7 @@ export const authentication =
 			sessionId: session.sessionId,
 			tokenSet: session.tokenSet,
 			userRoles: session.userRoles,
+			userStatus: session.userStatus,
 		};
 
 		return next();

@@ -64,7 +64,7 @@ export function TopbarProfile() {
 								{user.givenName} {user.lastName}
 							</Text>
 							<Text fontSize="xs" color="gray.600">
-								{user.roles[0]}
+								{user.status}
 							</Text>
 						</VStack>
 						<Box display={{ base: 'none', md: 'flex' }}>

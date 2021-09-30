@@ -1,5 +1,5 @@
 import { AppError } from '@lib/app-error';
-import { AuthSession, prisma, UserRole } from '@lib/prisma';
+import { AuthSession, prisma, UserRole, UserStatus } from '@lib/prisma';
 import { jwtDecode, jwtSign, jwtVerify } from '@utils/jwt';
 import { TokenSet } from 'openid-client';
 import { authSecret } from '../auth-secret';
@@ -10,19 +10,21 @@ interface SessionPayload {
 	secretId: string;
 	tokenSet: TokenSet;
 	userRoles: UserRole[];
+	userStatus: UserStatus | null;
 }
 
-async function getUserRoles(userId: string) {
+async function getUserInfo(userId: string) {
 	const user = await prisma.user.findUnique({
 		where: { id: userId },
 		select: {
 			roles: true,
+			status: true,
 		},
 	});
 	if (!user) {
 		throw new Error(`Cannot find roles for user ${userId}`);
 	}
-	return user.roles;
+	return user;
 }
 
 async function decode(token: string): Promise<SessionPayload> {
@@ -42,13 +44,14 @@ async function decode(token: string): Promise<SessionPayload> {
 }
 
 async function encode(session: AuthSession, tokenSet: TokenSet) {
-	const [secret, userRoles] = await Promise.all([
+	const [secret, userInfo] = await Promise.all([
 		authSecret.getIssuingSecret(),
-		getUserRoles(session.userId),
+		getUserInfo(session.userId),
 	]);
 	const payload: SessionPayload = {
 		tokenSet,
-		userRoles,
+		userStatus: userInfo.status,
+		userRoles: userInfo.roles,
 		secretId: secret.id,
 		userId: session.userId,
 		sessionId: session.id,

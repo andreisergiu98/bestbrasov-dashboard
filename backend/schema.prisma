@@ -4,8 +4,9 @@ datasource db {
 }
 
 generator gen {
-    provider = "prisma-client-js"
-    output   = "./__generated__/prisma"
+    provider        = "prisma-client-js"
+    output          = "./__generated__/prisma"
+    previewFeatures = ["interactiveTransactions", "fullTextSearch"]
 }
 
 generator typegraphql {
@@ -20,6 +21,16 @@ enum UserRole {
     SUPER_ADMIN
 }
 
+enum UserStatus {
+    EXCLUDED
+    FORMER
+    ALUMNUS
+    BABY
+    ACTIVE
+    MDV
+    BOARDIE
+}
+
 model User {
     id          String        @id @default(cuid())
     email       String        @unique
@@ -28,8 +39,9 @@ model User {
     profile     String?       @db.VarChar(512)
     gender      String?       @db.VarChar(20)
     phoneNumber String?       @db.VarChar(20)
-    birthday    DateTime?	  @db.Date
+    birthday    DateTime?     @db.Date
     roles       UserRole[]
+    status      UserStatus?
     AuthSession AuthSession[]
 }
 
@@ -44,7 +56,7 @@ model AuthSecret {
 
 model AuthSession {
     id           String   @id @default(cuid())
-    user         User     @relation(fields: [userId], references: [id])
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     enabled      Boolean
     deviceOS     String
     browser      String
