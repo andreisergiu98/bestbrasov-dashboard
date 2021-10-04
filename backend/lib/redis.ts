@@ -51,3 +51,11 @@ export const redis = new RedisClient(config.redis.url, {
 export const redisAuthBlocklist = new RedisClient(config.auth.blocklistDb.url, {
 	connectionName: config.auth.blocklistDb.name,
 });
+
+export const publisher = new RedisClient(config.pubsub.db.url, {
+	connectionName: config.pubsub.db.publisherName,
+});
+
+export const subscriber = new RedisClient(config.pubsub.db.url, {
+	connectionName: config.pubsub.db.subscriberName,
+});

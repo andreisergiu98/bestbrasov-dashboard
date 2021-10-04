@@ -1,8 +1,9 @@
 import { registerCronJobs } from '@jobs/cron';
 import { createServer } from '@lib/apollo';
 import { prisma } from '@lib/prisma';
-import { publisher, pubsub, subscriber } from '@lib/pubsub';
-import { redis, redisAuthBlocklist } from '@lib/redis';
+import { pubsub } from '@lib/pubsub';
+import { publisher, redis, redisAuthBlocklist, subscriber } from '@lib/redis';
+import { RedisPubSub } from 'graphql-redis-subscriptions';
 import Koa from 'koa';
 import bodyparser from 'koa-bodyparser';
 import { cors } from './middlewares/cors';
@@ -36,5 +37,5 @@ export async function init() {
 
 	app.use(routes);
 
-	await createServer(app, pubsub);
+	await createServer(app, pubsub as RedisPubSub);
 }

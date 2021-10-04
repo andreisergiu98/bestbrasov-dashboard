@@ -107,7 +107,6 @@ export function EnvParam(key: string, options?: Options) {
 
 		Object.defineProperty(target, propertyKey, {
 			value,
-			enumerable: true,
 			configurable: true,
 		});
 	};

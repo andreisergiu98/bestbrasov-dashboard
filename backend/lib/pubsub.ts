@@ -1,16 +1,15 @@
+import { PubSub } from '@typings/pubsub';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
-import config from './config';
-import { RedisClient } from './redis';
+import { User } from './prisma';
+import { publisher, subscriber } from './redis';
 
-export const publisher = new RedisClient(config.pubsub.db.url, {
-	connectionName: config.pubsub.db.publisherName,
-});
+export interface SubscriptionsMap {
+	[c0: `user-updated-${string}`]: User;
+}
 
-export const subscriber = new RedisClient(config.pubsub.db.url, {
-	connectionName: config.pubsub.db.subscriberName,
-});
+export type Channel = keyof SubscriptionsMap;
 
 export const pubsub = new RedisPubSub({
 	publisher,
 	subscriber,
-});
+}) as PubSub<SubscriptionsMap>;
