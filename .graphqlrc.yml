@@ -1,7 +1,7 @@
 projects:
   frontend:
     schema:
-      - "backend/api.generated.gql"
+      - "schemas/*.gql"
       - "frontend/schemas/*.gql"
     include:
       - "frontend/**/*.gql"

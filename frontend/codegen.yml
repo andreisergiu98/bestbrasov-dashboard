@@ -1,6 +1,6 @@
 overwrite: true
 schema:
-  - ../backend/*.generated.gql
+  - ../schemas/*.gql
   - ./schemas/*.gql
 documents:
   - "./**/*.(gql)"
