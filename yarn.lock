@@ -1277,6 +1277,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bestbrasov/backend@workspace:backend"
   dependencies:
+    "@bestbrasov/common": "workspace:packages/common"
     "@koa/cors": ^3.1.0
     "@koa/router": ^10.1.1
     "@prisma/client": 3.1.1
@@ -1329,6 +1330,7 @@ __metadata:
     prisma: 3.1.1
     reflect-metadata: ^0.1.13
     source-map-support: ^0.5.20
+    tslib: ^2.3.1
     type-graphql: ^1.1.1
     typegraphql-prisma: ^0.16.1
     typescript: ^4.4.3
@@ -1340,11 +1342,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@bestbrasov/common@workspace:packages/common":
+  version: 0.0.0-use.local
+  resolution: "@bestbrasov/common@workspace:packages/common"
+  dependencies:
+    typescript: ^4.4.3
+  languageName: unknown
+  linkType: soft
+
 "@bestbrasov/frontend@workspace:frontend":
   version: 0.0.0-use.local
   resolution: "@bestbrasov/frontend@workspace:frontend"
   dependencies:
     "@apollo/client": ^3.4.15
+    "@bestbrasov/common": "workspace:packages/common"
     "@chakra-ui/react": 1.6.8
     "@emotion/react": ^11.4.1
     "@emotion/styled": ^11.3.0

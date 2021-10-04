@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"lib": ["esnext"],
+		"module": "es6",
+		"rootDir": "src",
+		"strict": true,
+		"allowJs": false,
+		"skipLibCheck": true,
+		"declaration": true,
+		"esModuleInterop": false,
+		"allowSyntheticDefaultImports": false,
+		"forceConsistentCasingInFileNames": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true
+	}
+}
