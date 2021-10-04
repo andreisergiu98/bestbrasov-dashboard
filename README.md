@@ -1,4 +1,18 @@
-- [About](#about)
+# Dashboard
+
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=andreisergiu98_bestbrasov-dashboard&metric=security_rating)](https://sonarcloud.io/dashboard?id=andreisergiu98_bestbrasov-dashboard)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=andreisergiu98_bestbrasov-dashboard&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=andreisergiu98_bestbrasov-dashboard)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=andreisergiu98_bestbrasov-dashboard&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=andreisergiu98_bestbrasov-dashboard)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=andreisergiu98_bestbrasov-dashboard&metric=bugs)](https://sonarcloud.io/dashboard?id=andreisergiu98_bestbrasov-dashboard)
+
+Internal dashboard for an NGO. Built with Node.Js, React, TypeScript and GraphQL.
+
+It uses Yarn Berry for package management in PnP strict mode, Vite as a development server for React,
+and is compiled using esbuild.
+
+# Contents <!-- omit in toc -->
+
+- [Dashboard](#dashboard)
 - [Dependencies](#dependencies)
 - [Commands](#commands)
   - [Docker](#docker)
@@ -16,13 +30,6 @@
     - [`yarn prisma db push`](#yarn-prisma-db-push)
     - [`yarn prisma db pull`](#yarn-prisma-db-pull)
     - [`yarn prisma migrate dev`](#yarn-prisma-migrate-dev)
-
-# About
-
-Internal dashboard for an NGO. Built with Node.Js, React, TypeScript and GraphQL.
-
-It uses Yarn Berry for package management in PnP strict mode, Vite as a development server for React,
-and is compiled using esbuild.
 
 # Dependencies
 
