@@ -4,7 +4,7 @@ import { getCurrentYear } from '@utils/time';
 import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 
-export function LoginPage() {
+export function Login() {
 	const [loggingIn, setLoggingIn] = useState(false);
 
 	const login = () => {

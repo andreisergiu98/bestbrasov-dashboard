@@ -3,13 +3,13 @@ import { LoadingScreen } from '@components/loading-screen';
 import { Router } from '@components/router';
 import { useAuth, UserProvider } from '@providers/auth';
 import { withProviders } from '@providers/providers';
-import { LoginPage } from './login';
+import { Login } from './login';
 
 function App() {
 	const auth = useAuth();
 
 	if (auth.error || auth.loggedOut) {
-		return <LoginPage />;
+		return <Login />;
 	}
 
 	if (auth.loading || !auth.user) {

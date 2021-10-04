@@ -1,3 +1,3 @@
-export default function EventsPage() {
+export default function Events() {
 	return <div>Events</div>;
 }

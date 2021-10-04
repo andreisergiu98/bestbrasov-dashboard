@@ -1,8 +1,8 @@
 import {
-	Context,
+	Context as ContextType,
 	createContext,
 	createElement,
-	Provider,
+	Provider as ProviderType,
 	ReactNode,
 	useContext,
 } from 'react';
@@ -26,11 +26,11 @@ export interface CreateContextOptions {
 }
 
 type ProviderWrapped = (props: { children?: ReactNode }) => JSX.Element;
-type WithValue<T> = [ProviderWrapped, () => T, Context<T>];
-type WithoutValue<T> = [Provider<T>, () => T, Context<T>];
+type WithValue<T> = [ProviderWrapped, () => T, ContextType<T>];
+type WithoutValue<T> = [ProviderType<T>, () => T, ContextType<T>];
 
 function createHook<T>(
-	Context: Context<T | undefined>,
+	Context: ContextType<T | undefined>,
 	strict: boolean,
 	errorMessage: string,
 	name?: string
@@ -56,7 +56,7 @@ function createHook<T>(
 }
 
 function createWrappedProvider<T>(
-	Context: Context<T | undefined>,
+	Context: ContextType<T | undefined>,
 	useValue: () => T,
 	name?: string
 ) {
@@ -101,12 +101,12 @@ export function createContextProvider<Type>(
 	const Context = createContext<Type | undefined>(undefined);
 	Context.displayName = name + 'Context';
 
-	const useContext = createHook(Context, strict, errorMessage, name);
+	const useContextWrapper = createHook(Context, strict, errorMessage, name);
 
 	if (useValue != null) {
 		const Provider = createWrappedProvider(Context, useValue, name);
-		return [Provider, useContext, Context] as WithValue<Type>;
+		return [Provider, useContextWrapper, Context] as WithValue<Type>;
 	}
 
-	return [Context.Provider, useContext, Context] as WithoutValue<Type>;
+	return [Context.Provider, useContextWrapper, Context] as WithoutValue<Type>;
 }

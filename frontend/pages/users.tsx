@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Loading } from '@components/loading';
 import { GetUsers } from './users.query.gql';
 
-export default function UsersPage() {
+export default function Users() {
 	const { loading, data } = useQuery(GetUsers);
 
 	if (loading) {

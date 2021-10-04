@@ -60,8 +60,10 @@ export class AuthRefresh {
 
 	private createRefresher() {
 		const iframe = this.createIframe();
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		let listener: (e: MessageEvent) => void = () => {};
+		let listener: (e: MessageEvent) => void = () => {
+			// empty function for initialization
+			// overridden by result
+		};
 
 		const result = new Promise<boolean>((resolve, reject) => {
 			listener = this.createListener(resolve, reject);

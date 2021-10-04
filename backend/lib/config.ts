@@ -69,7 +69,7 @@ export class ServerConfig {
 
 	readonly cors = {
 		defaultOrigin: 'https://bestbrasov.ro',
-		devOrigins: [/https?:\/\/localhost:[0-9]+$/],
+		devOrigins: [/https?:\/\/localhost:\d+$/],
 		prodOrigins: [/https?:\/\/([a-z0-9]+[.])*bestbrasov[.]ro$/],
 		getAllowedOrigins: () => {
 			if (this.development) {

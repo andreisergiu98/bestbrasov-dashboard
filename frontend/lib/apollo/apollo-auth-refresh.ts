@@ -10,7 +10,7 @@ const addPendingRequest = (pendingRequest: () => void) => {
 };
 
 const resolvePendingRequests = () => {
-	pendingRequests.map((callback) => callback());
+	pendingRequests.forEach((callback) => callback());
 	pendingRequests = [];
 };
 

@@ -32,11 +32,12 @@ function createLog(
 	const statusPrefix = (status / 100) | 0;
 	const color = colorCodes[statusPrefix] ?? colorCodes[0];
 
-	const upstream = err
-		? chalk.red('xxx')
-		: event === 'close'
-		? chalk.yellow('-x-')
-		: chalk.gray('-->');
+	let upstream = chalk.gray('-->');
+	if (err) {
+		upstream = chalk.red('xxx');
+	} else if (event === 'close') {
+		upstream = chalk.yellow('-x-');
+	}
 
 	let length: string | null = null;
 	if (![204, 205, 304].includes(status)) {
