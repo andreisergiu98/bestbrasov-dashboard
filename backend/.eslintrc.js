@@ -26,8 +26,8 @@ module.exports = {
 		'/__generated__/**',
 		'/migrations/**',
 		'/.eslintrc.js',
-		'/esbuild*.js',
-		'/jest.config.js',
+		'/.jestrc.js',
+		'/.swc.cli.js',
 	],
 	rules: {
 		'no-restricted-imports': [

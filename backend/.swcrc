@@ -1,0 +1,32 @@
+{
+	"module": {
+		"type": "commonjs",
+		"strict": false,
+		"strictMode": true,
+		"noInterop": false
+	},
+	"jsc": {
+		"target": "es2021",
+		"parser": {
+			"syntax": "typescript",
+			"decorators": true,
+			"dynamicImport": true
+		},
+		"transform": {
+			"legacyDecorator": true,
+			"decoratorMetadata": true
+		},
+		"keepClassNames": true,
+		"baseUrl": ".",
+		"paths": {
+			"@jobs/*": ["./jobs/*"],
+			"@lib/*": ["./lib/*"],
+			"@rules/*": ["./rules/*"],
+			"@typings/*": ["./typings/*"],
+			"@utils/*": ["./utils/*"]
+		}
+	},
+	"test": [".*.ts$", ".*.js$"],
+	"exclude": [".*\\.d\\.ts$"],
+	"sourceMaps": true
+}

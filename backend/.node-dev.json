@@ -1,0 +1,4 @@
+{
+	"notify": false,
+	"ignore": [".dist/__generated__"]
+}
