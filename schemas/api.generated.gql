@@ -234,7 +234,6 @@ type Subscription {
 type User {
 	_count: UserCount
 	birthday: DateTime
-	birthday3: DateTime
 	email: String!
 	gender: String
 	givenName: String
@@ -253,7 +252,6 @@ type UserCount {
 input UserOrderByWithRelationInput {
 	AuthSession: AuthSessionOrderByRelationAggregateInput
 	birthday: SortOrder
-	birthday3: SortOrder
 	email: SortOrder
 	gender: SortOrder
 	givenName: SortOrder
@@ -293,7 +291,6 @@ input UserRoleChangeInput {
 
 enum UserScalarFieldEnum {
 	birthday
-	birthday3
 	email
 	gender
 	givenName
@@ -321,7 +318,6 @@ input UserWhereInput {
 	NOT: [UserWhereInput!]
 	OR: [UserWhereInput!]
 	birthday: DateTimeNullableFilter
-	birthday3: DateTimeNullableFilter
 	email: StringFilter
 	gender: StringNullableFilter
 	givenName: StringNullableFilter

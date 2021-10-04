@@ -16,6 +16,7 @@ generator typegraphql {
 
 enum UserRole {
     GUEST
+    STANDARD
     MODERATOR
     ADMIN
     SUPER_ADMIN

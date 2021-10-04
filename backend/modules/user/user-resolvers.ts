@@ -2,22 +2,23 @@ import {
 	applyResolversEnhanceMap,
 	FindManyUserResolver,
 	FindUniqueUserResolver,
-	UpdateUserResolver,
 } from '@lib/resolvers';
-import { or, UsePostRule } from '@lib/rule';
-import { hasRole } from '@rules/user';
 import { MeResolver } from './me-resolver';
-import { isSelf } from './user-rules';
+import { UserProfileResolver } from './user-profile-resolver';
+import { UserRoleResolver } from './user-role-resolver';
+import { UserSessionResolver } from './user-session-resolver';
+import { UserSubscriptionsResolver } from './user-subscriptions';
 
 applyResolversEnhanceMap({
-	User: {
-		updateUser: [UsePostRule(or(hasRole('ADMIN'), isSelf))],
-	},
+	User: {},
 });
 
 export const userResolvers = [
 	MeResolver,
 	FindUniqueUserResolver,
 	FindManyUserResolver,
-	UpdateUserResolver,
+	UserProfileResolver,
+	UserRoleResolver,
+	UserSessionResolver,
+	UserSubscriptionsResolver,
 ];
