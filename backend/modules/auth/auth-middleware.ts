@@ -1,3 +1,4 @@
+import { logAuthUsage } from '@jobs/auth-log';
 import { AppError } from '@lib/app-error';
 import config from '@lib/config';
 import Koa from 'koa';
@@ -41,6 +42,8 @@ export const authentication =
 			userRoles: session.userRoles,
 			userStatus: session.userStatus,
 		};
+
+		logAuthUsage(session.sessionId);
 
 		return next();
 	};
