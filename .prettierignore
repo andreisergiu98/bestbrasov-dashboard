@@ -4,10 +4,11 @@
 
 backend/__generated__
 backend/.dist
-backend/api.generated.gql
 
 frontend/__generated__
 frontend/.dist
 frontend/.vite
 frontend/**/*.gql.ts
 frontend/**/*.scss.d.ts
+
+schemas/**/*.generated.gql

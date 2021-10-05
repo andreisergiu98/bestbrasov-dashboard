@@ -17,13 +17,6 @@ module.exports = {
 				tabWidth: 2,
 			},
 		},
-		{
-			files: ['*.gql'],
-			options: {
-				useTabs: false,
-				tabWidth: 2,
-			},
-		},
 	],
 	plugins: [require('prettier-plugin-organize-imports')],
 };

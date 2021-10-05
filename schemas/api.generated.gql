@@ -166,14 +166,7 @@ type Query {
   currentSession: AuthSession!
   me: User!
   user(where: UserWhereUniqueInput!): User
-  users(
-    cursor: UserWhereUniqueInput
-    distinct: [UserScalarFieldEnum!]
-    orderBy: [UserOrderByWithRelationInput!]
-    skip: Int
-    take: Int
-    where: UserWhereInput
-  ): [User!]!
+  users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
 
 enum QueryMode {
