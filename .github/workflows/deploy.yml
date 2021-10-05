@@ -1,0 +1,67 @@
+name: Deploy app
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+      - name: Cache dependencies and build info
+        uses: actions/cache@v2
+        with:
+          path: |
+            .yarn/cache
+            backend/.cache
+            frontend/.cache
+          key: ${{ runner.OS }}-node
+      - name: Install dependencies
+        run: yarn
+      - name: Build backend
+        run: cd backend && yarn generate && yarn build
+      - name: Build frontend
+        env:
+          VITE_API: ${{secrets.VITE_API}}
+          VITE_API_GRAPHQL: ${{secrets.VITE_API_GRAPHQL}}
+          VITE_API_SUBSCRIPTIONS: ${{secrets.VITE_API_SUBSCRIPTIONS}}
+        run: cd frontend && yarn generate && yarn build
+      - name: Deploy backend
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.BACKEND_HOST }}
+          port: ${{ secrets.BACKEND_PORT }}
+          username: ${{ secrets.BACKEND_USERNAME }}
+          key: ${{ secrets.BACKEND_KEY }}
+          passphrase: ${{ secrets.BACKEND_PASSWORD }}
+          rm: true
+          source: ".yarn/releases,.yarn/plugins,.yarnrc.yml,yarn.lock,backend/.dist,backend/package.json,packages,package.json"
+          target: "bestbrasov-dashboard"
+      - uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.BACKEND_HOST }}
+          port: ${{ secrets.BACKEND_PORT }}
+          username: ${{ secrets.BACKEND_USERNAME }}
+          key: ${{ secrets.BACKEND_KEY }}
+          passphrase: ${{ secrets.BACKEND_PASSWORD }}
+          script: |
+            cd bestbrasov-dashboard
+            yarn workspaces focus --all --production
+            sudo /bin/systemctl restart bestbrasov-api.service
+      - name: Deploy frontend
+        uses: amondnet/vercel-action@v20
+        id: vercel-action-production
+        if: github.event_name == 'push'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: frontend/.dist
+          vercel-args: "--prod"

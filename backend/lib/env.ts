@@ -25,6 +25,9 @@ export class EnvParams {
 	@EnvParam('AUTH_REDIS_URL', { required: true })
 	readonly authRedisUrl!: string;
 
+	@EnvParam('ORIGIN', { required: true })
+	readonly origin!: string;
+
 	@EnvParam('LOG_LEVEL', { default: 'info' })
 	readonly logLevel!: string;
 
