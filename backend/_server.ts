@@ -13,6 +13,7 @@ import { authentication } from './modules/auth';
 import { routes } from './routes';
 
 const app = new Koa();
+app.proxy = true;
 
 export async function init() {
 	await Promise.all([
