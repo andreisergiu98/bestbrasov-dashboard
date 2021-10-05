@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Build backend
-        run: cd backend && yarn generate && yarn build
+        run: cd backend && yarn generate && yarn types && yarn build
       - name: Build frontend
         env:
           VITE_API: ${{secrets.VITE_API}}

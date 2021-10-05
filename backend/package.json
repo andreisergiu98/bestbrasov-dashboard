@@ -15,8 +15,7 @@
 		"types:dev": "tsc --preserveWatchOutput --pretty -w",
 		"test": "yarn jest --config .jestrc.js",
 		"lint": "eslint . --ext .js,.ts",
-		"prisma": "pnpify prisma",
-		"migrate": "yarn dlx @yarnpkg/pnpify prisma migrate deploy"
+		"prisma": "pnpify prisma"
 	},
 	"bin": {
 		"swcb": ".swc.cli.js"
