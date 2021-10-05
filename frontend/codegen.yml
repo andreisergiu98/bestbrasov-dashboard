@@ -14,11 +14,9 @@ generates:
       extension: .gql.ts
       baseTypesPath: __generated__/types
     plugins:
-      - add
       - typescript-operations
       - typed-document-node
     config:
-      content: "/* eslint-disable */"
       documentVariableSuffix: ""
       fragmentVariableSuffix: ""
       documentNodeImport: "@apollo/client#TypedDocumentNode"

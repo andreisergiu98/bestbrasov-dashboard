@@ -13,13 +13,9 @@
 		"lib"
 	],
 	"type": "commonjs",
-	"main": "lib/cjs/index.js",
 	"exports": {
-		"node": {
-			"import": "./lib/esm/index.js",
-			"require": "./lib/cjs/index.js"
-		},
-		"default": "./lib/esm/index.js"
+		"import": "./lib/esm/index.js",
+		"require": "./lib/cjs/index.js"
 	},
-	"types": "lib/esm/index.d.ts"
+	"types": "./lib/esm/index.d.ts"
 }

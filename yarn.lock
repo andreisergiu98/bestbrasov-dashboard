@@ -5,9 +5,9 @@ __metadata:
   version: 4
   cacheKey: 8
 
-"@apollo/client@npm:^3.4.15":
-  version: 3.4.15
-  resolution: "@apollo/client@npm:3.4.15"
+"@apollo/client@npm:^3.4.16":
+  version: 3.4.16
+  resolution: "@apollo/client@npm:3.4.16"
   dependencies:
     "@graphql-typed-document-node/core": ^3.0.0
     "@wry/context": ^0.6.0
@@ -30,7 +30,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: dbf9a9dc1811954147c98509c8e431819c1638b89e55d4dc5c7782c85417751ebef1a358373b67babc2572b6f31331be670248d1afa18f20307f7889d20bf928
+  checksum: 919f8f1f4cf3a91024470cd48f1505e11147792445a52bac5bfae093b5acd202765db4c6beeadbb8f3d84ccae054768d0776fd066460469241e84fe51a326a6b
   languageName: node
   linkType: hard
 
@@ -1299,7 +1299,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.33.0
     "@yarnpkg/pnpify": ^3.0.1
     apollo-server-koa: ^3.3.0
-    bullmq: ^1.48.2
+    bullmq: ^1.48.3
     chalk: ^4.1.2
     chokidar: ^3.5.2
     class-validator: ^0.13.1
@@ -1354,12 +1354,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@bestbrasov/frontend@workspace:frontend"
   dependencies:
-    "@apollo/client": ^3.4.15
+    "@apollo/client": ^3.4.16
     "@bestbrasov/common": "workspace:packages/common"
     "@chakra-ui/react": 1.6.8
     "@emotion/react": ^11.4.1
     "@emotion/styled": ^11.3.0
-    "@graphql-codegen/add": ^3.1.0
     "@graphql-codegen/cli": ^2.2.0
     "@graphql-codegen/near-operation-file-preset": ^2.1.4
     "@graphql-codegen/typed-document-node": ^2.1.4
@@ -4585,15 +4584,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ioredis@npm:^4.27.0":
-  version: 4.27.1
-  resolution: "@types/ioredis@npm:4.27.1"
-  dependencies:
-    "@types/node": "*"
-  checksum: 12cf527705d9fb22c9cbed3a50a2208298eab3e025f79cf7038f02861d29a5642416ed4675613dd361ca530b414e77b053ca978bd9534ee48fda932b337f437d
-  languageName: node
-  linkType: hard
-
 "@types/ioredis@npm:^4.27.6":
   version: 4.27.6
   resolution: "@types/ioredis@npm:4.27.6"
@@ -6399,19 +6389,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^1.48.2":
-  version: 1.48.2
-  resolution: "bullmq@npm:1.48.2"
+"bullmq@npm:^1.48.3":
+  version: 1.48.3
+  resolution: "bullmq@npm:1.48.3"
   dependencies:
-    "@types/ioredis": ^4.27.0
-    cron-parser: ^2.7.3
-    get-port: ^5.0.0
-    ioredis: ^4.27.8
+    cron-parser: ^2.18.0
+    get-port: ^5.1.1
+    ioredis: ^4.27.9
     lodash: ^4.17.21
     semver: ^6.3.0
-    tslib: ^1.10.0
+    tslib: ^1.14.1
     uuid: ^8.3.2
-  checksum: d322a72d1d65f1722f428b3963b9084fcfaa44365f025ae4771d5d61b190c6b8988ae374c9e1f02bd59580981dc7f15d07cf266d171ea735d17f737da6d34325
+  checksum: b56e7b6276dcbab782b8d5d75126053ec802e6128a5a352632ba9c3b824f3988d72e10cce7a8464c28b87abfc79bb6c4f0ca6f6f0710de3be3879e469a549c9a
   languageName: node
   linkType: hard
 
@@ -7256,7 +7245,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cron-parser@npm:^2.7.3":
+"cron-parser@npm:^2.18.0":
   version: 2.18.0
   resolution: "cron-parser@npm:2.18.0"
   dependencies:
@@ -9103,7 +9092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-port@npm:^5.0.0":
+"get-port@npm:^5.1.1":
   version: 5.1.1
   resolution: "get-port@npm:5.1.1"
   checksum: 0162663ffe5c09e748cd79d97b74cd70e5a5c84b760a475ce5767b357fb2a57cb821cee412d646aa8a156ed39b78aab88974eddaa9e5ee926173c036c0713787
@@ -9979,7 +9968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^4.27.10":
+"ioredis@npm:^4.27.10, ioredis@npm:^4.27.9":
   version: 4.27.10
   resolution: "ioredis@npm:4.27.10"
   dependencies:
@@ -9995,25 +9984,6 @@ __metadata:
     redis-parser: ^3.0.0
     standard-as-callback: ^2.1.0
   checksum: 798f57bbf6891ad4decb3338e992eb6c0f89dd99d0dd4377ea4a8340403aac66f8048a5d67aa8a5df24a56c7fd3fc864ac58f2b0f45901e228eebbe57887c5b2
-  languageName: node
-  linkType: hard
-
-"ioredis@npm:^4.27.8":
-  version: 4.27.8
-  resolution: "ioredis@npm:4.27.8"
-  dependencies:
-    cluster-key-slot: ^1.1.0
-    debug: ^4.3.1
-    denque: ^1.1.0
-    lodash.defaults: ^4.2.0
-    lodash.flatten: ^4.4.0
-    lodash.isarguments: ^3.1.0
-    p-map: ^2.1.0
-    redis-commands: 1.7.0
-    redis-errors: ^1.2.0
-    redis-parser: ^3.0.0
-    standard-as-callback: ^2.1.0
-  checksum: 5c30e3c411fca10854e5804a98e5e05f34f5a52bd3226bce10d1f43c244a3705f6eebe0db21d7c7797c064da3ec0680b0c85a5f1e848fc6df970cb9133de656b
   languageName: node
   linkType: hard
 
@@ -15419,7 +15389,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.0.0, tslib@npm:^1.10.0, tslib@npm:^1.13.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0, tslib@npm:^1.9.3":
+"tslib@npm:^1.0.0, tslib@npm:^1.13.0, tslib@npm:^1.14.1, tslib@npm:^1.8.1, tslib@npm:^1.9.0, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd

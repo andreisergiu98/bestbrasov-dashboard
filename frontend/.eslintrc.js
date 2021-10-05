@@ -37,6 +37,8 @@ module.exports = {
 		'/.dist/**',
 		'/.vite/**',
 		'/__generated__/**',
+		'*.scss.d.ts',
+		'*.gql.ts',
 		'vite.config.js',
 		'.eslintrc.js',
 	],

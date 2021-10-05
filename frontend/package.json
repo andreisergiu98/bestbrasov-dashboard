@@ -12,7 +12,7 @@
 		"generate:dev": "concurrently --raw 'yarn graphql-codegen -w' 'tsm . -w --ignoreInitial'"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.4.15",
+		"@apollo/client": "^3.4.16",
 		"@bestbrasov/common": "workspace:packages/common",
 		"@chakra-ui/react": "1.6.8",
 		"@emotion/react": "^11.4.1",
@@ -31,7 +31,6 @@
 		"web-vitals": "^2.1.0"
 	},
 	"devDependencies": {
-		"@graphql-codegen/add": "^3.1.0",
 		"@graphql-codegen/cli": "^2.2.0",
 		"@graphql-codegen/near-operation-file-preset": "^2.1.4",
 		"@graphql-codegen/typed-document-node": "^2.1.4",
