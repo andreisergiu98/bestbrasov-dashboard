@@ -12,7 +12,7 @@
 		"generate": "yarn prisma generate",
 		"generate:dev": "yarn prisma generate --watch",
 		"types": "tsc --noEmit",
-		"types:dev": "tsc --noEmit --preserveWatchOutput --pretty -w",
+		"types:dev": "tsc --preserveWatchOutput --pretty -w",
 		"test": "yarn jest --config .jestrc.js",
 		"lint": "eslint . --ext .js,.ts",
 		"prisma": "pnpify prisma"

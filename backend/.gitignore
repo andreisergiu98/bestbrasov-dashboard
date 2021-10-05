@@ -1,6 +1,9 @@
 # production
 /.dist
 
+# cache
+/.cache
+
 # development
 /.env
 

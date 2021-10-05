@@ -1,9 +1,16 @@
 {
   "search.exclude": {
     "**/.yarn": true,
-    "**/.pnp.*": true
+    "**/.pnp.*": true,
+    "backend/.cache": true,
+    "backend/.dist": true,
+    "frontend/.cache": true,
+    "frontend/.dist": true,
+    "frontend/.vite": true
   },
   "files.exclude": {
+    "backend/.cache": true,
+    "frontend/.cache": true,
     "frontend/.vite": true,
     "frontend/**/*.gql.ts": true,
     "frontend/**/*.scss.d.ts": true
