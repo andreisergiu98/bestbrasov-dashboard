@@ -5,7 +5,7 @@
 	"private": true,
 	"scripts": {
 		"start": "node .dist",
-		"start:dev": "env FORCE_COLOR=true yarn build && concurrently -n codegen,build,types,app -c magenta,cyan,blue,green 'yarn generate:dev' 'yarn build:dev' 'yarn types:dev' 'yarn start:app:dev'",
+		"start:dev": "env FORCE_COLOR=true yarn generate && yarn build && concurrently -n codegen,build,types,app -c magenta,cyan,blue,green 'yarn generate:dev' 'yarn build:dev' 'yarn types:dev' 'yarn start:app:dev'",
 		"start:app:dev": "dotenv -- node-dev --inspect -r source-map-support/register .dist/index.js | pino-pretty -c -t SYS:dd.mm.yyyy HH:MM:ss",
 		"build": "swcb backend --out-dir backend/.dist --copy-files",
 		"build:dev": "swcb backend --quiet --out-dir backend/.dist --copy-files -w",
@@ -29,13 +29,13 @@
 		"bullmq": "^1.48.3",
 		"chalk": "^4.1.2",
 		"class-validator": "^0.13.1",
-		"date-fns": "^2.24.0",
+		"date-fns": "^2.25.0",
 		"eventemitter3": "^4.0.7",
 		"googleapis": "^88.2.0",
-		"graphql": "^15.6.0",
+		"graphql": "^15.6.1",
 		"graphql-fields": "^2.0.3",
 		"graphql-redis-subscriptions": "^2.4.0",
-		"graphql-scalars": "^1.10.1",
+		"graphql-scalars": "^1.11.1",
 		"graphql-subscriptions": "^1.2.1",
 		"graphql-ws": "^5.5.0",
 		"ioredis": "^4.27.10",
@@ -65,7 +65,7 @@
 		"@types/koa-bodyparser": "^4.3.3",
 		"@types/koa__cors": "^3.0.3",
 		"@types/koa__router": "^8.0.8",
-		"@types/node": "^16.10.2",
+		"@types/node": "^16.10.3",
 		"@types/ua-parser-js": "^0.7.36",
 		"@types/ws": "^8.2.0",
 		"@typescript-eslint/eslint-plugin": "^4.33.0",
@@ -81,7 +81,7 @@
 		"pino-pretty": "^7.0.1",
 		"source-map-support": "^0.5.20",
 		"tslib": "^2.3.1",
-		"typegraphql-prisma": "^0.16.1",
+		"typegraphql-prisma": "^0.16.2",
 		"typescript": "^4.4.3"
 	}
 }
