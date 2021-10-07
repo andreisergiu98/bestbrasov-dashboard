@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "vite",
 		"start:dev": "yarn generate && concurrently --raw  'yarn generate:dev' 'yarn start'",
-		"build": "vite build && cp ../vercel.json .dist",
+		"build": "vite build",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"generate": "concurrently --raw 'yarn graphql-codegen' 'tsm .'",
 		"generate:dev": "concurrently --raw 'yarn graphql-codegen -w' 'tsm . -w --ignoreInitial'"
@@ -14,12 +14,12 @@
 	"dependencies": {
 		"@apollo/client": "^3.4.16",
 		"@bestbrasov/common": "workspace:packages/common",
-		"@chakra-ui/react": "1.6.8",
+		"@chakra-ui/react": "1.6.9",
 		"@emotion/react": "^11.4.1",
 		"@emotion/styled": "^11.3.0",
 		"clsx": "^1.1.1",
 		"framer-motion": "^4.1.17",
-		"graphql": "^15.6.0",
+		"graphql": "^15.6.1",
 		"graphql-ws": "^5.5.0",
 		"history": "^5.0.1",
 		"js-cookie": "^3.0.1",
@@ -28,7 +28,7 @@
 		"react-icons": "^4.3.1",
 		"react-is": "next",
 		"react-router-dom": "^6.0.0-beta.5",
-		"web-vitals": "^2.1.0"
+		"web-vitals": "^2.1.1"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^2.2.0",
@@ -57,7 +57,7 @@
 		"sass": "^1.42.1",
 		"typed-scss-modules": "^4.1.1",
 		"typescript": "^4.4.3",
-		"vite": "^2.6.2",
+		"vite": "^2.6.3",
 		"vite-plugin-checker": "^0.3.4"
 	},
 	"browserslist": {
