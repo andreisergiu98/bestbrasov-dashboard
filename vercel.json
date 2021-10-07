@@ -6,7 +6,7 @@
 	"rewrites": [{ "source": "/(.*)", "destination": "/" }],
 	"headers": [
 		{
-			"source": "/assets/*",
+			"source": "/assets/(.*)",
 			"headers": [
 				{
 					"key": "Cache-Control",
