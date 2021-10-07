@@ -3,5 +3,16 @@
 	"github": {
 		"enabled": false
 	},
-	"rewrites": [{ "source": "/(.*)", "destination": "/" }]
+	"rewrites": [{ "source": "/(.*)", "destination": "/" }],
+	"headers": [
+		{
+			"source": "/assets/*",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=15552000"
+				}
+			]
+		}
+	]
 }
