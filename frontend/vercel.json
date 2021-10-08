@@ -3,6 +3,8 @@
 	"github": {
 		"enabled": false
 	},
+	"builds": [{ "src": "./dist/**", "use": "@vercel/static" }],
+	"routes": [{ "src": "/(.*)", "dest": ".dist/$1" }],
 	"rewrites": [{ "source": "/(.*)", "destination": "/" }],
 	"headers": [
 		{
@@ -10,7 +12,7 @@
 			"headers": [
 				{
 					"key": "Cache-Control",
-					"value": "public, max-age=15552000"
+					"value": "public, max-age=31536000, immutable"
 				}
 			]
 		}

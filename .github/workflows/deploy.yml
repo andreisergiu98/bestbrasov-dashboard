@@ -43,7 +43,8 @@ jobs:
           rm: true
           source: ".yarn/releases,.yarn/plugins,.yarnrc.yml,yarn.lock,backend/.dist,backend/package.json,packages,package.json"
           target: "bestbrasov-dashboard"
-      - uses: appleboy/ssh-action@master
+      - name: Start backend
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.BACKEND_HOST }}
           port: ${{ secrets.BACKEND_PORT }}
@@ -63,5 +64,5 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: frontend/.dist
+          working-directory: frontend
           vercel-args: "--prod"
