@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "vite",
 		"start:dev": "yarn generate && concurrently --raw  'yarn generate:dev' 'yarn start'",
-		"build": "vite build",
+		"build": "vite build && yarn post-build",
+		"post-build": "cp vercel.json .dist",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"generate": "concurrently --raw 'yarn graphql-codegen' 'tsm .'",
 		"generate:dev": "concurrently --raw 'yarn graphql-codegen -w' 'tsm . -w --ignoreInitial'"
