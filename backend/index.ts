@@ -1,5 +1,5 @@
-import config from '@lib/config';
 import 'reflect-metadata';
+import config from '@lib/config';
 import { createSchema } from './modules/schema';
 import { init } from './_server';
 

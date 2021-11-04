@@ -4,6 +4,7 @@
 
 backend/__generated__
 backend/.dist
+backend/index.ts
 
 frontend/__generated__
 frontend/.dist
