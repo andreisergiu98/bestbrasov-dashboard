@@ -3,7 +3,12 @@ import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 
 export default defineConfig({
-	plugins: [reactRefresh(), checker({ typescript: true })],
+	plugins: [
+		reactRefresh(),
+		checker({
+			typescript: true,
+		}),
+	],
 	esbuild: {
 		jsxFactory: '__jsxElement__',
 		jsxFragment: '__jsxFragment__',
