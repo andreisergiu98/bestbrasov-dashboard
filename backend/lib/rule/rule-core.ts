@@ -1,63 +1,51 @@
+import { ExtendedResolverData } from '@typings/apollo';
 import { ForbiddenError } from 'apollo-server-koa';
-import { NextFn, ResolverData } from 'type-graphql';
+import { ArgsDictionary, NextFn } from 'type-graphql';
 
-export type RuleResult = boolean;
+export type Rule<Args = ArgsDictionary, Root = unknown> = (
+	data: ExtendedResolverData<Args, Root>
+) => boolean | Promise<boolean>;
 
-export type Rule<T = unknown> = (
-	data: ResolverData<ApolloContext>,
-	result: T | null
-) => RuleResult | Promise<RuleResult>;
-
-export async function ruleMiddleware(
-	rule: Rule<undefined>,
-	data: ResolverData<ApolloContext>,
+export async function handleRule<Args, Root>(
+	rule: Rule<Args, Root>,
+	data: ExtendedResolverData<Args, Root>,
 	next: NextFn
 ) {
 	try {
-		await resolveOrRejectRule(rule, data, undefined);
+		await resolveOrRejectRule(rule, data);
 		return next();
 	} catch (e) {
-		handleError(e);
+		const errors = filterRuleErrors(e);
+
+		if (errors) {
+			throw errors;
+		}
+
+		throw new ForbiddenError('Access denied!', {
+			timestamp: new Date(),
+		});
 	}
 }
 
-export async function ruleWithResultMiddleware<T>(
-	rule: Rule<T>,
-	data: ResolverData<ApolloContext>,
-	next: NextFn
+export async function resolveOrRejectRule<Args, Root>(
+	rule: Rule<Args, Root>,
+	data: ExtendedResolverData<Args, Root>
 ) {
-	try {
-		const result = await next();
-		await resolveOrRejectRule(rule, data, result);
-	} catch (e) {
-		handleError(e);
-	}
-}
-
-function handleError(e: unknown) {
-	const errors = filterRuleErrors(e);
-
-	if (errors) {
-		throw errors;
-	}
-
-	throw new ForbiddenError('Access denied!', {
-		timestamp: new Date(),
-	});
-}
-
-export async function resolveOrRejectRule<T>(
-	rule: Rule<T>,
-	data: ResolverData<ApolloContext>,
-	queryResult: T | null
-) {
-	const ruleResult = await rule(data, queryResult);
+	const ruleResult = await rule(data);
 
 	if (ruleResult !== true) {
 		return Promise.reject(false);
 	}
 
 	return true;
+}
+
+export function handleResolverErrors(e: unknown) {
+	const error = filterRuleErrors(e);
+
+	if (error) {
+		throw error;
+	}
 }
 
 export function filterRuleErrors(error: unknown) {

@@ -1,37 +1,53 @@
-import { createMethodDecorator } from 'type-graphql';
-import {
-	resolveOrRejectRule,
-	Rule,
-	ruleMiddleware,
-	RuleResult,
-	ruleWithResultMiddleware,
-} from './rule-core';
+import { ExtendedResolverData } from '@typings/apollo';
+import { ArgsDictionary, createMethodDecorator } from 'type-graphql';
+import { MethodAndPropDecorator } from 'type-graphql/dist/decorators/types';
+import { handleResolverErrors, handleRule, resolveOrRejectRule, Rule } from './rule-core';
 
-export type { Rule, RuleResult };
-
-export function UseRule(rule: Rule<undefined>) {
+export function UseRule<Args = ArgsDictionary, Root = unknown>(rule: Rule<Args, Root>) {
 	return createMethodDecorator<ApolloContext>((data, next) =>
-		ruleMiddleware(rule, data, next)
-	);
+		handleRule(rule, data as ExtendedResolverData<Args, Root>, next)
+	) as MethodAndPropDecorator;
 }
 
-export function UsePostRule<T>(rule: Rule<T>) {
-	return createMethodDecorator<ApolloContext>((data, next) =>
-		ruleWithResultMiddleware(rule, data, next)
-	);
-}
-
-export function or<T>(...rules: Array<Rule<T>>) {
-	const orRule: Rule<T> = async (data, result) => {
-		return Promise.any(rules.map((rule) => resolveOrRejectRule(rule, data, result)));
+export function or<Args = ArgsDictionary, Root = unknown>(
+	...rules: Array<Rule<Args, Root>>
+): Rule<Args, Root> {
+	return async (data) => {
+		try {
+			await Promise.any(rules.map((rule) => resolveOrRejectRule(rule, data)));
+			return true;
+		} catch (e) {
+			handleResolverErrors(e);
+			return false;
+		}
 	};
-	return orRule;
 }
 
-export function and<T>(...rules: Array<Rule<T>>) {
-	const andRule: Rule<T> = async (data, result) => {
-		await Promise.all(rules.map((rule) => resolveOrRejectRule(rule, data, result)));
-		return true;
+export function and<Args = ArgsDictionary, Root = unknown>(
+	...rules: Array<Rule<Args, Root>>
+): Rule<Args, Root> {
+	return async (data) => {
+		try {
+			await Promise.all(rules.map((rule) => resolveOrRejectRule(rule, data)));
+			return true;
+		} catch (e) {
+			handleResolverErrors(e);
+			return false;
+		}
 	};
-	return andRule;
 }
+
+export function not<Args = ArgsDictionary, Root = unknown>(
+	rule: Rule<Args, Root>
+): Rule<Args, Root> {
+	return async (data) => {
+		try {
+			await resolveOrRejectRule(rule, data);
+			return false;
+		} catch (e) {
+			return true;
+		}
+	};
+}
+
+export type { Rule };
