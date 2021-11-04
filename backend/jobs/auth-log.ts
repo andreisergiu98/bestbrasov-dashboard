@@ -1,25 +1,23 @@
+import { AuthSession } from '@lib/models';
 import { prisma } from '@lib/prisma';
 import { workers } from '@lib/workers';
-import { Processor } from 'bullmq';
 
 interface WorkerPayload {
 	sessionId: string;
 }
 
-const runner: Processor<WorkerPayload> = async (job) => {
+workers.create<WorkerPayload, AuthSession>('auth-log', (job) => {
 	return prisma.authSession.update({
 		where: { id: job.data.sessionId },
 		data: { lastTimeUsed: { set: new Date() } },
 	});
-};
+});
 
-workers.create<WorkerPayload>('auth-log', runner);
+export function useAuthLogWorker() {
+	return workers.use<WorkerPayload, AuthSession>('auth-log');
+}
 
-export const useAuthLogWorker = () => {
-	return workers.use<WorkerPayload>('auth-log');
-};
-
-export const logAuthUsage = (sessionId: string) => {
+export async function logAuthUsage(sessionId: string) {
 	const { queue } = useAuthLogWorker();
 	queue.add('log-usage', { sessionId }, { delay: 5000, jobId: sessionId });
-};
+}

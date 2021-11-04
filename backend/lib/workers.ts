@@ -1,5 +1,4 @@
 import {
-	ConnectionOptions,
 	Processor,
 	Queue,
 	QueueEvents,
@@ -12,116 +11,106 @@ import {
 } from 'bullmq';
 import IORedis, { Redis } from 'ioredis';
 import config from './config';
+import { createLogger } from './logger';
 
-interface WorkerOpt {
+interface Options {
 	queue?: Omit<QueueOptions, 'connection'>;
 	worker?: Omit<WorkerOptions, 'connection'>;
 	events?: Omit<QueueEventsOptions, 'connection'>;
 	scheduler?: Omit<QueueSchedulerOptions, 'connection'>;
 }
 
+interface WorkerCollection<Payload, Result> {
+	queue: Queue<Payload, Result, string>;
+	worker: Worker<Payload, Result, string>;
+	events: QueueEvents;
+	scheduler: QueueScheduler;
+}
+
+type CollectionMap = Record<string, WorkerCollection<unknown, unknown> | undefined>;
+
 export class Workers {
 	private redis?: Redis;
 
-	private queueMap: Record<string, Queue> = {};
-	private workerMap: Record<string, Worker> = {};
-	private eventsMap: Record<string, QueueEvents> = {};
-	private schedulerMap: Record<string, QueueScheduler> = {};
+	private collectionMap: CollectionMap = {};
 
-	private workerKeys: string[] = [];
+	private logger = createLogger({
+		name: 'workers',
+	});
 
-	get connection() {
-		if (!this.redis) {
-			this.redis = new IORedis(config.workers.db.url, {
-				connectionName: config.workers.db.name,
-			});
+	create<T, R = unknown>(name: string, runner: Processor<T, R>, options?: Options) {
+		if (config.emitOnly) {
+			this.logger.warn(`Emitting schema! Won't create worker '${name}'!`);
+			return;
 		}
-		return this.redis as ConnectionOptions;
-	}
 
-	create<T>(name: string, runner: Processor<T>, options?: WorkerOpt) {
-		const key = this.getKey(name);
+		if (this.collectionMap[name]) {
+			throw new Error(`Worker '${name}' already exists!`);
+		}
 
-		this.workerKeys.push(key);
-
-		this.queueMap[key] = new Queue<T>(key, {
-			connection: this.connection,
+		const queue = new Queue<T, R, typeof name>(name, {
+			connection: this.getConnection(),
 			...options?.queue,
 		});
-		this.workerMap[key] = new Worker<T>(key, runner, {
-			connection: this.connection,
+		const worker = new Worker<T, R, typeof name>(name, runner, {
+			connection: this.getConnection(),
 			...options?.worker,
 		});
-		this.eventsMap[key] = new QueueEvents(key, {
-			connection: this.connection,
+		const events = new QueueEvents(name, {
+			connection: this.getConnection(),
 			...options?.events,
 		});
-		this.schedulerMap[key] = new QueueScheduler(key, {
-			connection: this.connection,
+		const scheduler = new QueueScheduler(name, {
+			connection: this.getConnection(),
 			...options?.scheduler,
 		});
+
+		this.collectionMap[name] = {
+			queue,
+			worker,
+			events,
+			scheduler,
+		};
 	}
 
-	use<T>(name: string) {
-		const res = this.findByName<T>(name);
-
-		if (!res) {
-			throw new Error('');
+	use<T, R = unknown>(name: string) {
+		if (!this.collectionMap[name]) {
+			throw new Error('No worker with name: ' + name);
 		}
-
-		return {
-			queue: res.queue,
-			events: res.events,
-		};
+		return this.collectionMap[name] as WorkerCollection<T, R>;
 	}
 
 	async delete(name: string) {
-		const res = this.findByName(name);
-		if (!res) return;
+		const collection = this.collectionMap[name];
 
-		const { key, index, queue, worker, events, scheduler } = res;
-
-		queue.removeAllListeners();
-		await queue.close();
-
-		worker.removeAllListeners();
-		await worker.close();
-
-		events.removeAllListeners();
-		await events.close();
-
-		scheduler.removeAllListeners();
-		await scheduler.close();
-
-		delete this.queueMap[key];
-		delete this.workerMap[key];
-		delete this.eventsMap[key];
-		delete this.schedulerMap[key];
-
-		this.workerKeys.splice(index);
-	}
-
-	private getKey(name: string) {
-		return name;
-	}
-
-	private findByName<T>(name: string) {
-		const index = this.workerKeys.findIndex((el) => el === this.getKey(name));
-
-		if (index < 0) {
-			return null;
+		if (!collection) {
+			return;
 		}
 
-		const key = this.workerKeys[index];
+		delete this.collectionMap[name];
 
-		return {
-			key,
-			index,
-			queue: this.queueMap[key] as Queue<T>,
-			worker: this.workerMap[key] as Worker<T>,
-			events: this.eventsMap[key],
-			scheduler: this.schedulerMap[key],
-		};
+		collection.queue.removeAllListeners();
+		collection.worker.removeAllListeners();
+		collection.events.removeAllListeners();
+		collection.scheduler.removeAllListeners();
+
+		return Promise.all([
+			collection.queue.close(),
+			collection.worker.close(),
+			collection.events.close(),
+			collection.scheduler.close(),
+		]).then(() => {});
+	}
+
+	private getConnection() {
+		if (!this.redis) {
+			this.redis = new IORedis(config.workers.db.url, {
+				connectionName: config.workers.db.name,
+				maxRetriesPerRequest: null,
+				enableReadyCheck: false,
+			});
+		}
+		return this.redis;
 	}
 }
 

@@ -4,6 +4,8 @@ import { env } from './env';
 export class ServerConfig {
 	readonly development = env.development;
 
+	readonly emitOnly = process.argv.includes('--emitOnly');
+
 	readonly server = {
 		port: env.port,
 		paths: {
