@@ -21,6 +21,8 @@ type WithLogger<T> = T & {
 type CreateContext<T> = ParameterizedContext<T, WithLogger<RouterParamContext<T>>>;
 
 declare module 'koa' {
+	export type CookieOptions = Parameters<CreateContext<unknown>['cookies']['set']>[2];
+
 	export type AppContext = CreateContext<AppState>;
 	export type LoginContext = CreateContext<LoginState>;
 	export type AuthContext = CreateContext<AuthState>;

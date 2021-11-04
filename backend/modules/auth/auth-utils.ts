@@ -1,11 +1,17 @@
 import config from '@lib/config';
 import { addYears } from 'date-fns';
-import Koa from 'koa';
-import Cookies from 'universal-cookie';
+import Koa, { CookieOptions } from 'koa';
+import UniversalCookies from 'universal-cookie';
 
 const SESSION_COOKIE_KEY = 'x-auth-token';
 const SESSION_TTL_COOKIE_KEY = 'x-auth-ttl';
 const LOGIN_STATE_COOKIE_KEY = 'x-auth-login-state';
+
+const cookieOptions: CookieOptions = {
+	httpOnly: true,
+	sameSite: 'lax',
+	secure: !config.development,
+};
 
 export interface AuthState {
 	backToPath: string;
@@ -33,16 +39,15 @@ export function getSessionCookie(ctx: Koa.Context) {
 }
 
 export function getSessionCookieFromCookies(cookie: string) {
-	const cookies = new Cookies(cookie);
+	const cookies = new UniversalCookies(cookie);
 	const token: string | undefined = cookies.get(SESSION_COOKIE_KEY);
 	return token;
 }
 
 export function setSessionCookie(ctx: Koa.Context, token: string): void {
 	ctx.cookies.set(SESSION_COOKIE_KEY, token, {
+		...cookieOptions,
 		expires: addYears(new Date(), 1),
-		httpOnly: true,
-		secure: !config.development,
 	});
 }
 
@@ -52,21 +57,15 @@ export function setSessionTtlCookie(ctx: Koa.Context, ttl?: number): void {
 	}
 
 	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, ttl.toString(), {
+		...cookieOptions,
 		expires: addYears(new Date(), 1),
 		httpOnly: false,
-		secure: !config.development,
 	});
 }
 
 export function removeSessionCookies(ctx: Koa.Context) {
-	ctx.cookies.set(SESSION_COOKIE_KEY, '', {
-		httpOnly: true,
-		secure: !config.development,
-	});
-	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, '', {
-		httpOnly: false,
-		secure: !config.development,
-	});
+	ctx.cookies.set(SESSION_COOKIE_KEY, null, cookieOptions);
+	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, null, cookieOptions);
 }
 
 export function getLoginStateCookie(ctx: Koa.Context) {
@@ -78,19 +77,15 @@ export function getLoginStateCookie(ctx: Koa.Context) {
 
 export function setLoginStateCookie(ctx: Koa.Context, state: AuthState) {
 	const encodedState = encodeLoginState(state);
-
+	console.log(config.development);
 	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, encodedState, {
+		...cookieOptions,
 		maxAge: 60 * 1000,
-		httpOnly: true,
-		secure: !config.development,
 	});
 }
 
 export function removeLoginStateCookie(ctx: Koa.Context) {
-	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, '', {
-		httpOnly: true,
-		secure: !config.development,
-	});
+	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, null, cookieOptions);
 }
 
 export function createSilentCallbackIframe(success: boolean, origin?: string) {
