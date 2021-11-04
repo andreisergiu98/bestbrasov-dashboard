@@ -70,7 +70,7 @@ export class ServerConfig {
 	};
 
 	readonly cors = {
-		defaultOrigin: 'https://' + env.origin,
+		defaultOrigin: 'https://' + env.defaultCorsOrigin,
 		devOrigins: [/https?:\/\/localhost:\d+$/],
 		prodOrigins: [/https?:\/\/([a-z0-9]+[.])*bestbrasov[.]ro$/],
 		getAllowedOrigins: () => {

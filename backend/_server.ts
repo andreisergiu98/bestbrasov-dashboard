@@ -35,7 +35,7 @@ export async function init() {
 
 	app.use(bodyparser());
 
-	app.use(routes);
+	app.use(routes());
 
 	await createServer(app, pubsub);
 }

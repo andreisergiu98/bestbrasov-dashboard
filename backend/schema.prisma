@@ -1,37 +1,3 @@
-datasource db {
-    provider = "postgresql"
-    url      = env("DB_URL")
-}
-
-generator gen {
-    provider        = "prisma-client-js"
-    output          = "./__generated__/prisma"
-    previewFeatures = ["interactiveTransactions", "fullTextSearch"]
-}
-
-generator typegraphql {
-    provider = "typegraphql-prisma"
-    output   = "./__generated__/data"
-}
-
-enum UserRole {
-    GUEST
-    STANDARD
-    MODERATOR
-    ADMIN
-    SUPER_ADMIN
-}
-
-enum UserStatus {
-    EXCLUDED
-    FORMER
-    ALUMNUS
-    BABY
-    ACTIVE
-    MDV
-    BOARDIE
-}
-
 model User {
     id          String        @id @default(cuid())
     email       String        @unique
@@ -63,4 +29,38 @@ model AuthSession {
     browser      String
     lastTimeUsed DateTime
     userId       String
+}
+
+enum UserRole {
+    GUEST
+    STANDARD
+    MODERATOR
+    ADMIN
+    SUPER_ADMIN
+}
+
+enum UserStatus {
+    EXCLUDED
+    FORMER
+    ALUMNUS
+    BABY
+    ACTIVE
+    MDV
+    BOARDIE
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DB_URL")
+}
+
+generator gen {
+    provider        = "prisma-client-js"
+    output          = "./__generated__/prisma"
+    previewFeatures = ["interactiveTransactions", "fullTextSearch"]
+}
+
+generator typegraphql {
+    provider = "typegraphql-prisma"
+    output   = "./__generated__/data"
 }
