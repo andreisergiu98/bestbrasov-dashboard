@@ -15,7 +15,7 @@ const colorCodes = {
 	0: 'yellow',
 };
 
-function getElapsedTime(start) {
+function getElapsedTime(start: number) {
 	const delta = Date.now() - start;
 	return prettyMs(delta);
 }
@@ -29,8 +29,8 @@ function createLog(
 	const status = err ? err.status || 500 : ctx.status || 404;
 
 	// set the color of the status code;
-	const statusPrefix = (status / 100) | 0;
-	const color = colorCodes[statusPrefix] ?? colorCodes[0];
+	const statusPrefix = ((status / 100) | 0) as keyof typeof colorCodes;
+	const color = colorCodes[statusPrefix] as 'magenta';
 
 	let upstream = chalk.gray('-->');
 	if (err) {
@@ -73,6 +73,7 @@ export const koaLogger = (options: LoggerOptions = {}) => {
 	return async (ctx: Koa.UnknownContext, next: () => Promise<void>) => {
 		ctx.log = logger;
 
+		// @ts-expect-error
 		const start = ctx[Symbol.for('request-received.startTime')]?.getTime() || Date.now();
 
 		logger.info(
