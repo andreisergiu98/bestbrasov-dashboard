@@ -26,6 +26,8 @@ jobs:
         run: yarn
       - name: Build backend
         run: cd backend && yarn generate && yarn types && yarn build
+      - name: Generate schema
+        run: cd backend && yarn start:app:schema
       - name: Build frontend
         env:
           VITE_API: ${{secrets.VITE_API}}
