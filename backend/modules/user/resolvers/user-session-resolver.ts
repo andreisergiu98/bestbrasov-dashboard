@@ -1,6 +1,6 @@
 import { AuthSession } from '@lib/models';
 import { Args, ArgsType, Ctx, Field, ID, Mutation, Query, Resolver } from 'type-graphql';
-import { sessionBlocklist } from '../auth-session';
+import { sessionBlocklist } from '../../auth-session';
 
 @ArgsType()
 class DeleteSessionArgs {
@@ -53,7 +53,6 @@ export class UserSessionResolver {
 
 	@Mutation(() => Boolean)
 	async revokeAllSessions(@Ctx() ctx: ApolloContext): Promise<boolean> {
-		await sessionBlocklist.setRevokedByUserId(ctx.session.userId);
-		return true;
+		return sessionBlocklist.setRevokedByUserId(ctx.session.userId).then(() => true);
 	}
 }

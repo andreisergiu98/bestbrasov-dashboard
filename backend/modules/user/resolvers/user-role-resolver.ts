@@ -5,8 +5,8 @@ import { UseRule } from '@lib/rule';
 import { hasRole } from '@rules/user';
 import { ForbiddenError } from 'apollo-server-koa';
 import { Args, ArgsType, Ctx, Field, InputType, Mutation, Resolver } from 'type-graphql';
-import { sessionBlocklist } from '../auth-session';
-import { canUserPromoteRoles, isUserImmuneToRoles } from './user-role-rules';
+import { sessionBlocklist } from '../../auth-session';
+import { canUserPromoteRoles, isUserImmuneToRoles } from '../rules/user-role-rules';
 
 @InputType({
 	isAbstract: true,

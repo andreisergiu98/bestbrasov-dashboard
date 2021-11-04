@@ -6,10 +6,10 @@ import {
 } from '@lib/generated';
 import { User } from '@lib/models';
 import { pubsub } from '@lib/pubsub';
-import { or, UsePostRule } from '@lib/rule';
+import { or, UseRule } from '@lib/rule';
 import { hasRole } from '@rules/user';
 import { Args, ArgsType, Ctx, Field, InputType, Mutation, Resolver } from 'type-graphql';
-import { isSelf } from './user-rules';
+import { isSelf } from '../rules/user-rules';
 
 @InputType({
 	isAbstract: true,
@@ -59,9 +59,14 @@ class UpdateUserProfileArgs {
 	where!: UserWhereUniqueInput;
 }
 
+const profileUpdateRule = or(
+	hasRole('MODERATOR', 'ADMIN', 'SUPER_ADMIN'),
+	isSelf<UpdateUserProfileArgs>((args) => args.where)
+);
+
 @Resolver()
 export class UserProfileResolver {
-	@UsePostRule(or(hasRole('MODERATOR', 'ADMIN', 'SUPER_ADMIN'), isSelf))
+	@UseRule(profileUpdateRule)
 	@Mutation(() => User)
 	async updateUserProfile(
 		@Ctx() ctx: ApolloContext,

@@ -26,7 +26,7 @@ type UserUpdatedSubTopic = ResolverTopicData<
 >;
 
 @Resolver()
-export class UserSubscriptionsResolver {
+export class UserSubscriptions {
 	@Subscription(() => User, {
 		nullable: true,
 		topics: (data: UserUpdatedSubTopic): Channel => `user-updated-${data.args.id}`,
