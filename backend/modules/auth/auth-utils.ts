@@ -9,7 +9,6 @@ const LOGIN_STATE_COOKIE_KEY = 'x-auth-login-state';
 
 const cookieOptions: CookieOptions = {
 	httpOnly: true,
-	sameSite: 'lax',
 	secure: !config.development,
 };
 
