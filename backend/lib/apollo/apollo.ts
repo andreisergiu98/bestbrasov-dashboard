@@ -1,5 +1,6 @@
 import config from '@lib/config';
 import { logger } from '@lib/logger';
+import { PubSub } from '@typings/pubsub';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import http from 'http';
 import Koa from 'koa';
@@ -7,7 +8,7 @@ import { createSchema } from '../../modules/schema';
 import { useApolloServer } from './apollo-server';
 import { useSubscriptions } from './apollo-subscriptions';
 
-export async function createServer(app: Koa, pubsub: RedisPubSub) {
+export async function createServer(app: Koa, pubsub: RedisPubSub | PubSub<unknown>) {
 	const port = config.server.port;
 
 	const schema = await createSchema(pubsub);

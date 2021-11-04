@@ -38,5 +38,5 @@ export async function init() {
 
 	app.use(routes);
 
-	await createServer(app, pubsub as RedisPubSub);
+	await createServer(app, pubsub);
 }
