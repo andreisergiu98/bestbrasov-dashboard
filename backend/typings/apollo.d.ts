@@ -1,4 +1,5 @@
 import { PrismaClient } from '@lib/prisma';
+import { ResolverData } from 'type-graphql';
 import { AppState } from './koa';
 
 declare global {
@@ -12,3 +13,11 @@ declare global {
 		prisma: PrismaClient;
 	}
 }
+
+export type ExtendedResolverData<
+	Args = ArgsDictionary,
+	Root = unknown
+> = ResolverData<ApolloContext> & {
+	root: Root;
+	args: Args;
+};
