@@ -13,28 +13,19 @@ import {
 	useColorModeValue,
 	VStack,
 } from '@chakra-ui/react';
-import { useIsMounted } from '@hooks/is-mounted';
 import { auth } from '@lib/auth';
 import { useUser } from '@providers/auth';
-import { useState } from 'react';
+import { resizeGooglePicture } from '@utils/image';
+import { useMemo, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 
 function LogoutItem() {
-	const isMounted = useIsMounted();
 	const [loggingOut, setLoggingOut] = useState(false);
 
 	const logout = async () => {
 		setLoggingOut(true);
-
-		try {
-			await auth.logout();
-		} catch (e) {
-			//
-		} finally {
-			if (isMounted()) {
-				setLoggingOut(false);
-			}
-		}
+		await auth.logout();
+		setLoggingOut(false);
 	};
 
 	return (
@@ -48,12 +39,20 @@ function LogoutItem() {
 export function TopbarProfile() {
 	const user = useUser();
 
+	const picture = useMemo(
+		() => resizeGooglePicture(user.profile ?? '', 64),
+		[user.profile]
+	);
+
+	const menuBg = useColorModeValue('white', 'gray.900');
+	const menuBorder = useColorModeValue('gray.200', 'gray.700');
+
 	return (
 		<Flex alignItems={'center'}>
 			<Menu>
 				<MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
 					<HStack>
-						<Avatar size={'sm'} src={user.profile ?? ''} />
+						<Avatar size={'sm'} src={picture} />
 						<VStack
 							display={{ base: 'none', md: 'flex' }}
 							alignItems="flex-start"
@@ -72,11 +71,7 @@ export function TopbarProfile() {
 						</Box>
 					</HStack>
 				</MenuButton>
-				<MenuList
-					px="3"
-					bg={useColorModeValue('white', 'gray.900')}
-					borderColor={useColorModeValue('gray.200', 'gray.700')}
-				>
+				<MenuList px="3" bg={menuBg} borderColor={menuBorder}>
 					<MenuItem>Profile</MenuItem>
 					<MenuItem>Settings</MenuItem>
 					<MenuDivider />

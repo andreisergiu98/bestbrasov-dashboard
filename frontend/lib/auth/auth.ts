@@ -1,31 +1,26 @@
-import { setLoggedOut } from '@providers/auth';
+import events from '@lib/events';
 import config from '../config';
-import { AuthRefresh } from './auth-refresh';
+import { AuthSilent as AuthSilentLogin } from './auth-silent-login';
 
 class Auth {
-	private readonly refreshser = new AuthRefresh();
-
-	get refreshing() {
-		return this.refreshser.refreshing;
-	}
-
-	async refresh() {
-		return this.refreshser.refresh();
-	}
+	readonly silentLogin = new AuthSilentLogin();
 
 	login() {
 		const backTo =
 			window.location.origin + window.location.pathname + window.location.search;
 
-		location.href =
-			config.api.baseUrl + '/v1/auth/login?backTo=' + encodeURIComponent(backTo);
+		location.href = config.api.authLoginUrl + '?backTo=' + encodeURIComponent(backTo);
 	}
 
 	async logout() {
-		await fetch(config.api.baseUrl + '/v1/auth/logout', {
+		await fetch(config.api.authLogoutUrl, {
 			credentials: 'include',
 		});
-		setLoggedOut();
+		this.emitLogout();
+	}
+
+	emitLogout() {
+		events.emit('logout');
 	}
 }
 

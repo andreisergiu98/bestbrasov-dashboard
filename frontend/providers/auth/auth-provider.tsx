@@ -1,23 +1,32 @@
-import { makeVar, useQuery, useReactiveVar } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import events from '@lib/events';
 import { createContextProvider } from '@utils/context';
+import { useEffect, useState } from 'react';
 import { TryAuth } from './me.query.gql';
-
-const loggedOutVar = makeVar(false);
-
-export function setLoggedOut() {
-	loggedOutVar(true);
-}
 
 function useAuthStore() {
 	const query = useQuery(TryAuth, {
 		fetchPolicy: 'network-only',
 	});
 
-	const loggedOut = useReactiveVar(loggedOutVar);
+	const [loggedOut, setLoggedOut] = useState(false);
+
+	useEffect(() => {
+		const logout = () => {
+			setLoggedOut(true);
+		};
+
+		events.on('logout', logout);
+
+		return () => {
+			events.removeListener('logout', logout);
+		};
+	}, []);
 
 	return {
 		loggedOut,
-		user: query.data?.me,
+		user: query.data?.me.user,
+		info: query.data?.me.authInfo,
 		error: query.error,
 		loading: query.loading,
 	};

@@ -1,6 +1,13 @@
 query TryAuth {
 	me {
-		roles
-		...UserProfile
+		user {
+			email
+			roles
+			...UserProfile
+		}
+
+		authInfo {
+			scope
+		}
 	}
 }

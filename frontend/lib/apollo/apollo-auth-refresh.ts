@@ -1,6 +1,5 @@
 import { fromPromise, ServerError } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { setLoggedOut } from '@providers/auth';
 import { auth } from '../auth';
 
 let pendingRequests: Array<() => void> = [];
@@ -17,17 +16,16 @@ const resolvePendingRequests = () => {
 export const authRefreshLink = onError(({ networkError, operation, forward }) => {
 	// User access token has expired
 	if ((networkError as ServerError)?.statusCode === 401) {
-		if (!auth.refreshing) {
+		if (!auth.silentLogin.loggingIn) {
 			return fromPromise(
-				auth.refresh().catch((err) => {
+				auth.silentLogin.login().catch((err) => {
 					console.log(err);
 					resolvePendingRequests();
-					setLoggedOut();
+					auth.emitLogout();
 					return forward(operation);
 				})
 			).flatMap(() => {
 				resolvePendingRequests();
-
 				return forward(operation);
 			});
 		} else {
