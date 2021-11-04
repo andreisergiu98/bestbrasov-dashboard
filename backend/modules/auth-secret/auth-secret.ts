@@ -1,4 +1,5 @@
 import config from '@lib/config';
+import { createLogger } from '@lib/logger';
 import { prisma } from '@lib/prisma';
 import { generateRandomBytes } from '@utils/crypto';
 import { add, subMonths } from 'date-fns';
@@ -9,6 +10,8 @@ import {
 	getSecretFromCache,
 	removeSecretFromCache,
 } from './auth-secret-cache';
+
+const logger = createLogger({ name: 'auth-secret' });
 
 async function getSecretById(id: string) {
 	let cacheHit = true;
@@ -29,7 +32,7 @@ async function getSecretById(id: string) {
 	}
 
 	if (!cacheHit) {
-		cacheSecret(secret).then();
+		cacheSecret(secret).catch((e) => logger.error(e));
 	}
 
 	return secret;
@@ -43,6 +46,9 @@ async function getIssuingSecret() {
 		cacheHit = false;
 		secret = await prisma.authSecret.findFirst({
 			where: { issuing: true },
+			orderBy: {
+				validUntil: 'desc',
+			},
 		});
 	}
 
@@ -56,7 +62,7 @@ async function getIssuingSecret() {
 	}
 
 	if (!cacheHit) {
-		cacheIssuingSecret(secret);
+		cacheIssuingSecret(secret).catch((e) => logger.error(e));
 	}
 
 	return secret;
@@ -65,7 +71,7 @@ async function getIssuingSecret() {
 async function createIssuingSecret() {
 	const key = await generateRandomBytes(32, 'hex');
 
-	await prisma.$transaction([
+	const [, secret] = await prisma.$transaction([
 		prisma.authSecret.updateMany({
 			data: { issuing: false },
 		}),
@@ -79,20 +85,7 @@ async function createIssuingSecret() {
 		}),
 	]);
 
-	const secret = await prisma.authSecret.findFirst({
-		where: {
-			issuing: true,
-		},
-	});
-
-	if (!secret) {
-		// this shouldn't happen
-		throw new Error(
-			"Couldn't find issuing secret after creation. Something went terribly wrong!"
-		);
-	}
-
-	cacheIssuingSecret(secret);
+	cacheIssuingSecret(secret).catch((e) => logger.error(e));
 
 	return secret;
 }
@@ -109,6 +102,10 @@ async function removeInvalidSecrets() {
 			id: true,
 		},
 	});
+
+	if (secrets.length === 0) {
+		return;
+	}
 
 	const ids = secrets.map((secret) => secret.id);
 

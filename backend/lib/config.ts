@@ -57,9 +57,9 @@ export class ServerConfig {
 		secretIssueTTL: 12, // months
 		secretValidTTL: 6, // months
 
-		blocklistDb: {
+		authDb: {
 			url: env.authRedisUrl,
-			name: 'redis-auth-blocklist',
+			name: 'redis-auth',
 		},
 
 		googleOpenId: {

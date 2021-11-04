@@ -1,10 +1,11 @@
 import { AppError } from '@lib/app-error';
-import { AuthSession, prisma, UserRole, UserStatus } from '@lib/prisma';
+import { AuthSession, UserRole, UserStatus } from '@lib/prisma';
 import { jwtDecode, jwtSign, jwtVerify } from '@utils/jwt';
-import { TokenSet } from 'openid-client';
+import { TokenSet, TokenSetParameters } from 'openid-client';
 import { authSecret } from '../auth-secret';
+import { getUserSessionInfo } from '../user';
 
-interface SessionPayload {
+export interface SessionData {
 	userId: string;
 	sessionId: string;
 	secretId: string;
@@ -13,26 +14,21 @@ interface SessionPayload {
 	userStatus: UserStatus | null;
 }
 
-async function getUserInfo(userId: string) {
-	const user = await prisma.user.findUnique({
-		where: { id: userId },
-		select: {
-			roles: true,
-			status: true,
-		},
-	});
-	if (!user) {
-		throw new Error(`Cannot find roles for user ${userId}`);
-	}
-	return user;
+interface SessionDecoded {
+	userId: string;
+	sessionId: string;
+	secretId: string;
+	tokenSet: TokenSetParameters;
+	userRoles: UserRole[];
+	userStatus: UserStatus | null;
 }
 
-async function decode(token: string): Promise<SessionPayload> {
-	const session = jwtDecode(token) as SessionPayload;
+async function decode(token: string): Promise<SessionData> {
+	const session = jwtDecode<SessionDecoded>(token);
 	const secret = await authSecret.getSecretById(session.secretId);
 
 	try {
-		await jwtVerify<SessionPayload>(token, secret.key);
+		await jwtVerify(token, secret.key);
 	} catch (e) {
 		throw new AppError(401, 'Session token has been tampered!');
 	}
@@ -40,15 +36,15 @@ async function decode(token: string): Promise<SessionPayload> {
 	return {
 		...session,
 		tokenSet: new TokenSet(session.tokenSet),
-	} as SessionPayload;
+	};
 }
 
 async function encode(session: AuthSession, tokenSet: TokenSet) {
 	const [secret, userInfo] = await Promise.all([
 		authSecret.getIssuingSecret(),
-		getUserInfo(session.userId),
+		getUserSessionInfo(session.userId),
 	]);
-	const payload: SessionPayload = {
+	const payload: SessionData = {
 		tokenSet,
 		userStatus: userInfo.status,
 		userRoles: userInfo.roles,

@@ -2,8 +2,7 @@ import { registerCronJobs } from '@jobs/cron';
 import { createServer } from '@lib/apollo';
 import { prisma } from '@lib/prisma';
 import { pubsub } from '@lib/pubsub';
-import { publisher, redis, redisAuthBlocklist, subscriber } from '@lib/redis';
-import { RedisPubSub } from 'graphql-redis-subscriptions';
+import { publisher, redis, redisAuth, subscriber } from '@lib/redis';
 import Koa from 'koa';
 import bodyparser from 'koa-bodyparser';
 import { cors } from './middlewares/cors';
@@ -19,9 +18,9 @@ export async function init() {
 	await Promise.all([
 		prisma.$connect(),
 		redis.connect(),
+		redisAuth.connect(),
 		publisher.connect(),
 		subscriber.connect(),
-		redisAuthBlocklist.connect(),
 	]);
 
 	registerCronJobs();

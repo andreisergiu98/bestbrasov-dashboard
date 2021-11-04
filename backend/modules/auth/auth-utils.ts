@@ -1,4 +1,5 @@
 import config from '@lib/config';
+import { addYears } from 'date-fns';
 import Koa from 'koa';
 import Cookies from 'universal-cookie';
 
@@ -39,9 +40,8 @@ export function getSessionCookieFromCookies(cookie: string) {
 
 export function setSessionCookie(ctx: Koa.Context, token: string): void {
 	ctx.cookies.set(SESSION_COOKIE_KEY, token, {
-		expires: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000),
+		expires: addYears(new Date(), 1),
 		httpOnly: true,
-		sameSite: false,
 		secure: !config.development,
 	});
 }
@@ -50,17 +50,23 @@ export function setSessionTtlCookie(ctx: Koa.Context, ttl?: number): void {
 	if (ttl == null) {
 		return;
 	}
+
 	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, ttl.toString(), {
-		expires: new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000),
+		expires: addYears(new Date(), 1),
 		httpOnly: false,
-		sameSite: false,
 		secure: !config.development,
 	});
 }
 
 export function removeSessionCookies(ctx: Koa.Context) {
-	ctx.cookies.set(SESSION_COOKIE_KEY, '');
-	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, '');
+	ctx.cookies.set(SESSION_COOKIE_KEY, '', {
+		httpOnly: true,
+		secure: !config.development,
+	});
+	ctx.cookies.set(SESSION_TTL_COOKIE_KEY, '', {
+		httpOnly: false,
+		secure: !config.development,
+	});
 }
 
 export function getLoginStateCookie(ctx: Koa.Context) {
@@ -74,24 +80,27 @@ export function setLoginStateCookie(ctx: Koa.Context, state: AuthState) {
 	const encodedState = encodeLoginState(state);
 
 	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, encodedState, {
-		maxAge: 15 * 60 * 1000,
+		maxAge: 60 * 1000,
 		httpOnly: true,
-		sameSite: false,
 		secure: !config.development,
 	});
 }
 
 export function removeLoginStateCookie(ctx: Koa.Context) {
-	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, '');
+	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, '', {
+		httpOnly: true,
+		secure: !config.development,
+	});
 }
 
 export function createSilentCallbackIframe(success: boolean, origin?: string) {
 	const ok = success ? 'true' : 'false';
+
 	return `
 		<html>
 		<head>
 		<script>
-			parent.postMessage({type: 'SILENT_REFRESH', ok: ${ok}}, '${origin}');
+			parent.postMessage({type: 'SILENT_LOGIN', ok: ${ok}}, '${origin}');
 		</script>
 		</head>
 		</html>

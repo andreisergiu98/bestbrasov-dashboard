@@ -1,17 +1,9 @@
 import { RouterParamContext } from '@koa/router';
 import { Logger } from '@lib/logger';
-import { UserRole, UserStatus } from '@lib/prisma';
 import { ParameterizedContext } from 'koa';
-import { TokenSet } from 'openid-client';
-
+import { SessionData } from '../modules/auth-session';
 export interface AppState {
-	session: {
-		userId: string;
-		sessionId: string;
-		tokenSet: TokenSet;
-		userRoles: UserRole[];
-		userStatus: UserStatus | null;
-	};
+	session: SessionData;
 }
 
 export type LoginState = Omit<AppState, 'session'>;

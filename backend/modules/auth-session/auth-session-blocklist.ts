@@ -1,7 +1,7 @@
 import { AppError } from '@lib/app-error';
 import config from '@lib/config';
 import { prisma } from '@lib/prisma';
-import { redisAuthBlocklist } from '@lib/redis';
+import { redisAuth } from '@lib/redis';
 
 enum Flags {
 	REVOKED = '0',
@@ -9,14 +9,14 @@ enum Flags {
 }
 
 function getKey(sessionId: string) {
-	return `auth:blocklist:id#${sessionId}`;
+	return `auth-blocklist:sessionId#${sessionId}`;
 }
 
 const ttl = config.auth.tokenTTL * 60 * 60;
 
 async function getStatus(sessionId: string): Promise<undefined | 'outdated' | 'revoked'> {
 	const key = getKey(sessionId);
-	const flag = await redisAuthBlocklist.get(key);
+	const flag = await redisAuth.get(key);
 
 	if (flag === Flags.REVOKED) {
 		return 'revoked';
@@ -45,13 +45,13 @@ async function setRevoked(sessionId: string) {
 			where: { id: sessionId },
 			data: { enabled: false },
 		}),
-		redisAuthBlocklist.set(key, Flags.REVOKED, 'EX', ttl),
+		redisAuth.set(key, Flags.REVOKED, 'EX', ttl),
 	]);
 }
 
 async function setOutdated(sessionId: string) {
 	const key = getKey(sessionId);
-	await redisAuthBlocklist.set(key, Flags.OUTDATED, 'EX', ttl);
+	await redisAuth.set(key, Flags.OUTDATED, 'EX', ttl);
 }
 
 async function setRevokedByUserId(userId: string) {

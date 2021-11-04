@@ -1,9 +1,9 @@
 import IORedis, { ScanStreamOption } from 'ioredis';
 import config from './config';
-import { createLogger, Logger } from './logger';
+import { createLogger } from './logger';
 
 export class RedisClient extends IORedis {
-	private readonly logger: Logger;
+	private readonly logger;
 
 	constructor(url: string, options: IORedis.RedisOptions) {
 		super(url, {
@@ -26,7 +26,7 @@ export class RedisClient extends IORedis {
 			const keys: string[] = [];
 			const stream = this.scanStream(options);
 
-			stream.on('data', (resultKeys) => {
+			stream.on('data', (resultKeys: string[]) => {
 				keys.push(...resultKeys);
 			});
 
@@ -48,8 +48,8 @@ export const redis = new RedisClient(config.redis.url, {
 	connectionName: config.redis.name,
 });
 
-export const redisAuthBlocklist = new RedisClient(config.auth.blocklistDb.url, {
-	connectionName: config.auth.blocklistDb.name,
+export const redisAuth = new RedisClient(config.auth.authDb.url, {
+	connectionName: config.auth.authDb.name,
 });
 
 export const publisher = new RedisClient(config.pubsub.db.url, {

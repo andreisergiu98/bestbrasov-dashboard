@@ -35,4 +35,6 @@ export async function jwtVerify<T = unknown | undefined>(
 	});
 }
 
-export { decode as jwtDecode };
+export function jwtDecode<T = unknown>(token: string) {
+	return decode(token) as T;
+}

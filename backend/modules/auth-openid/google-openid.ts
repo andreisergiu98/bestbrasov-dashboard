@@ -2,7 +2,6 @@
 import config from '@lib/config';
 import { IncomingMessage } from 'http';
 import { Client, generators, Issuer, TokenSet } from 'openid-client';
-import { LoginUserInfo } from '../auth/auth-user';
 
 const defaultScopes = [
 	'openid',
@@ -12,6 +11,18 @@ const defaultScopes = [
 	'https://www.googleapis.com/auth/user.birthday.read',
 	'https://www.googleapis.com/auth/user.phonenumbers.read',
 ];
+
+interface LoginHint {
+	email?: string;
+	idToken?: string;
+}
+
+export interface OpenIdUserInfo {
+	email: string;
+	profile?: string;
+	lastName: string;
+	givenName?: string;
+}
 
 export class GoogleOpenId {
 	private authClient?: Client;
@@ -33,23 +44,19 @@ export class GoogleOpenId {
 		return this.loadClient();
 	}
 
-	async createAuthorization(silent?: boolean, loginHint?: string) {
+	async createAuthorization(silent?: boolean, hint?: LoginHint) {
 		const client = await this.getClient();
 		const codeVerifier = generators.codeVerifier();
 		const codeChallenge = generators.codeChallenge(codeVerifier);
 
-		let prompt: string | undefined = undefined;
-		if (silent) {
-			prompt = 'none';
-		}
-
 		const authorizationUrl = await client.authorizationUrl({
-			prompt,
-			loginHint,
-			redirect_uri: this.config.redirect,
+			prompt: silent ? 'none' : undefined,
 			scope: defaultScopes.join(' '),
+			redirect_uri: this.config.redirect,
 			code_challenge: codeChallenge,
 			code_challenge_method: 'S256',
+			login_hint: hint?.email,
+			id_token_hint: hint?.idToken,
 		});
 
 		return {
@@ -66,7 +73,7 @@ export class GoogleOpenId {
 		});
 	}
 
-	async getUserInfo(tokenSet: TokenSet): Promise<LoginUserInfo> {
+	async getUserInfo(tokenSet: TokenSet): Promise<OpenIdUserInfo> {
 		const client = await this.getClient();
 		const info = await client.userinfo(tokenSet);
 

@@ -2,8 +2,7 @@ import { logAuthUsage } from '@jobs/auth-log';
 import { AppError } from '@lib/app-error';
 import config from '@lib/config';
 import Koa from 'koa';
-import { sessionBlocklist, sessionEncoder } from '../auth-session';
-import { replaceUserSession } from './auth-user';
+import { replaceUserSession, sessionBlocklist, sessionEncoder } from '../auth-session';
 import { getSessionCookie, removeSessionCookies, setSessionCookie } from './auth-utils';
 
 export const authentication =
@@ -35,13 +34,7 @@ export const authentication =
 			session = sessionEncoderRes.payload;
 		}
 
-		ctx.state.session = {
-			userId: session.userId,
-			sessionId: session.sessionId,
-			tokenSet: session.tokenSet,
-			userRoles: session.userRoles,
-			userStatus: session.userStatus,
-		};
+		ctx.state.session = session;
 
 		logAuthUsage(session.sessionId);
 

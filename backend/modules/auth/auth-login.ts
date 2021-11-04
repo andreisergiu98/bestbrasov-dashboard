@@ -1,9 +1,9 @@
 import { AppError } from '@lib/app-error';
+import { logger } from '@lib/logger';
 import { prisma } from '@lib/prisma';
 import Koa from 'koa';
 import { googleOpenId } from '../auth-openid';
-import { sessionEncoder } from '../auth-session';
-import { createUserSession, verifyUserSession } from './auth-user';
+import { createUserSession, sessionEncoder, verifyUserSession } from '../auth-session';
 import {
 	AuthState,
 	createSilentCallbackIframe,
@@ -104,6 +104,7 @@ const handleSilentLoginCallback = async (ctx: Koa.LoginContext, state?: AuthStat
 		ctx.status = 201;
 		ctx.body = createSilentCallbackIframe(true, origin);
 	} catch (e) {
+		logger.debug(e);
 		ctx.status = 401;
 		ctx.body = createSilentCallbackIframe(false, origin);
 	}
@@ -111,18 +112,26 @@ const handleSilentLoginCallback = async (ctx: Koa.LoginContext, state?: AuthStat
 
 async function maybeGetLoginHint(ctx: Koa.Context) {
 	try {
-		const sessionToken = await getSessionCookie(ctx);
+		const sessionToken = getSessionCookie(ctx);
+
 		if (!sessionToken) {
 			return;
 		}
-		const { userId } = await sessionEncoder.decode(sessionToken);
+
+		const { userId, tokenSet } = await sessionEncoder.decode(sessionToken);
+
+		if (!tokenSet.expired()) {
+			return { idToken: tokenSet.id_token };
+		}
 
 		const user = await prisma.user.findUnique({
 			where: { id: userId },
 		});
 
-		return user?.email;
+		if (user) {
+			return { email: user.email };
+		}
 	} catch (e) {
-		//
+		// do nothing
 	}
 }
