@@ -70,7 +70,7 @@ export class Workers {
 			worker,
 			events,
 			scheduler,
-		};
+		} as WorkerCollection<unknown, unknown>;
 	}
 
 	use<T, R = unknown>(name: string) {
@@ -99,7 +99,9 @@ export class Workers {
 			collection.worker.close(),
 			collection.events.close(),
 			collection.scheduler.close(),
-		]).then(() => {});
+		]).then(() => {
+			// return void
+		});
 	}
 
 	private getConnection() {

@@ -73,7 +73,7 @@ export const koaLogger = (options: LoggerOptions = {}) => {
 	return async (ctx: Koa.UnknownContext, next: () => Promise<void>) => {
 		ctx.log = logger;
 
-		// @ts-expect-error
+		// @ts-expect-error no type definitions
 		const start = ctx[Symbol.for('request-received.startTime')]?.getTime() || Date.now();
 
 		logger.info(
