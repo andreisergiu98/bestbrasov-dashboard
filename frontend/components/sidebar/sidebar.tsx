@@ -13,9 +13,8 @@ interface SidebarProps {
 
 function SidebarDrawer(props: SidebarProps) {
 	const isOpen = useSidebarOpen();
-	const className = `${classes.sidebarDrawer} ${isOpen ? 'open' : 'closed'}`;
-
 	const width = (isOpen ? sidebarWidth : sidebarClosedWidth) + 'px';
+	const className = `${classes.sidebarDrawer} ${isOpen ? 'open' : 'closed'}`;
 
 	return (
 		<Box

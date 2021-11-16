@@ -3,13 +3,16 @@ import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from './apollo';
 import { AuthProvider } from './auth';
 import { ChakraProvider } from './chakra';
+import { SidebarConstraintsProvider } from './sidebar';
 
 function Providers({ children }: { children: ReactNode }) {
 	return (
 		<ApolloProvider>
 			<BrowserRouter>
 				<ChakraProvider>
-					<AuthProvider>{children}</AuthProvider>
+					<AuthProvider>
+						<SidebarConstraintsProvider>{children}</SidebarConstraintsProvider>
+					</AuthProvider>
 				</ChakraProvider>
 			</BrowserRouter>
 		</ApolloProvider>

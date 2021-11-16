@@ -23,6 +23,10 @@ export function SidebarToolbar() {
 				aria-label="open sidebar"
 				onClick={sidebarApi.closeSidebar}
 				icon={<FiChevronLeft />}
+				visibility={{
+					base: 'hidden',
+					md: 'visible',
+				}}
 			/>
 		</Box>
 	);

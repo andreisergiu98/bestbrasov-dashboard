@@ -36,14 +36,23 @@ export function Topbar() {
 					size="lg"
 					variant="ghost"
 					aria-label="open sidebar"
-					onClick={sidebarApi.toggleSidebar}
-					className={open ? 'hamburg-sidebar-open' : ''}
 					icon={<FiMenu />}
+					display={{
+						base: 'none',
+						md: 'flex',
+					}}
+					className={open ? 'hamburg-sidebar-open' : ''}
+					onClick={sidebarApi.toggleSidebar}
 				/>
-				<Text mr="auto">
+				<Text
+					ml={{
+						base: '6',
+						md: '0',
+					}}
+					mr="auto"
+				>
 					<TopbarTitle />
 				</Text>
-
 				<TopbarDarkMode />
 				<IconButton
 					mr="4"
