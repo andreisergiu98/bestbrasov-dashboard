@@ -18,7 +18,7 @@
 		"noImplicitAny": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
-		"types": ["react/next", "react-dom/next"],
+		"types": ["react/next", "react-dom/next", "vite-plugin-worker/client"],
 		"typeRoots": ["./typings"],
 		"paths": {
 			"@generated/*": ["./__generated__/*", "./__generated__/"],
@@ -26,6 +26,7 @@
 			"@lib/*": ["./lib/*", "./lib/"],
 			"@hooks/*": ["./hooks/*", "./hooks/"],
 			"@providers/*": ["./providers/*", "./providers/"],
+			"@typings/*": ["./typings/*", "./typings/"],
 			"@utils/*": ["./utils/*", "./utils/"]
 		}
 	},
