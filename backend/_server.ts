@@ -8,6 +8,8 @@ import bodyparser from 'koa-bodyparser';
 import { cors } from './middlewares/cors';
 import { catchError } from './middlewares/koa-error';
 import { koaLogger } from './middlewares/koa-logger';
+import { serveFavicon, servePublic } from './middlewares/koa-public';
+import { renderer } from './middlewares/koa-renderer';
 import { authentication } from './modules/auth';
 import { routes } from './routes';
 
@@ -33,9 +35,14 @@ export async function init() {
 
 	app.use(authentication());
 
+	app.use(renderer());
+
 	app.use(bodyparser());
 
 	app.use(routes());
 
-	await createServer(app, pubsub);
+	app.use(serveFavicon());
+
+	app.use(servePublic());
+
 }

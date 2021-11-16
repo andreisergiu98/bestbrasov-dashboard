@@ -50,7 +50,8 @@ export class ServerConfig {
 	};
 
 	readonly auth = {
-		whitelist: ['/v1/auth/login', '/v1/auth/callback'],
+		whitelist: ['/v1/auth/login', '/v1/auth/callback', '/favicon.ico'],
+		whitelistNamespace: ['/public/'],
 
 		tokenTTL: 1, // hours
 
