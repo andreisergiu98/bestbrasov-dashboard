@@ -1,17 +1,14 @@
 import config from '../config';
 
-type MessageListener = (e: MessageEvent) => void;
+interface IframeResult {
+	ok: boolean;
+	type: string;
+}
+
+type MessageListener = (e: MessageEvent<undefined | IframeResult>) => void;
 
 type MessageReject = (message: string) => void;
 type MessageResolve = () => void;
-
-type IframeMessageEvent = MessageEvent<
-	| {
-			ok: boolean;
-			type: string;
-	  }
-	| undefined
->;
 
 export class AuthSilent {
 	loggingIn = false;
@@ -37,7 +34,7 @@ export class AuthSilent {
 
 		const iframe = this.createIframe();
 
-		let listener: (e: MessageEvent) => void = () => {
+		let listener: MessageListener = () => {
 			// empty function for initialization
 			// overridden by result
 		};
@@ -72,12 +69,15 @@ export class AuthSilent {
 		return iframe;
 	}
 
-	private createListener(resolve: MessageResolve, reject: MessageReject) {
+	private createListener(
+		resolve: MessageResolve,
+		reject: MessageReject
+	): MessageListener {
 		const timeoutId = setTimeout(() => {
 			reject('Silent login timed out!');
 		}, 10000);
 
-		return (e: IframeMessageEvent) => {
+		return (e) => {
 			if (e.data?.type !== this.messageType) {
 				return;
 			}
