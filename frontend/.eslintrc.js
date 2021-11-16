@@ -25,6 +25,7 @@ module.exports = {
 		'plugin:react-hooks/recommended',
 		'plugin:jsx-a11y/recommended',
 	],
+	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		project: 'tsconfig.json',
 		tsconfigRootDir: __dirname,
