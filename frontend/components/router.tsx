@@ -3,6 +3,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { routes } from '../routes';
 import { Loading } from './loading';
 
+export { Link as RouterLink } from 'react-router-dom';
+
 interface LazyRouteProps {
 	element: ReactNode;
 	fallback?: NonNullable<ReactNode>;
