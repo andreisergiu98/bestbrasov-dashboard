@@ -1,5 +1,5 @@
 import { prisma, UserRole, UserStatus } from '@lib/prisma';
-import { and, not, Rule } from '@lib/rule';
+import { or, Rule } from '@lib/rule';
 
 export function hasRole(...roles: UserRole[]): Rule {
 	return ({ context }) => {
@@ -24,8 +24,14 @@ export function hasStatus(...status: UserStatus[]): Rule {
 	};
 }
 
-export function hasBasicRights() {
-	const isNotGuest = not(hasRole('GUEST'));
-	const isNotExcluded = not(hasStatus('EXCLUDED', 'FORMER'));
-	return and(isNotGuest, isNotExcluded);
+export function canModerate() {
+	return hasRole('MODERATOR', 'ADMIN', 'SUPER_ADMIN');
+}
+
+export function isAdmin() {
+	return hasRole('ADMIN', 'SUPER_ADMIN');
+}
+
+export function canInvite() {
+	return or(hasRole('ADMIN', 'SUPER_ADMIN'), hasStatus('MDV', 'BOARDIE'));
 }

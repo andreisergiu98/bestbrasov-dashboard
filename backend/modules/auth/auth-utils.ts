@@ -87,7 +87,7 @@ export function removeLoginStateCookie(ctx: Koa.Context) {
 	ctx.cookies.set(LOGIN_STATE_COOKIE_KEY, null, cookieOptions);
 }
 
-export function createSilentCallbackIframe(success: boolean, origin?: string) {
+export function createCallbackIframe(success: boolean, origin?: string) {
 	const ok = success ? 'true' : 'false';
 
 	return `

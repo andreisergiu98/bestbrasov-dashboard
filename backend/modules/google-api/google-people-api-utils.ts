@@ -1,6 +1,6 @@
-import { people_v1 } from 'googleapis';
+import { people_v1 as peopleV1 } from 'googleapis';
 
-export function normalizeBirthday(birthdays?: people_v1.Schema$Birthday[]) {
+export function normalizeBirthday(birthdays?: peopleV1.Schema$Birthday[]) {
 	const birthday = birthdays?.[1]?.date;
 	if (!birthday) {
 		return null;
@@ -15,10 +15,10 @@ export function normalizeBirthday(birthdays?: people_v1.Schema$Birthday[]) {
 	return null;
 }
 
-export function normalizeGender(genders?: people_v1.Schema$Gender[]) {
+export function normalizeGender(genders?: peopleV1.Schema$Gender[]) {
 	return genders?.[0]?.value || null;
 }
 
-export function normalizePhoneNumber(numbers?: people_v1.Schema$PhoneNumber[]) {
+export function normalizePhoneNumber(numbers?: peopleV1.Schema$PhoneNumber[]) {
 	return numbers?.[0]?.canonicalForm || null;
 }
