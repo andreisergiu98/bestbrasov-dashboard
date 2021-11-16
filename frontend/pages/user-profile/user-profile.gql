@@ -1,0 +1,9 @@
+query GetUser($id: String!) {
+	user(where: { id: $id }) {
+		email
+		birthday
+		phoneNumber
+		joinedAt
+		...UserProfile
+	}
+}

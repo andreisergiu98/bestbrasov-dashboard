@@ -1,0 +1,20 @@
+@keyframes spin {
+	from {
+		rotate: -180deg;
+	}
+
+	to {
+		rotate: -540deg;
+	}
+}
+
+.refreshIcon {
+	transition: ease-in-out 0.2s rotate;
+	&:hover {
+		rotate: -180deg;
+	}
+
+	&.active {
+		animation: spin 1s infinite ease-in-out;
+	}
+}

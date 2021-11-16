@@ -1,0 +1,55 @@
+fragment UserInvite on UserInvite {
+	id
+	email
+	role
+	status
+	accepted
+	acceptedAt
+	invitedAt
+	expiresAt
+}
+
+query GetUserInvites(
+	$where: UserInviteWhereInput
+	$orderBy: [UserInviteOrderByWithRelationAndSearchRelevanceInput!]
+	$skip: Int
+	$take: Int
+) {
+	userInvites(where: $where, orderBy: $orderBy, skip: $skip, take: $take) {
+		...UserInvite
+	}
+
+	aggregateUserInvite(where: $where) {
+		_count {
+			_all
+		}
+	}
+}
+
+query GetUserInvite($where: UserInviteWhereUniqueInput!) {
+	userInvite(where: $where) {
+		...UserInvite
+	}
+}
+
+mutation ExtendUserInvite($where: UserInviteWhereUniqueInput!) {
+	extendUserInvite(where: $where) {
+		id
+		expiresAt
+	}
+}
+
+mutation UpdateUserInvite(
+	$where: UserInviteWhereUniqueInput!
+	$data: UserInviteUpdateInput!
+) {
+	updateUserInvite(where: $where, data: $data) {
+		...UserInvite
+	}
+}
+
+mutation DeleteUserInvite($where: UserInviteWhereUniqueInput!) {
+	deleteUserInvite(where: $where) {
+		id
+	}
+}

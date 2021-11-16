@@ -9,6 +9,7 @@ interface AppRoute {
 
 export interface RouteParams {
 	event: { id: string };
+	userProfile: { id: string };
 }
 
 export const createRoute = {
@@ -17,6 +18,8 @@ export const createRoute = {
 	events: () => '/app/view/events',
 	companies: () => '/app/view/companies',
 	event: (p: RouteParams['event']) => `/app/view/event/${p.id}`,
+	userProfile: (p: RouteParams['userProfile']) => `/app/view/users/profile/${p.id}`,
+	userInvites: () => '/app/view/user-invites',
 };
 
 export const routes: AppRoute[] = [
@@ -28,7 +31,7 @@ export const routes: AppRoute[] = [
 	{
 		title: 'Users',
 		path: createRoute.users(),
-		component: lazy(() => import('../pages/users')),
+		component: lazy(() => import('../pages/users/users')),
 	},
 	{
 		title: 'Events',
@@ -43,5 +46,14 @@ export const routes: AppRoute[] = [
 	{
 		path: createRoute.event({ id: ':id' }),
 		component: lazy(() => import('../pages/event')),
+	},
+	{
+		path: createRoute.userProfile({ id: ':id' }),
+		component: lazy(() => import('../pages/user-profile/user-profile')),
+	},
+	{
+		title: 'User invites',
+		path: createRoute.userInvites(),
+		component: lazy(() => import('../pages/user-invites/user-invites')),
 	},
 ];
