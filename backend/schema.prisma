@@ -8,8 +8,25 @@ model User {
     phoneNumber String?       @db.VarChar(20)
     birthday    DateTime?     @db.Date
     roles       UserRole[]
-    status      UserStatus?
+    status      UserStatus
     AuthSession AuthSession[]
+    /// @TypeGraphQL.omit(output: false, input: true)
+    joinedAt    DateTime      @default(now())
+}
+
+model UserInvite {
+    id         String     @id @default(cuid())
+    email      String     @unique
+    role       UserRole
+    status     UserStatus
+    /// @TypeGraphQL.omit(output: false, input: true)
+    accepted   Boolean    @default(false)
+    /// @TypeGraphQL.omit(output: false, input: true)
+    acceptedAt DateTime?
+    /// @TypeGraphQL.omit(output: false, input: true)
+    invitedAt  DateTime   @default(now())
+    /// @TypeGraphQL.omit(output: false, input: true)
+    expiresAt  DateTime
 }
 
 model AuthSecret {
