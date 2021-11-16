@@ -46,6 +46,7 @@ export class ServerConfig {
 	};
 
 	readonly schema = {
+		emit: this.development || this.emitOnly,
 		path: path.resolve(__dirname, '../../../schemas/api.generated.gql'),
 	};
 

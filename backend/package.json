@@ -4,10 +4,10 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"start": "node .dist",
+		"start": "node .dist/setup-server",
 		"start:dev": "env FORCE_COLOR=true yarn generate && yarn build && concurrently -n build,types,app -c cyan,blue,green 'yarn build:dev' 'yarn types:dev' 'yarn start:app:dev'",
-		"start:app:dev": "dotenv -- node-dev --inspect -r source-map-support/register .dist/index.js | pino-pretty -c -t SYS:dd.mm.yyyy HH:MM:ss",
-		"start:app:schema": "dotenv -e .env.example -- node .dist/index.js --emitOnly",
+		"start:app:dev": "dotenv -- node-dev --inspect -r source-map-support/register .dist/setup-server | pino-pretty -c -t SYS:dd.mm.yyyy HH:MM:ss",
+		"start:app:schema": "dotenv -e .env.example -- node .dist/setup-server --emitOnly",
 		"build": "swcb backend --out-dir backend/.dist --copy-files",
 		"build:dev": "swcb backend --quiet --out-dir backend/.dist --copy-files -w",
 		"generate": "yarn prisma generate",

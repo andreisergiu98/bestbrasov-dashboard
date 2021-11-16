@@ -1,5 +1,6 @@
 import { registerCronJobs } from '@jobs/cron';
-import { createServer } from '@lib/apollo';
+import { createSchema, createServer } from '@lib/apollo';
+import config from '@lib/config';
 import { prisma } from '@lib/prisma';
 import { pubsub } from '@lib/pubsub';
 import { publisher, redis, redisAuth, subscriber } from '@lib/redis';
@@ -11,12 +12,18 @@ import { koaLogger } from './middlewares/koa-logger';
 import { serveFavicon, servePublic } from './middlewares/koa-public';
 import { renderer } from './middlewares/koa-renderer';
 import { authentication } from './modules/auth';
+import { resolvers } from './modules/resolvers';
 import { routes } from './routes';
 
-const app = new Koa();
-app.proxy = true;
+const app = new Koa({
+	proxy: true,
+});
 
 export async function init() {
+	if (config.emitOnly) {
+		return createSchema(resolvers);
+	}
+
 	await Promise.all([
 		prisma.$connect(),
 		redis.connect(),
@@ -45,4 +52,5 @@ export async function init() {
 
 	app.use(servePublic());
 
+	await createServer(app, pubsub, resolvers);
 }
