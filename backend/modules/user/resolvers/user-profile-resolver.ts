@@ -79,6 +79,6 @@ export class UserProfileResolver {
 
 		pubsub.publish(`user-updated-${user.id}`, user);
 
-		return user;
+		return user as User;
 	}
 }

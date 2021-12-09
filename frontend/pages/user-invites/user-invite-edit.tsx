@@ -101,6 +101,9 @@ function UserInviteEdit(props: Props) {
 				status: { set: status },
 			},
 		},
+		onCompleted() {
+			props.onCancel();
+		},
 		onError(error) {
 			toast({
 				title: 'Error',
@@ -143,8 +146,7 @@ function UserInviteEdit(props: Props) {
 	const handleSubmit = async () => {
 		const valid = await validateEmail(email);
 		if (valid) {
-			await updateInvite();
-			props.onCancel();
+			return updateInvite();
 		}
 	};
 

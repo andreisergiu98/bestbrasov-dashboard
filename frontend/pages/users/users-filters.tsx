@@ -5,7 +5,7 @@ import { getStatusColor } from '@components/user-status-badge';
 import { UserRole, UserStatus } from '@generated/types';
 import { useDelayedLoading } from '@hooks/use-delayed-loading';
 import clsx from 'clsx';
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useMemo, useState } from 'react';
 import { FiArrowDown } from 'react-icons/fi';
 import {
 	roleOptions,
@@ -14,8 +14,8 @@ import {
 	sortOptions,
 	statusOptions,
 	StatusSelectOption,
+	UserSortFieldValue,
 } from './use-user-filters';
-import { GetUsersItem } from './user';
 import style from './users.module.scss';
 
 interface Props {
@@ -23,12 +23,12 @@ interface Props {
 	search: string;
 	status: UserStatus[];
 	roles: UserRole[];
-	sortField?: keyof GetUsersItem;
+	sortField?: UserSortFieldValue;
 	sortDirection: 'asc' | 'desc';
 	onSearch: (search: string) => void;
 	onStatusSelect: (status: UserStatus[]) => void;
 	onRoleSelect: (role: UserRole[]) => void;
-	onSortSelect: (sort?: keyof GetUsersItem) => void;
+	onSortSelect: (sort?: UserSortFieldValue) => void;
 	toggleSort: () => void;
 }
 
@@ -47,8 +47,10 @@ export function UserFilters(props: Props) {
 			colorScheme: getRoleColor(role),
 		}))
 	);
-	const [defaultSortField] = useState<SortFieldOption | undefined>(() =>
-		sortOptions.find((sortOption) => sortOption.value === props.sortField)
+
+	const sortField = useMemo<SortFieldOption | undefined>(
+		() => sortOptions.find((sortOption) => sortOption.value === props.sortField),
+		[props.sortField]
 	);
 
 	const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -125,7 +127,7 @@ export function UserFilters(props: Props) {
 						isClearable={true}
 						placeholder="Sort by"
 						options={sortOptions}
-						defaultValue={defaultSortField}
+						value={sortField}
 						onChange={handleSortSelect}
 					/>
 					{props.sortField && (

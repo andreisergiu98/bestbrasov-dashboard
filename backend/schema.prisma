@@ -1,83 +1,83 @@
 model User {
-    id          String        @id @default(cuid())
-    email       String        @unique
-    lastName    String        @db.VarChar(100)
-    givenName   String?       @db.VarChar(100)
-    profile     String?       @db.VarChar(512)
-    gender      String?       @db.VarChar(20)
-    phoneNumber String?       @db.VarChar(20)
-    birthday    DateTime?     @db.Date
-    roles       UserRole[]
-    status      UserStatus
-    AuthSession AuthSession[]
-    /// @TypeGraphQL.omit(output: false, input: true)
-    joinedAt    DateTime      @default(now())
+  id          String        @id @default(cuid())
+  email       String        @unique
+  lastName    String        @db.VarChar(100)
+  givenName   String?       @db.VarChar(100)
+  profile     String?       @db.VarChar(512)
+  gender      String?       @db.VarChar(20)
+  phoneNumber String?       @db.VarChar(20)
+  birthday    DateTime?     @db.Date
+  roles       UserRole[]
+  status      UserStatus
+  AuthSession AuthSession[]
+  /// @TypeGraphQL.omit(output: false, input: true)
+  joinedAt    DateTime      @default(now())
 }
 
 model UserInvite {
-    id         String     @id @default(cuid())
-    email      String     @unique
-    role       UserRole
-    status     UserStatus
-    /// @TypeGraphQL.omit(output: false, input: true)
-    accepted   Boolean    @default(false)
-    /// @TypeGraphQL.omit(output: false, input: true)
-    acceptedAt DateTime?
-    /// @TypeGraphQL.omit(output: false, input: true)
-    invitedAt  DateTime   @default(now())
-    /// @TypeGraphQL.omit(output: false, input: true)
-    expiresAt  DateTime
+  id         String     @id @default(cuid())
+  email      String     @unique
+  role       UserRole
+  status     UserStatus
+  /// @TypeGraphQL.omit(output: false, input: true)
+  accepted   Boolean    @default(false)
+  /// @TypeGraphQL.omit(output: false, input: true)
+  acceptedAt DateTime?
+  /// @TypeGraphQL.omit(output: false, input: true)
+  invitedAt  DateTime   @default(now())
+  /// @TypeGraphQL.omit(output: false, input: true)
+  expiresAt  DateTime
 }
 
 model AuthSecret {
-    id          String   @id @default(cuid())
-    key         String   @db.Text
-    issuing     Boolean
-    issuesUntil DateTime
-    validUntil  DateTime
-    createdAt   DateTime @default(now())
+  id          String   @id @default(cuid())
+  key         String   @db.Text
+  issuing     Boolean
+  issuesUntil DateTime
+  validUntil  DateTime
+  createdAt   DateTime @default(now())
 }
 
 model AuthSession {
-    id           String   @id @default(cuid())
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    enabled      Boolean
-    deviceOS     String
-    browser      String
-    lastTimeUsed DateTime
-    userId       String
+  id           String   @id @default(cuid())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  enabled      Boolean
+  deviceOS     String
+  browser      String
+  lastTimeUsed DateTime
+  userId       String
 }
 
 enum UserRole {
-    GUEST
-    STANDARD
-    MODERATOR
-    ADMIN
-    SUPER_ADMIN
+  GUEST
+  STANDARD
+  MODERATOR
+  ADMIN
+  SUPER_ADMIN
 }
 
 enum UserStatus {
-    EXCLUDED
-    FORMER
-    ALUMNUS
-    BABY
-    ACTIVE
-    MDV
-    BOARDIE
+  EXCLUDED
+  FORMER
+  ALUMNUS
+  BABY
+  ACTIVE
+  MDV
+  BOARDIE
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DB_URL")
+  provider = "postgresql"
+  url      = env("DB_URL")
 }
 
 generator gen {
-    provider        = "prisma-client-js"
-    output          = "./__generated__/prisma"
-    previewFeatures = ["interactiveTransactions", "fullTextSearch"]
+  provider        = "prisma-client-js"
+  output          = "./__generated__/prisma"
+  previewFeatures = ["interactiveTransactions", "fullTextSearch"]
 }
 
 generator typegraphql {
-    provider = "typegraphql-prisma"
-    output   = "./__generated__/data"
+  provider = "typegraphql-prisma"
+  output   = "./__generated__/data"
 }

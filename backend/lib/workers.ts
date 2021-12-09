@@ -20,39 +20,41 @@ interface Options {
 	scheduler?: Omit<QueueSchedulerOptions, 'connection'>;
 }
 
-interface WorkerCollection<Payload, Result> {
-	queue: Queue<Payload, Result, string>;
-	worker: Worker<Payload, Result, string>;
+interface WorkerCollection<Payload, Result, JobName extends string> {
+	queue: Queue<Payload, Result, JobName>;
+	worker: Worker<Payload, Result, JobName>;
 	events: QueueEvents;
 	scheduler: QueueScheduler;
 }
 
-type CollectionMap = Record<string, WorkerCollection<unknown, unknown> | undefined>;
-
 export class Workers {
 	private redis?: Redis;
 
-	private collectionMap: CollectionMap = {};
+	private collectionMap = new Map<string, WorkerCollection<unknown, unknown, string>>();
 
 	private logger = createLogger({
 		name: 'workers',
 	});
 
-	create<T, R = unknown>(name: string, runner: Processor<T, R>, options?: Options) {
+	create<Data = undefined, Result = void, JobName extends string = string>(
+		name: string,
+		runner: Processor<Data, Result, JobName>,
+		options?: Options
+	) {
 		if (config.emitOnly) {
 			this.logger.warn(`Emitting schema! Won't create worker '${name}'!`);
 			return;
 		}
 
-		if (this.collectionMap[name]) {
+		if (this.collectionMap.get(name)) {
 			throw new Error(`Worker '${name}' already exists!`);
 		}
 
-		const queue = new Queue<T, R, typeof name>(name, {
+		const queue = new Queue<Data, Result, JobName>(name, {
 			connection: this.getConnection(),
 			...options?.queue,
 		});
-		const worker = new Worker<T, R, typeof name>(name, runner, {
+		const worker = new Worker<Data, Result, JobName>(name, runner, {
 			connection: this.getConnection(),
 			...options?.worker,
 		});
@@ -65,29 +67,32 @@ export class Workers {
 			...options?.scheduler,
 		});
 
-		this.collectionMap[name] = {
+		const collection = {
 			queue,
 			worker,
 			events,
 			scheduler,
-		} as WorkerCollection<unknown, unknown>;
+		} as unknown as WorkerCollection<unknown, unknown, string>;
+
+		this.collectionMap.set(name, collection);
 	}
 
-	use<T, R = unknown>(name: string) {
-		if (!this.collectionMap[name]) {
+	use<T = undefined, R = void, JobName extends string = string>(name: string) {
+		const collection = this.collectionMap.get(name);
+		if (!collection) {
 			throw new Error('No worker with name: ' + name);
 		}
-		return this.collectionMap[name] as WorkerCollection<T, R>;
+		return collection as unknown as WorkerCollection<T, R, JobName>;
 	}
 
 	async delete(name: string) {
-		const collection = this.collectionMap[name];
+		const collection = this.collectionMap.get(name);
 
 		if (!collection) {
 			return;
 		}
 
-		delete this.collectionMap[name];
+		this.collectionMap.delete(name);
 
 		collection.queue.removeAllListeners();
 		collection.worker.removeAllListeners();
@@ -104,13 +109,17 @@ export class Workers {
 		});
 	}
 
+	private createConnection() {
+		return new IORedis(config.workers.db.url, {
+			connectionName: config.workers.db.name,
+			maxRetriesPerRequest: null,
+			enableReadyCheck: false,
+		});
+	}
+
 	private getConnection() {
 		if (!this.redis) {
-			this.redis = new IORedis(config.workers.db.url, {
-				connectionName: config.workers.db.name,
-				maxRetriesPerRequest: null,
-				enableReadyCheck: false,
-			});
+			this.redis = this.createConnection();
 		}
 		return this.redis;
 	}

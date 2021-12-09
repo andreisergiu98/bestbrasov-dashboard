@@ -13,29 +13,32 @@ const resolvePendingRequests = () => {
 	pendingRequests = [];
 };
 
+const createPendingPromise = () =>
+	new Promise<void>((resolve) => {
+		addPendingRequest(resolve);
+	});
+
+const trySilentLogin = async () => {
+	try {
+		await auth.silentLogin.login();
+	} catch (err) {
+		console.log(err);
+		auth.emitLogout();
+	}
+};
+
 export const authRefreshLink = onError(({ networkError, operation, forward }) => {
 	// User access token has expired
 	if ((networkError as ServerError)?.statusCode === 401) {
-		if (!auth.silentLogin.loggingIn) {
-			return fromPromise(
-				auth.silentLogin.login().catch((err) => {
-					console.log(err);
-					resolvePendingRequests();
-					auth.emitLogout();
-					return forward(operation);
-				})
-			).flatMap(() => {
-				resolvePendingRequests();
-				return forward(operation);
-			});
-		} else {
-			return fromPromise(
-				new Promise<void>((resolve) => {
-					addPendingRequest(() => resolve());
-				})
-			).flatMap(() => {
+		if (auth.silentLogin.loggingIn) {
+			return fromPromise(createPendingPromise()).flatMap(() => {
 				return forward(operation);
 			});
 		}
+
+		return fromPromise(trySilentLogin()).flatMap(() => {
+			resolvePendingRequests();
+			return forward(operation);
+		});
 	}
 });

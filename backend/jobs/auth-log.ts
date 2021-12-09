@@ -2,11 +2,13 @@ import { AuthSession } from '@lib/models';
 import { prisma } from '@lib/prisma';
 import { workers } from '@lib/workers';
 
-interface WorkerPayload {
+interface AuthWorkerPayload {
 	sessionId: string;
 }
 
-workers.create<WorkerPayload, AuthSession>('auth-log', (job) => {
+const workerKey = 'auth-logger';
+
+workers.create<AuthWorkerPayload, AuthSession, 'log-auth'>(workerKey, (job) => {
 	return prisma.authSession.update({
 		where: { id: job.data.sessionId },
 		data: { lastTimeUsed: { set: new Date() } },
@@ -14,10 +16,10 @@ workers.create<WorkerPayload, AuthSession>('auth-log', (job) => {
 });
 
 export function useAuthLogWorker() {
-	return workers.use<WorkerPayload, AuthSession>('auth-log');
+	return workers.use<AuthWorkerPayload, AuthSession, 'log-auth'>(workerKey);
 }
 
 export async function logAuthUsage(sessionId: string) {
 	const { queue } = useAuthLogWorker();
-	queue.add('log-usage', { sessionId }, { delay: 5000, jobId: sessionId });
+	queue.add('log-auth', { sessionId }, { delay: 5000, jobId: sessionId });
 }

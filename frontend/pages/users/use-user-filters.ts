@@ -25,8 +25,10 @@ export interface RoleSelectOption extends SelectOption {
 }
 
 export interface SortFieldOption extends SelectOption {
-	value: keyof GetUsersItem;
+	value: UserSortFieldValue;
 }
+
+export type UserSortFieldValue = keyof GetUsersItem | 'relevance';
 
 const statusOptionsValues = [
 	UserStatus.Baby,
@@ -59,6 +61,10 @@ export const roleOptions: RoleSelectOption[] = roleOptionsValues.map((value) => 
 
 export const sortOptions: SortFieldOption[] = [
 	{
+		value: 'relevance',
+		label: 'Relevance',
+	},
+	{
 		value: 'givenName',
 		label: 'First name',
 	},
@@ -80,7 +86,7 @@ export function useUserFilters(users: GetUsersQuery['users']) {
 	const [status, setStatus] = useState<UserStatus[]>(persisted.getStatus);
 	const [roles, setRoles] = useState<UserRole[]>(persisted.getRoles);
 
-	const [sortField, setSortField] = useState<keyof GetUsersItem | undefined>(
+	const [sortField, setSortField] = useState<UserSortFieldValue | undefined>(
 		persisted.getSortField
 	);
 	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>(
@@ -99,6 +105,15 @@ export function useUserFilters(users: GetUsersQuery['users']) {
 		});
 	}, [search, status, roles, sortField, sortDirection, saveToStore]);
 
+	const setSearchTransition = useCallback((search: string) => {
+		startTransition(() => {
+			if (search) {
+				setSortField('relevance');
+			}
+			setSearch(search);
+		});
+	}, []);
+
 	const setStatusTransition = useCallback((status: UserStatus[]) => {
 		startTransition(() => setStatus(status));
 	}, []);
@@ -107,7 +122,7 @@ export function useUserFilters(users: GetUsersQuery['users']) {
 		startTransition(() => setRoles(roles));
 	}, []);
 
-	const setSortFieldTransition = useCallback((sortField?: keyof GetUsersItem) => {
+	const setSortFieldTransition = useCallback((sortField?: UserSortFieldValue) => {
 		startTransition(() => setSortField(sortField));
 	}, []);
 
@@ -142,13 +157,17 @@ export function useUserFilters(users: GetUsersQuery['users']) {
 	}, [status, roles]);
 
 	const comparator = useMemo(() => {
-		if (!sortField) {
+		if (!sortField || sortField === 'relevance') {
 			return;
 		}
+
+		const property = prop(sortField) as (user: GetUsersItem) => string | boolean | number;
+
 		if (sortDirection === 'asc') {
-			return ascend(prop<string>(sortField));
+			return ascend<GetUsersItem>(property);
 		}
-		return descend(prop<string>(sortField));
+
+		return descend<GetUsersItem>(property);
 	}, [sortField, sortDirection]);
 
 	const [searched, searching] = useFuseWorker(users, search, fuseOptions);
@@ -163,10 +182,10 @@ export function useUserFilters(users: GetUsersQuery['users']) {
 		sortField,
 		sortDirection,
 		searching: searching || isPending,
-		setSearch,
+		toggleSort,
+		setSearch: setSearchTransition,
 		setStatus: setStatusTransition,
 		setRoles: setRolesTransition,
 		setSortField: setSortFieldTransition,
-		toggleSort,
 	};
 }

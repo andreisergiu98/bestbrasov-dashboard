@@ -1,9 +1,8 @@
 import { ApolloLink, FetchResult, Observable, Operation } from '@apollo/client/core';
 import { GraphQLError, print } from 'graphql';
 import { Client, ClientOptions, createClient } from 'graphql-ws';
-import config from '../config';
 
-class WebSocketLink extends ApolloLink {
+export class WebSocketLink extends ApolloLink {
 	private client: Client;
 
 	constructor(options: ClientOptions) {
@@ -39,7 +38,3 @@ class WebSocketLink extends ApolloLink {
 		});
 	}
 }
-
-export const webSocketLink = new WebSocketLink({
-	url: config.api.subscriptionsUrl,
-});

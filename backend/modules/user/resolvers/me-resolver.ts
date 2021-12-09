@@ -31,7 +31,7 @@ export class MeResolver {
 		}
 
 		return {
-			user,
+			user: user as User,
 			authInfo: {
 				scope: ctx.session.tokenSet.scope,
 			},

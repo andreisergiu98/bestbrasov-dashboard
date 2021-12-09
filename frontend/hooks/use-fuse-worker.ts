@@ -1,7 +1,7 @@
 import { FuseWorker } from '@lib/fuse-worker';
 import { makeCancelable } from '@utils/promise';
 import Fuse from 'fuse.js';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useFuseWorker<T>(
 	items: T[],
@@ -13,7 +13,6 @@ export function useFuseWorker<T>(
 	const [result, setResult] = useState<T[] | null>(null);
 
 	const [searching, setSearching] = useState<boolean>(false);
-	const [isPending, startTransition] = useTransition();
 
 	useEffect(() => {
 		if (!fuse) {
@@ -42,7 +41,7 @@ export function useFuseWorker<T>(
 		setSearching(true);
 
 		const handleResult = (result: Array<Fuse.FuseResult<T>>) => {
-			startTransition(() => setResult(result.map((res) => res.item)));
+			setResult(result.map((res) => res.item));
 		};
 
 		const promise = makeCancelable(fuse.search(search));
@@ -73,5 +72,5 @@ export function useFuseWorker<T>(
 		return [items, false] as [T[], boolean];
 	}
 
-	return [result, searching || isPending] as [T[], boolean];
+	return [result, searching] as [T[], boolean];
 }

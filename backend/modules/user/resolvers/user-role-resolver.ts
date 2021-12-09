@@ -97,6 +97,6 @@ export class UserRoleResolver {
 
 		pubsub.publish(`user-updated-${target.id}`, user);
 
-		return user;
+		return user as User;
 	}
 }

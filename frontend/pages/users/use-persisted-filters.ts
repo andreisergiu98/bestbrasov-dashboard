@@ -1,13 +1,13 @@
 import { UserRole, UserStatus } from '@generated/types';
 import debounce from 'lodash.debounce';
 import { useMemo, useState } from 'react';
-import { GetUsersItem } from './user';
+import { UserSortFieldValue } from './use-user-filters';
 
 interface FitersState {
 	search: string;
 	status: UserStatus[];
 	roles: UserRole[];
-	sortField?: keyof GetUsersItem;
+	sortField?: UserSortFieldValue;
 	sortDirection: 'asc' | 'desc';
 }
 
