@@ -1,17 +1,9 @@
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
-import worker, { pluginHelper } from 'vite-plugin-worker';
 
 export default defineConfig({
 	plugins: [
-		pluginHelper(),
-		worker({
-			inline_worklet_paint: false,
-			inline_worklet_audio: false,
-			inline_worklet_layout: false,
-			inline_worklet_animation: false,
-		}),
 		reactRefresh(),
 		checker({
 			typescript: true,

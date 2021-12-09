@@ -1,6 +1,5 @@
 import Fuse from 'fuse.js';
 import uniqid from 'uniqid';
-import FuseWebWorker from 'worker-iife:../workers/fuse';
 import {
 	FuseInitData,
 	FuseInitResponse,
@@ -8,6 +7,7 @@ import {
 	FuseSearchError,
 	FuseSearchResponse,
 } from '../workers/fuse';
+import FuseWebWorker from '../workers/fuse?worker';
 
 type WorkerEvent<T> = MessageEvent<
 	FuseInitResponse | FuseSearchResponse<T> | FuseSearchError
