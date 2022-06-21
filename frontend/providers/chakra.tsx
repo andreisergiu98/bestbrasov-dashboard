@@ -3,7 +3,7 @@ import {
 	extendTheme,
 	ThemeConfig,
 } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
 type StorageColorMode = 'dark' | 'light' | undefined;
 
@@ -14,6 +14,6 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({ config });
 
-export function ChakraProvider({ children }: { children: ReactNode }) {
-	return <BaseProvider theme={theme}>{children}</BaseProvider>;
+export function ChakraProvider(props: PropsWithChildren) {
+	return <BaseProvider theme={theme}>{props.children}</BaseProvider>;
 }

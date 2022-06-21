@@ -6,6 +6,6 @@
 		"variables": "node variables.js"
 	},
 	"dependencies": {
-		"css-tree": "^1.1.3"
+		"css-tree": "^2.1.0"
 	}
 }

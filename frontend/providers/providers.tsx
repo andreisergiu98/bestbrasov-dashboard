@@ -1,29 +1,24 @@
-import { ComponentType, ReactNode } from 'react';
+import { CombinedProviders } from '@utils/providers';
+import { ComponentType } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from './apollo';
 import { AuthProvider } from './auth';
 import { ChakraProvider } from './chakra';
 import { SidebarConstraintsProvider } from './sidebar';
 
-function Providers({ children }: { children: ReactNode }) {
-	return (
-		<ApolloProvider>
-			<BrowserRouter>
-				<ChakraProvider>
-					<AuthProvider>
-						<SidebarConstraintsProvider>{children}</SidebarConstraintsProvider>
-					</AuthProvider>
-				</ChakraProvider>
-			</BrowserRouter>
-		</ApolloProvider>
-	);
-}
-
 export function withProviders<T>(Component: ComponentType<T>) {
 	const ComponentWithProviders = (props: T) => (
-		<Providers>
+		<CombinedProviders
+			providers={[
+				ApolloProvider,
+				BrowserRouter,
+				ChakraProvider,
+				AuthProvider,
+				SidebarConstraintsProvider,
+			]}
+		>
 			<Component {...props} />
-		</Providers>
+		</CombinedProviders>
 	);
 
 	const displayName = Component.displayName || Component.name || 'Component';

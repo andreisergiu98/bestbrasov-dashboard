@@ -7,7 +7,7 @@
 		"build:esm": "tsc -p tsconfig.esm.json"
 	},
 	"devDependencies": {
-		"typescript": "^4.5.2"
+		"typescript": "^4.7.4"
 	},
 	"files": [
 		"lib"
@@ -17,5 +17,16 @@
 		"import": "./lib/esm/index.js",
 		"require": "./lib/cjs/index.js"
 	},
-	"types": "./lib/esm/index.d.ts"
+	"types": "./lib/esm/index.d.ts",
+	"publishConfig": {
+		"files": [
+			"lib"
+		],
+		"type": "commonjs",
+		"exports": {
+			"import": "./lib/esm/index.js",
+			"require": "./lib/cjs/index.js"
+		},
+		"types": "./lib/esm/index.d.ts"
+	}
 }

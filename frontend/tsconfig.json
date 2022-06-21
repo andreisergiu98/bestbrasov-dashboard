@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "esnext",
-		"lib": ["dom", "dom.iterable", "esnext"],
+		"lib": ["dom", "dom.iterable", "esnext", "WebWorker"],
 		"rootDir": ".",
 		"allowJs": false,
 		"skipLibCheck": true,
@@ -18,7 +18,7 @@
 		"noImplicitAny": true,
 		"noEmit": true,
 		"jsx": "react-jsx",
-		"types": ["react/next", "react-dom/next"],
+		"types": ["react", "react-dom"],
 		"typeRoots": ["./typings"],
 		"paths": {
 			"@generated/*": ["./__generated__/*", "./__generated__/"],

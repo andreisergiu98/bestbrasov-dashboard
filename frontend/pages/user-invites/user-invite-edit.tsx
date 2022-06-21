@@ -3,7 +3,6 @@ import {
 	Box,
 	Button,
 	ButtonGroup,
-	// FocusLock,
 	FormControl,
 	FormLabel,
 	forwardRef,
@@ -13,7 +12,6 @@ import {
 	PopoverArrow,
 	PopoverCloseButton,
 	PopoverContent,
-	PopoverTrigger,
 	Select,
 	Stack,
 	useDisclosure,
@@ -210,11 +208,9 @@ export function UserInviteAction({ id }: { id: string }) {
 				onClose={onClose}
 				placement="left"
 			>
-				<PopoverTrigger>
-					<Button variant="link" colorScheme="blue">
-						Edit
-					</Button>
-				</PopoverTrigger>
+				<Button variant="link" colorScheme="blue" onClick={() => onOpen()}>
+					Edit
+				</Button>
 				<PopoverContent p={5}>
 					<PopoverArrow />
 					<PopoverCloseButton />

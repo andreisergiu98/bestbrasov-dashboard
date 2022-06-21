@@ -4,7 +4,7 @@ import { routes } from '../../routes';
 export function TopbarTitle() {
 	return (
 		<Routes>
-			{routes.map((route) => (
+			{routes.app.map((route) => (
 				<Route
 					key={route.path}
 					path={route.path}

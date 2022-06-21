@@ -1,6 +1,6 @@
 import { reportWebVitals } from '@lib/web-vitals';
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './pages/_app';
 
 const container = document.getElementById('root');

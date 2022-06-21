@@ -1,6 +1,6 @@
 import { lazy, LazyExoticComponent, ReactNode } from 'react';
 
-interface AppRoute {
+interface Route {
 	path: string;
 	title?: string;
 	fallback?: NonNullable<ReactNode>;
@@ -22,38 +22,47 @@ export const createRoute = {
 	userInvites: () => '/app/view/user-invites',
 };
 
-export const routes: AppRoute[] = [
+function createAppRoute(route: string) {
+	const app = '/app/';
+	return route.slice(app.length);
+}
+
+const appRoutes: Route[] = [
 	{
 		title: 'Home',
-		path: createRoute.home(),
+		path: createAppRoute(createRoute.home()),
 		component: lazy(() => import('../pages/home')),
 	},
 	{
 		title: 'Users',
-		path: createRoute.users(),
+		path: createAppRoute(createRoute.users()),
 		component: lazy(() => import('../pages/users/users')),
 	},
 	{
 		title: 'Events',
-		path: createRoute.events(),
+		path: createAppRoute(createRoute.events()),
 		component: lazy(() => import('../pages/events')),
 	},
 	{
 		title: 'Companies',
-		path: createRoute.companies(),
+		path: createAppRoute(createRoute.companies()),
 		component: lazy(() => import('../pages/companies')),
 	},
 	{
-		path: createRoute.event({ id: ':id' }),
+		path: createAppRoute(createRoute.event({ id: ':id' })),
 		component: lazy(() => import('../pages/event')),
 	},
 	{
-		path: createRoute.userProfile({ id: ':id' }),
+		path: createAppRoute(createRoute.userProfile({ id: ':id' })),
 		component: lazy(() => import('../pages/user-profile/user-profile')),
 	},
 	{
 		title: 'User invites',
-		path: createRoute.userInvites(),
+		path: createAppRoute(createRoute.userInvites()),
 		component: lazy(() => import('../pages/user-invites/user-invites')),
 	},
 ];
+
+export const routes = {
+	app: appRoutes,
+};

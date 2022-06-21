@@ -1,11 +1,16 @@
-import IORedis, { ScanStreamOption } from 'ioredis';
+import IORedis, { RedisOptions } from 'ioredis';
 import config from './config';
 import { createLogger } from './logger';
 
+interface ScanStreamOptions {
+	type?: string;
+	count?: number;
+	match?: string;
+}
 export class RedisClient extends IORedis {
 	private readonly logger;
 
-	constructor(url: string, options: IORedis.RedisOptions) {
+	constructor(url: string, options: RedisOptions) {
 		super(url, {
 			lazyConnect: true,
 			...options,
@@ -21,7 +26,7 @@ export class RedisClient extends IORedis {
 		this.logger.info('connection established!');
 	}
 
-	scanStreamAsync = async (options: ScanStreamOption) =>
+	scanStreamAsync = async (options: ScanStreamOptions) =>
 		new Promise<string[]>((resolve, reject) => {
 			const keys: string[] = [];
 			const stream = this.scanStream(options);

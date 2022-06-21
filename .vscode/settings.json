@@ -27,5 +27,23 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  }
+  },
+  "cSpell.words": [
+    "bestbrasov",
+    "bodyparser",
+    "browserslist",
+    "bullmq",
+    "chakra",
+    "clsx",
+    "codegen",
+    "commitlint",
+    "esbuild",
+    "middlewares",
+    "outdir",
+    "pino",
+    "swcb",
+    "typegraphql",
+    "uniqid",
+    "yarnpkg"
+  ]
 }

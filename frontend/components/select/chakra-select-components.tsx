@@ -395,7 +395,6 @@ const Option: OptionComponent<SelectOption> = ({
 			}}
 			ref={innerRef}
 			{...innerProps}
-			disabled={isDisabled ? true : undefined}
 		>
 			{showCheckIcon && (
 				<MenuIcon fontSize="0.8em" marginEnd="0.75rem" opacity={isSelected ? 1 : 0}>

@@ -1,5 +1,4 @@
 import { Box, Link, Text } from '@chakra-ui/react';
-import { RouterLink } from '@components/router';
 import { UserAvatar } from '@components/user-avatar';
 import { UserRoleBadge } from '@components/user-role-badge';
 import { UserStatusBadge } from '@components/user-status-badge/user-status-badge';
@@ -7,6 +6,7 @@ import { useCallback, useRef, useState } from 'react';
 import { FiMail, FiPhone } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 import ReactResizeDetector from 'react-resize-detector';
+import { Link as RouterLink } from 'react-router-dom';
 import { createRoute } from '../../routes';
 import { UserClipInfo } from './user-clip-info';
 import { GetUsersQuery } from './users.query.gql';

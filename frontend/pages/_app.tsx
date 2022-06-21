@@ -1,35 +1,29 @@
-import { Layout } from '@components/layout';
-import { LoadingScreen } from '@components/loading-screen';
-import { Router } from '@components/router';
-import { useAuth, UserProvider } from '@providers/auth';
+import { Dashboard } from '@components/dashboard';
+import { LazyRoute } from '@components/lazy-route';
 import { withProviders } from '@providers/providers';
-import { useSidebarConstraintsStore } from '@providers/sidebar';
-import { ReactNode } from 'react';
-import { Login } from './login';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { createRoute, routes } from '../routes';
+
+const appRoutes = routes.app.map((route) => (
+	<Route
+		key={route.path}
+		path={route.path}
+		element={<LazyRoute fallback={route.fallback} element={<route.component />} />}
+	/>
+));
+
+const home = <Navigate to={createRoute.home()} />;
 
 function App() {
 	return (
-		<AppReady>
-			<Layout>
-				<Router />
-			</Layout>
-		</AppReady>
+		<Routes>
+			<Route path="/app" element={<Dashboard />}>
+				<Route index={true} element={home} />
+				{appRoutes}
+			</Route>
+			<Route index={true} element={home} />
+		</Routes>
 	);
-}
-
-function AppReady({ children }: { children: ReactNode }) {
-	const auth = useAuth();
-	const sidebarConstraints = useSidebarConstraintsStore();
-
-	if (auth.error || auth.loggedOut) {
-		return <Login />;
-	}
-
-	if (auth.loading || !auth.user || !sidebarConstraints.ready) {
-		return <LoadingScreen h="100vh" />;
-	}
-
-	return <UserProvider value={auth.user}>{children}</UserProvider>;
 }
 
 export default withProviders(App);
